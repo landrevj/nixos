@@ -29,8 +29,8 @@
 
     # media
     plexamp
-    mpv
     discord
+    feh
     
     # games
     xivlauncher
@@ -123,8 +123,27 @@
   };
 
   programs.git = {
-    enable=true;
+    enable = true;
     userName = "Joseph Landreville";
     userEmail = "landrevillejoseph@gmail.com";
+  };
+
+  programs.mpv = {
+    enable = true;
+    scripts = [pkgs.mpvScripts.autoload];
+    scriptOpts = {
+      osc = {
+        windowcontrols = false;
+      };
+      autoload = {
+        images = false;
+        additional_video_exts = "gif,apng";
+      };
+    };
+    config = {
+      no-border = true;
+      osd-fractions = true;
+      loop-file = true;
+    };
   };
 }
