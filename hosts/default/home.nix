@@ -19,23 +19,28 @@
   # environment.
   home.packages = with pkgs; [
     appeditor
-    discord
-    vscode
-    plexamp
+    openrgb-with-all-plugins
+    neofetch
     bitwarden
     mullvad-vpn
-    mpv
-    xivlauncher
-    plexamp
-    prusa-slicer
-    steamtinkerlaunch
-    obs-studio
-    freecad
-    heroic
-    neofetch
     chromium
     blackbox-terminal
-    openrgb-with-all-plugins
+    vscode
+
+    # media
+    plexamp
+    mpv
+    discord
+    
+    # games
+    xivlauncher
+    steamtinkerlaunch
+    heroic
+
+    # modeling
+    prusa-slicer
+    obs-studio
+    freecad
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
