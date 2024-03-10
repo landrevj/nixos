@@ -33,6 +33,8 @@
     freecad
     heroic
     neofetch
+    chromium
+    blackbox-terminal
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -80,6 +82,8 @@
   #
   home.sessionVariables = {
     EDITOR = "vim";
+    BROWSER = "firefox";
+    TERMINAL = "blackbox";
   };
 
   # Let Home Manager install and manage itself.
