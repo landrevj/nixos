@@ -18,19 +18,25 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = with pkgs; [
-    firefox
+    # settings
     appeditor
     openrgb-with-all-plugins
     neofetch
-    bitwarden
-    mullvad-vpn
-    chromium
+
+    # files
     blackbox-terminal
     vscode
+    
+    # browsing
+    firefox
+    chromium
+    bitwarden
+
+    # communication
+    discord
 
     # media
     plexamp
-    discord
     feh
     foliate
     
@@ -43,6 +49,9 @@
     prusa-slicer
     obs-studio
     freecad
+
+    # utilities
+    mullvad-vpn
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
