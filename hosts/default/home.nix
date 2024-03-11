@@ -117,6 +117,7 @@
       name = "WhiteSur-dark";
       package = (pkgs.whitesur-icon-theme.override {
         alternativeIcons = true;
+        boldPanelIcons = true;
       });
     };
   };
