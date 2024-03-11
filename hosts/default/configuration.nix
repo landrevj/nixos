@@ -5,11 +5,10 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports =
-    [ 
-      ../../modules/nixos/openrgb/openrgb.nix
-      ./hardware-configuration.nix
-    ];
+  imports = [ 
+    ../../modules/nixos/openrgb/openrgb.nix
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -128,9 +127,6 @@
     isNormalUser = true;
     description = "Joey Landreville";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-    ];
   };
 
   # Allow unfree packages
