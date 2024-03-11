@@ -7,6 +7,7 @@
 {
   imports =
     [ 
+      ../../modules/nixos/openrgb/openrgb.nix
       ./hardware-configuration.nix
     ];
 
