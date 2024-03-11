@@ -31,6 +31,7 @@
     plexamp
     discord
     feh
+    foliate
     
     # games
     xivlauncher
