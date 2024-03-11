@@ -95,12 +95,29 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+
+  # Gnome
   dconf.settings = with lib.hm.gvariant; {
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
       picture-uri = "file://" + ./wallpaper.jpg;
       picture-uri-dark = "file://" + ./wallpaper.jpg;
+    };
+  };
+  gtk = {
+    enable = true;
+    iconTheme = {
+      # Reversal
+      # name = "Reversal-blue-dark";
+      # package = (pkgs.reversal-icon-theme.override {
+      #   colorVariants = ["-blue"];
+      # });
+      # WhiteSur
+      name = "WhiteSur-dark";
+      package = (pkgs.whitesur-icon-theme.override {
+        alternativeIcons = true;
+      });
     };
   };
 
