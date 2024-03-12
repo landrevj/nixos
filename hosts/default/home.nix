@@ -34,6 +34,7 @@
 
     # communication
     discord
+    signal-desktop
 
     # media
     plexamp
