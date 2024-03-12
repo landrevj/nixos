@@ -37,6 +37,7 @@
     signal-desktop
 
     # media
+    audacity
     plexamp
     feh
     foliate

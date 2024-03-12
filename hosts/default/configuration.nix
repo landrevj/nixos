@@ -143,9 +143,9 @@
      python3
      htop
      killall
-     audacity
      egl-wayland
      libGL
+     google-fonts
   ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
