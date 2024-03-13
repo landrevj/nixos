@@ -141,6 +141,7 @@
      gnome.gnome-software
      wget
      python3
+     ffmpeg
      htop
      killall
      egl-wayland
