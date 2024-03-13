@@ -46,6 +46,7 @@
     xivlauncher
     steamtinkerlaunch
     heroic
+    prismlauncher
 
     # modeling
     prusa-slicer
@@ -148,6 +149,7 @@
     enable = true;
     shellAliases = {
       rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#default";
+      xcopy = "xclip -selection c";
     };
     # histSize = 10000;
     # histFile = "${config.xdg.dataHome}/zsh/history";

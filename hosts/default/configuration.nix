@@ -69,7 +69,7 @@
     nvidiaSettings = true;
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
   boot.extraModprobeConfig = ''
     options nvidia NVreg_PreserveVideoMemoryAllocations=1
@@ -147,6 +147,9 @@
      egl-wayland
      libGL
      google-fonts
+     gamescope
+     jdk17
+     xclip
   ];
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
