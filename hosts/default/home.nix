@@ -57,6 +57,7 @@
     mullvad-vpn
     gpu-screen-recorder
     gpu-screen-recorder-gtk
+    eza
 
     # downloaders
     gallery-dl
@@ -151,6 +152,7 @@
       rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#default";
       xcopy = "xclip -selection clipboard";
       xpaste = "xclip -selection clipboard -o";
+      e = "eza -l";
     };
     # histSize = 10000;
     # histFile = "${config.xdg.dataHome}/zsh/history";

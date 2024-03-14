@@ -97,6 +97,7 @@
      gamescope
      jdk17
      xclip
+     man-pages
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
