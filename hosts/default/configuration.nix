@@ -6,12 +6,12 @@
 
 {
   imports = [ 
+    ./hardware-configuration.nix
+    ../../modules/nixos/vfio.nix
     ../../modules/nixos/locale.nix
     ../../modules/nixos/amd.nix
     # ../../modules/nixos/nvidia.nix
-    ../../modules/nixos/vfio.nix
     ../../modules/nixos/openrgb/openrgb.nix
-    ./hardware-configuration.nix
   ];
 
   # Allow unfree packages
