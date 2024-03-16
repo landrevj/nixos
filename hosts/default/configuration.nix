@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, username, ... }:
 
 {
   imports = [ 
@@ -71,7 +71,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.landrevj = {
+  users.users.${username} = {
     isNormalUser = true;
     description = "Joey Landreville";
     extraGroups = [ "networkmanager" "wheel" ];
@@ -94,7 +94,6 @@
      ffmpeg
      htop
      killall
-     egl-wayland
      libGL
      #google-fonts
      gamescope
@@ -103,6 +102,7 @@
      man-pages
      tuptime
      pciutils
+     cdrtools
   ];
 
   virtualisation.waydroid.enable = true;

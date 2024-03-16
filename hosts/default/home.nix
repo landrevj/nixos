@@ -127,11 +127,6 @@
       picture-uri = "file://" + ./wallpaper.jpg;
       picture-uri-dark = "file://" + ./wallpaper.jpg;
     };
-    # set up qemu in virt-manager
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
-    };
   };
   gtk = {
     enable = true;

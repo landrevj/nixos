@@ -18,6 +18,9 @@
   outputs = inputs@{ nixpkgs, home-manager, ... }: {
     nixosConfigurations = {
       default = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          username = "landrevj";
+        };
         system = "x86_64-linux";
         modules = [
           ./hosts/default/configuration.nix

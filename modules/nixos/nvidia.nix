@@ -8,6 +8,7 @@
     driSupport32Bit = true;
     extraPackages = with pkgs; [
       vaapiVdpau
+      egl-wayland
     ];
   };
 
