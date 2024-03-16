@@ -127,7 +127,7 @@
       picture-uri = "file://" + ./wallpaper.jpg;
       picture-uri-dark = "file://" + ./wallpaper.jpg;
     };
-     # set up qemu in virt-manager
+    # set up qemu in virt-manager
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = ["qemu:///system"];
       uris = ["qemu:///system"];
@@ -135,6 +135,10 @@
   };
   gtk = {
     enable = true;
+    theme = {
+      name = "adw-gtk3-dark";
+      package = pkgs.adw-gtk3;
+    };
     iconTheme = {
       # Reversal
       # name = "Reversal-blue-dark";
@@ -143,10 +147,10 @@
       # });
       # WhiteSur
       name = "WhiteSur-dark";
-      package = (pkgs.whitesur-icon-theme.override {
+      package = pkgs.whitesur-icon-theme.override {
         alternativeIcons = true;
         boldPanelIcons = true;
-      });
+      };
     };
   };
 
