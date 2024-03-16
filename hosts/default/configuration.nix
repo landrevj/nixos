@@ -88,6 +88,7 @@
      gnome.dconf-editor
      gnome.gnome-tweaks
      gnome.gnome-software
+     gnome.gnome-themes-extra
      wget
      python3
      ffmpeg
@@ -102,8 +103,9 @@
      man-pages
      tuptime
      pciutils
-     virt-manager
   ];
+
+  virtualisation.waydroid.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
