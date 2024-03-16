@@ -7,7 +7,9 @@
 {
   imports = [ 
     ../../modules/nixos/locale.nix
-    ../../modules/nixos/nvidia.nix
+    ../../modules/nixos/amd.nix
+    # ../../modules/nixos/nvidia.nix
+    ../../modules/nixos/vfio.nix
     ../../modules/nixos/openrgb/openrgb.nix
     ./hardware-configuration.nix
   ];
@@ -98,6 +100,9 @@
      jdk17
      xclip
      man-pages
+     tuptime
+     pciutils
+     virt-manager
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

@@ -54,6 +54,8 @@
     freecad
 
     # utilities
+    bottles
+    waydroid
     mullvad-vpn
     gpu-screen-recorder
     gpu-screen-recorder-gtk
@@ -118,11 +120,17 @@
 
   # Gnome
   dconf.settings = with lib.hm.gvariant; {
+    # set wallpaper
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
       picture-uri = "file://" + ./wallpaper.jpg;
       picture-uri-dark = "file://" + ./wallpaper.jpg;
+    };
+     # set up qemu in virt-manager
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
     };
   };
   gtk = {
