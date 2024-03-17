@@ -103,6 +103,7 @@
      tuptime
      pciutils
      cdrtools
+     dmidecode
   ];
 
   virtualisation.waydroid.enable = true;
