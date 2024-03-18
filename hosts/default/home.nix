@@ -63,6 +63,8 @@
 
     # downloaders
     gallery-dl
+    youtube-dl
+    yt-dlp
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -150,9 +152,13 @@
   };
 
 
-  ###
-  # PROGRAMS
-  ###
+  # Config files
+  xdg = {
+    enable = true;
+    configFile."gallery-dl/config.json".source = ./configs/gallery-dl/config.json;
+  };
+
+  # Programs
   programs.zsh = {
     enable = true;
     shellAliases = {
