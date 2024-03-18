@@ -106,6 +106,7 @@
      cdrtools
      dmidecode
      hwloc
+     smartmontools
   ];
 
   virtualisation.waydroid.enable = true;

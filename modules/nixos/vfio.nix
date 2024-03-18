@@ -1,4 +1,7 @@
+# a good resource https://github.com/bryansteiner/gpu-passthrough-tutorial https://astrid.tech/2022/09/22/0/nixos-gpu-vfio/
+
 { config, home-manager, pkgs, lib, username, ... }:
+
 let 
   # https://github.com/WJKPK/nixation/blob/main/nixos/perun/virt-manager.nix
   hugepage_handler = pkgs.writeShellScript "hp_handler.sh" ''

@@ -93,6 +93,7 @@
     <disk type="block" device="disk">
       <driver name="qemu" type="raw"/>
       <source dev="/dev/disk/by-id/ata-Samsung_SSD_850_EVO_500GB_S3PTNB0JC07466Z"/>
+      <serial>S3PTNB0JC07466Z</serial>
       <target dev="vda" bus="virtio"/>
       <boot order="1"/>
       <address type="pci" domain="0x0000" bus="0x04" slot="0x00" function="0x0"/>
