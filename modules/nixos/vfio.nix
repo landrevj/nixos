@@ -1,9 +1,66 @@
 { config, home-manager, pkgs, lib, username, ... }:
-
+let 
+  # https://github.com/WJKPK/nixation/blob/main/nixos/perun/virt-manager.nix
+  hugepage_handler = pkgs.writeShellScript "hp_handler.sh" ''
+    xml_file="/var/lib/libvirt/qemu/$1.xml"
+    
+    function extract_number() {
+        local xml_file=$1
+        local number=$(grep -oPm1 "(?<=<memory unit='KiB'>)[^<]+" $xml_file)
+        echo $((number/1024))
+    }
+    
+    function prepare() { 
+        # Calculate number of hugepages to allocate from memory (in MB)
+        HUGEPAGES="$(($1/$(($(grep Hugepagesize /proc/meminfo | ${pkgs.gawk}/bin/gawk '{print $2}')/1024))))"
+    
+        echo "Allocating hugepages..."
+        echo $HUGEPAGES > /proc/sys/vm/nr_hugepages
+        ALLOC_PAGES=$(cat /proc/sys/vm/nr_hugepages)
+    
+        TRIES=0
+        while (( $ALLOC_PAGES != $HUGEPAGES && $TRIES < 1000 ))
+        do
+            echo 1 > /proc/sys/vm/compact_memory
+            ## defrag ram
+            echo $HUGEPAGES > /proc/sys/vm/nr_hugepages
+            ALLOC_PAGES=$(cat /proc/sys/vm/nr_hugepages)
+            echo "Successfully allocated $ALLOC_PAGES / $HUGEPAGES"
+            let TRIES+=1
+        done
+    
+        if [ "$ALLOC_PAGES" -ne "$HUGEPAGES" ]
+        then
+            echo "Not able to allocate all hugepages. Reverting..."
+            echo 0 > /proc/sys/vm/nr_hugepages
+            exit 1
+        fi
+    }
+    
+    function release() {
+        echo 0 > /proc/sys/vm/nr_hugepages
+    }
+    
+    case $2 in
+        prepare)
+            number=$(extract_number $xml_file)
+            prepare $number
+            ;;
+        release)
+            release
+            ;;
+    esac
+  '';
+  vfio_pci_devices = [
+    "10de:2206" # 3080 graphics
+    "10de:1aef" # 3080 audio
+    # "144d:a80c" # 990 nvme
+  ];
+ in
 {
   # enable vfio and isolate the nvidia gpu
   boot = {
-    kernelParams = [ "intel_iommu=on" ];
+    kernelParams = [ "intel_iommu=on" "video=efifb:off" "video=vesafb:off" "quiet" ];
     blacklistedKernelModules = [ "nvidia" "nouveau" ];
     kernelModules = [
       "kvm-intel"
@@ -13,7 +70,7 @@
       "vfio"
     ];
 
-    extraModprobeConfig = ("options vfio-pci ids=10de:2206,10de:1aef"); # (ids=nvidia_graphics,nvidia_audio)
+    extraModprobeConfig = ("options vfio-pci ids=" + lib.concatStringsSep "," vfio_pci_devices);
   };
 
   # add user to group
@@ -33,6 +90,9 @@
             tpmSupport = true;
           }).fd];
         };
+      };
+      hooks.qemu = {
+        # hugepage_handler = "${hugepage_handler}";
       };
     };
     spiceUSBRedirection.enable = true;
