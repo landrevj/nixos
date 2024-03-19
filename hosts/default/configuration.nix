@@ -122,6 +122,9 @@
   # List services that you want to enable:
   services.flatpak.enable = true;
 
+  # enable mullvad service
+  services.mullvad-vpn.enable = true;
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
