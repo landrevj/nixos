@@ -13,9 +13,10 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flatpaks.url = "github:gmodena/nix-flatpak/?ref=v0.3.0";
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, flatpaks, ... }: {
     nixosConfigurations = {
       default = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -31,6 +32,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs.flake-inputs = inputs;
 
             home-manager.users.landrevj = import ./hosts/default/home.nix;
 

@@ -95,7 +95,7 @@ let
         };
       };
       hooks.qemu = {
-        # hugepage_handler = "${hugepage_handler}";
+        hugepage_handler = "${hugepage_handler}";
       };
     };
     spiceUSBRedirection.enable = true;
@@ -103,7 +103,7 @@ let
 
   environment.systemPackages = with pkgs; [
      virt-manager
-     virtio-win
+     virtio-win # mkisofs -o ./virtio-win.iso /nix/store/z0b6bjf9h6ph4wk50kz986k5p1v8qy9r-virtio-win-0.1.248-1
   ];
 
   # set up qemu in virt-manager
