@@ -1,10 +1,18 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, flake-inputs, ... }:
 
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
+  imports = [ flake-inputs.flatpaks.homeManagerModules.nix-flatpak ];
+
+  # Let Home Manager install and manage itself.
+  programs.home-manager.enable = true;
+
   home.username = "landrevj";
   home.homeDirectory = "/home/landrevj";
+  home.sessionVariables = {
+    EDITOR = "vim";
+    BROWSER = "firefox";
+    TERMINAL = "blackbox";
+  };
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -15,8 +23,6 @@
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
   home.packages = with pkgs; [
     # settings
     appeditor
@@ -43,6 +49,7 @@
     foliate
     
     # games
+    gnome.aisleriot
     xivlauncher
     steamtinkerlaunch
     heroic
@@ -80,6 +87,11 @@
     # '')
   ];
 
+  services.flatpak.packages = [
+    "it.mijorus.smile"
+    "net.nokyan.Resources"
+  ];
+
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
@@ -94,31 +106,6 @@
     #   org.gradle.daemon.idletimeout=3600000
     # '';
   };
-
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. If you don't want to manage your shell through Home
-  # Manager then you have to manually source 'hm-session-vars.sh' located at
-  # either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/landrevj/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    EDITOR = "vim";
-    BROWSER = "firefox";
-    TERMINAL = "blackbox";
-  };
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
-
 
   # Gnome
   dconf.settings = with lib.hm.gvariant; {
