@@ -116,6 +116,29 @@
       picture-uri = "file://" + ./wallpaper.jpg;
       picture-uri-dark = "file://" + ./wallpaper.jpg;
     };
+    # set keybinds
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+      ];
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      binding = "<Super>E";
+      command = "nautilus";
+      name = "open-file-browser";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
+      binding = "<Super>T";
+      command = "blackbox";
+      name = "open-terminal";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
+      binding = "<Super>period";
+      command = "flatpak run it.mijorus.smile";
+      name = "open-emoji-picker";
+    };
   };
   gtk = {
     enable = true;
