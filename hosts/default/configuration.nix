@@ -30,6 +30,14 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
+  # Mounts (try to autogen these into hardware-configuration.nix)
+  fileSystems."/mnt/Storage" =
+    { device = "/dev/disk/by-uuid/98DEEC16DEEBEB08";
+      fsType = "ntfs-3g"; 
+      options = [ "rw" "uid=1000" "gid=100" "dmask=022" "fmask=022"];
+      noCheck = true;
+    };
+
   # Enable networking
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
@@ -92,6 +100,11 @@
   services.flatpak.enable = true; # List services that you want to enable:
   services.mullvad-vpn.enable = true; # enable mullvad service
 
+  # Environment variables
+  environment.variables = {
+    NIXPKGS_ALLOW_UNFREE="1";
+  };
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -118,6 +131,7 @@
      dmidecode
      hwloc
      smartmontools
+     wineWowPackages.stable
   ];
   programs.steam = {
     enable = true;
