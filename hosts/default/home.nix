@@ -1,89 +1,103 @@
-{ config, pkgs, lib, flake-inputs, ... }:
+{ config, pkgs, lib, username, ... }:
 
 {
-  imports = [ flake-inputs.flatpaks.homeManagerModules.nix-flatpak ];
-
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  home.username = "landrevj";
-  home.homeDirectory = "/home/landrevj";
-  home.sessionVariables = {
-    EDITOR = "vim";
-    BROWSER = "firefox";
-    TERMINAL = "blackbox";
+  home = {
+    # This value determines the Home Manager release that your configuration is
+    # compatible with. This helps avoid breakage when a new Home Manager release
+    # introduces backwards incompatible changes.
+    #
+    # You should not change this value, even if you update Home Manager. If you do
+    # want to update the value, then make sure to first check the Home Manager
+    # release notes.
+    stateVersion = "23.11"; # Please read the comment before changing.
+
+    username = username;
+    homeDirectory = "/home/${username}";
+    sessionVariables = {
+      EDITOR = "vim";
+      BROWSER = "firefox";
+      TERMINAL = "blackboxasdf";
+    };
+
+    file = {
+      # ".screenrc".source = dotfiles/screenrc;
+      # ".gradle/gradle.properties".text = ''
+      #   org.gradle.console=verbose
+      #   org.gradle.daemon.idletimeout=3600000
+      # '';
+    };
+
+    packages = with pkgs; [
+      # settings
+      appeditor
+      openrgb-with-all-plugins
+      neofetch
+
+      # files
+      blackbox-terminal
+      vscode
+      
+      # browsing
+      firefox
+      chromium
+      bitwarden
+
+      # communication
+      discord
+      signal-desktop
+
+      # media
+      audacity
+      plexamp
+      feh
+      foliate
+      
+      # games
+      gnome.aisleriot
+      heroic
+      prismlauncher
+      steamtinkerlaunch
+      steam-run
+
+      # modeling
+      prusa-slicer
+      obs-studio
+      freecad
+
+      # utilities
+      bottles
+      waydroid
+      mullvad-vpn
+      gpu-screen-recorder
+      gpu-screen-recorder-gtk
+      eza
+      shfmt
+      shellcheck
+      grc
+      fzf
+      fd
+      bat
+      starship
+
+      # downloaders
+      gallery-dl
+      youtube-dl
+      yt-dlp
+
+      # # You can also create simple shell scripts directly inside your
+      # # configuration. For example, this adds a command 'my-hello' to your
+      # # environment:
+      # (pkgs.writeShellScriptBin "my-hello" ''
+      #   echo "Hello, ${config.home.username}!"
+      # '')
+      (pkgs.writeScriptBin "archive" (builtins.readFile ./scripts/archive/archive.fish))
+      (pkgs.writeScriptBin "iommu" (builtins.readFile ./scripts/iommu.sh))
+      (pkgs.writeScriptBin "hotplug" (builtins.readFile ./scripts/hotplug/hotplug.sh))
+    ];
   };
-
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "23.11"; # Please read the comment before changing.
-
-  home.packages = with pkgs; [
-    # settings
-    appeditor
-    openrgb-with-all-plugins
-    neofetch
-
-    # files
-    blackbox-terminal
-    vscode
-    
-    # browsing
-    firefox
-    chromium
-    bitwarden
-
-    # communication
-    discord
-    signal-desktop
-
-    # media
-    audacity
-    plexamp
-    feh
-    foliate
-    
-    # games
-    gnome.aisleriot
-    heroic
-    prismlauncher
-    steamtinkerlaunch
-    steam-run
-
-    # modeling
-    prusa-slicer
-    obs-studio
-    freecad
-
-    # utilities
-    bottles
-    waydroid
-    mullvad-vpn
-    gpu-screen-recorder
-    gpu-screen-recorder-gtk
-    eza
-    shfmt
-    shellcheck
-
-    # downloaders
-    gallery-dl
-    youtube-dl
-    yt-dlp
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
-    (pkgs.writeScriptBin "iommu" (builtins.readFile ./scripts/iommu.sh))
-    (pkgs.writeScriptBin "hotplug" (builtins.readFile ./scripts/hotplug/hotplug.sh))
-  ];
 
   services.flatpak.packages = [
     "it.mijorus.smile"
@@ -91,12 +105,32 @@
     "dev.goats.xivlauncher"
   ];
 
-  home.file = {
-    # ".screenrc".source = dotfiles/screenrc;
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
+  # secrets
+  sops = {
+    defaultSopsFile = ../../secrets/${username}/secrets.yaml;
+    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+    secrets = {
+      "paths/archive_dir" = {};
+
+      # secret config files
+      gallery-dl = {
+        sopsFile = ../../secrets/${username}/gallery-dl.yaml;
+        path = "${config.home.homeDirectory}/.config/gallery-dl/config.json";
+      };
+    };
+  };
+
+  # sops-nix requirements
+  systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
+  home.activation.setupEtc = config.lib.dag.entryAfter [ "writeBoundary" ] ''
+    /run/current-system/sw/bin/systemctl start --user sops-nix
+  '';
+
+  # Config files
+  xdg = {
+    enable = true;
+    # script completions
+    configFile."fish/completions/archive.fish".source = ./scripts/archive/completions.fish;
   };
 
   # Gnome
@@ -153,27 +187,40 @@
     };
   };
 
-  # Config files
-  xdg = {
-    enable = true;
-    configFile."gallery-dl/config.json".source = ./configs/gallery-dl/config.json;
-  };
-
   # Programs
-  programs.zsh = {
+  programs.fish = {
     enable = true;
-    shellAliases = {
-      rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#default";
+    interactiveShellInit = ''
+      set fish_greeting # Disable greeting
+      starship init fish | source
+
+      # environment variables
+      set -gx ARCHIVE_DIR (cat $XDG_RUNTIME_DIR/secrets/paths/archive_dir)
+    '';
+    plugins = [
+      { name = "colored_man_pages"; src = pkgs.fishPlugins.colored-man-pages.src; }
+      { name = "fzf.fish"; src = pkgs.fishPlugins.fzf-fish.src; }
+      { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+      { name = "pisces"; src = pkgs.fishPlugins.pisces.src; }
+      # { name = "transient-fish"; src = pkgs.fishPlugins.transient-fish.src; }
+      { name = "z"; src = pkgs.fishPlugins.z.src; }
+      {
+        name = "transient-fish";
+        src = pkgs.fetchFromGitHub {
+          owner = "zzhaolei";
+          repo = "transient.fish";
+          rev = "be0093f1799462a93953e69896496dee4d063fd6";
+          sha256 = "sha256-rEkCimnkxcydKRI2y4DxEM7FD7F2/cGTZJN2Edq/Acc=";
+        };
+      }
+    ];
+    functions = {
+      e = "eza -l $argv";
+      ee = "eza -la $argv";
+      replug = "hotplug d $argv[1]; and hotplug a $argv[1]";
+      rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#default $argv";
       xcopy = "xclip -selection clipboard";
       xpaste = "xclip -selection clipboard -o";
-      e = "eza -l";
-    };
-    # histSize = 10000;
-    # histFile = "${config.xdg.dataHome}/zsh/history";
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "robbyrussell";
     };
   };
 

@@ -14,9 +14,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     flatpaks.url = "github:gmodena/nix-flatpak/?ref=v0.3.0";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, flatpaks, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, flatpaks, sops-nix, ... }: {
     nixosConfigurations = {
       default = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -25,6 +29,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/default/configuration.nix
+          sops-nix.nixosModules.sops
 
           # make home-manager as a module of nixos
           # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
@@ -32,11 +37,15 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs.flake-inputs = inputs;
+            home-manager.extraSpecialArgs = {
+              username = "landrevj";
+            };
 
             home-manager.users.landrevj = import ./hosts/default/home.nix;
-
-            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+            home-manager.sharedModules = [
+              flatpaks.homeManagerModules.nix-flatpak
+              sops-nix.homeManagerModules.sops
+            ];
           }
         ];
       };
