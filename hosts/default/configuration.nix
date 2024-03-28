@@ -14,6 +14,16 @@
     ../../modules/nixos/openrgb/openrgb.nix
   ];
 
+  # Secrets
+  sops = {
+    defaultSopsFile = ../../secrets/${username}/secrets.yaml;
+    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+
+    secrets = {
+      # "credentials/twitter/username" = {};
+    };
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
@@ -105,6 +115,23 @@
     NIXPKGS_ALLOW_UNFREE="1";
   };
 
+  # Use fish shell
+  programs.bash = {
+    interactiveShellInit = ''
+      if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+      then
+        shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+        exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+      fi
+    '';
+  };
+
+  # Make fonts available to programs
+  fonts.packages = with pkgs; [
+    (nerdfonts.override { fonts = [ "Meslo" ]; })
+    # google-fonts
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
@@ -119,7 +146,6 @@
      htop
      killall
      libGL
-     #google-fonts
      gamescope
      jdk17
      xclip
@@ -132,14 +158,13 @@
      hwloc
      smartmontools
      wineWowPackages.stable
+     sops
+     age
   ];
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
     gamescopeSession.enable = true;
-  };
-  
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
+  }; 
 }
