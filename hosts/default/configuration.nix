@@ -147,6 +147,7 @@
      killall
      libGL
      gamescope
+     gamemode
      jdk17
      xclip
      man-pages
@@ -160,6 +161,7 @@
      wineWowPackages.stable
      sops
      age
+     jq
   ];
   programs.steam = {
     enable = true;
