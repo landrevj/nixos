@@ -218,7 +218,9 @@
       e = "eza -l $argv";
       ee = "eza -la $argv";
       replug = "hotplug d $argv[1]; and hotplug a $argv[1]";
-      rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#default $argv";
+      nix-rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#default $argv";
+      # nix-update = "sudo nix flake update --flake /etc/nixos#default $argv";
+      nix-gc = "sudo nix-env --delete-generations 14d; and sudo nix-store --gc";
       xcopy = "xclip -selection clipboard";
       xpaste = "xclip -selection clipboard -o";
     };
