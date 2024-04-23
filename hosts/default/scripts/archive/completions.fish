@@ -1,4 +1,4 @@
-set -l site_options instagram reddit tiktok twitter
+set -l site_options instagram reddit tiktok twitter youtube
 
 function __fish_complete_directories_in_directory -d "Complete directories found in different directory" --argument-names dir rest
   set -l saved_pwd $PWD

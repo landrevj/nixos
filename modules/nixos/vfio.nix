@@ -7,6 +7,7 @@ let
     "10de:2206" # 3080 graphics
     "10de:1aef" # 3080 audio
     # "144d:a80c" # 990 nvme
+    # "1b73:1100" # usb card
   ];
  in
 {
@@ -22,7 +23,9 @@ let
       "vfio"
     ];
 
-    extraModprobeConfig = ("options vfio-pci ids=" + lib.concatStringsSep "," vfio_pci_devices);
+    extraModprobeConfig = ''
+      options vfio-pci ids=${lib.concatStringsSep "," vfio_pci_devices}
+    '';
   };
 
   # add user to group

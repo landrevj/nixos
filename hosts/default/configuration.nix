@@ -41,12 +41,6 @@
   boot.supportedFilesystems = [ "ntfs" ];
 
   # Mounts (try to autogen these into hardware-configuration.nix)
-  fileSystems."/mnt/Storage" =
-    { device = "/dev/disk/by-uuid/98DEEC16DEEBEB08";
-      fsType = "ntfs-3g"; 
-      options = [ "rw" "uid=1000" "gid=100" "dmask=022" "fmask=022"];
-      noCheck = true;
-    };
 
   # Enable networking
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -162,6 +156,12 @@
      sops
      age
      jq
+     p7zip
+     file
+     ntfs2btrfs
+     gparted
+     vulkan-tools
+     findutils
   ];
   programs.steam = {
     enable = true;

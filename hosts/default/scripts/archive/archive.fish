@@ -23,6 +23,24 @@ function reddit_user --argument-names dest username
   end
 end
 
+function tiktok_user --argument-names dest username
+  # manual method:
+  # copy(Array.from(new Set(Array.from(document.links).filter((l) => l.href?.startsWith(`${window.location.href}/video`)).map(x => x.href))).join('\n'))
+  # copy(Array.from(document.querySelectorAll('[data-e2e="user-post-item-list"] > div > div > div > a')).map(l=>l.href).join('\n'))
+  # yt-dlp -P "$ARCHIVE_DIR/tiktok/$username" -o "%(upload_date)s - %(id)s.%(ext)s" -a ~/Downloads/tiktok.txt
+  set video_urls (steam-run __get_tiktok_user_video_urls $username)
+
+  for url in $video_urls
+    if test -n $dest
+      echo yt-dlp -P "$ARCHIVE_DIR/tiktok/$dest" -o "%(upload_date)s - %(id)s.%(ext)s" $url
+      yt-dlp -P "$ARCHIVE_DIR/tiktok/$dest" -o "%(upload_date)s - %(id)s.%(ext)s" $url
+    else
+      echo yt-dlp -P "$ARCHIVE_DIR/tiktok/$username" -o "%(upload_date)s - %(id)s.%(ext)s" $url
+      yt-dlp -P "$ARCHIVE_DIR/tiktok/$username" -o "%(upload_date)s - %(id)s.%(ext)s" $url
+    end
+  end
+end
+
 function twitter_user --argument-names dest username
   if test -n $dest
     echo gallery-dl https://twitter.com/$username -d "$ARCHIVE_DIR/twitter/$dest"
@@ -33,13 +51,27 @@ function twitter_user --argument-names dest username
   end
 end
 
+function youtube_channel --argument-names dest username
+  if test -n $dest
+    echo yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/youtube/$dest"
+    yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/youtube/$dest"
+  else 
+    echo yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/youtube/$username"
+    yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/youtube/$username"
+  end
+end
+
 switch $_flag_site
   case instagram
     instagram_user "$_flag_dest" $argv
   case reddit
     reddit_user "$_flag_dest" $argv
+  case tiktok
+    tiktok_user "$_flag_dest" $argv
   case twitter
     twitter_user "$_flag_dest" $argv
+  case youtube
+    youtube_channel "$_flag_dest" $argv
   case '*'
-    echo Valid sites: instagram reddit twitter
+    echo Valid sites: instagram reddit tiktok twitter youtube
 end

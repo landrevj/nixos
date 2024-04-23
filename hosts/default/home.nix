@@ -17,9 +17,8 @@
     username = username;
     homeDirectory = "/home/${username}";
     sessionVariables = {
-      EDITOR = "vim";
       BROWSER = "firefox";
-      TERMINAL = "blackboxasdf";
+      TERMINAL = "blackbox";
     };
 
     file = {
@@ -47,13 +46,17 @@
 
       # communication
       discord
+      webcord
       signal-desktop
+      element-desktop
 
       # media
       audacity
       plexamp
       feh
+      nsxiv
       foliate
+      shotwell
       
       # games
       gnome.aisleriot
@@ -61,6 +64,8 @@
       prismlauncher
       steamtinkerlaunch
       steam-run
+      space-cadet-pinball
+      mangohud
 
       # modeling
       prusa-slicer
@@ -68,19 +73,21 @@
       freecad
 
       # utilities
+      bat
       bottles
-      waydroid
-      mullvad-vpn
+      eza
+      gcolor3
       gpu-screen-recorder
       gpu-screen-recorder-gtk
-      eza
-      shfmt
-      shellcheck
       grc
       fzf
       fd
-      bat
+      mullvad-vpn
+      shellcheck
+      shfmt
       starship
+      waydroid
+      playwright # make sure to `playwright install`
 
       # downloaders
       gallery-dl
@@ -96,6 +103,25 @@
       (pkgs.writeScriptBin "archive" (builtins.readFile ./scripts/archive/archive.fish))
       (pkgs.writeScriptBin "iommu" (builtins.readFile ./scripts/iommu.sh))
       (pkgs.writeScriptBin "hotplug" (builtins.readFile ./scripts/hotplug/hotplug.sh))
+      (pkgs.writeScriptBin "nsxiv-rifle" (builtins.readFile ./scripts/nsxiv-rifle.sh))
+      (pkgs.writers.writePython3Bin "__get_tiktok_user_video_urls" {
+        libraries = [ 
+          (pkgs.python3Packages.buildPythonPackage rec {
+            name = "TikTok-Api";
+            format = "setuptools";
+            src = fetchFromGitHub {
+              owner = "davidteather";
+              repo = name;
+              rev = "7386b2b5f723fb1d376ef6e3ceca5aa30fc733a7";
+              sha256 = "sha256-Rox/om8hgwUAptGgeI7oKWdvw9YCFiNypmmjfCKf3aM=";
+            };
+
+            propagatedBuildInputs = with pkgs.python3Packages; [ pytest playwright requests ];
+            pythonImportsCheck = [ "TikTokApi" ];
+          })
+        ];
+        flakeIgnore = [ "E" "W" ];
+      } (builtins.readFile ./scripts/archive/tiktok/tiktok.py))
     ];
   };
 
@@ -111,6 +137,7 @@
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
     secrets = {
       "paths/archive_dir" = {};
+      "credentials/tiktok/ms_token" = {};
 
       # secret config files
       gallery-dl = {
@@ -129,6 +156,39 @@
   # Config files
   xdg = {
     enable = true;
+    desktopEntries = {
+      nsxiv-rifle = {
+        name = "nsxiv-rifle";
+        genericName = "Image Viewer";
+        exec = "nsxiv-rifle %U";
+        terminal = false;
+        categories = ["Graphics" "2DGraphics" "RasterGraphics" "Viewer"];
+        mimeType = [
+          "image/jpeg"
+          "image/png"
+          "image/gif"
+          "image/webp"
+          "image/tiff"
+          "image/x-tga"
+          "image/vnd-ms.dds"
+          "image/x-dds"
+          "image/bmp"
+          "image/vnd.microsoft.icon"
+          "image/vnd.radiance"
+          "image/x-exr"
+          "image/x-portable-bitmap"
+          "image/x-portable-graymap"
+          "image/x-portable-pixmap"
+          "image/x-portable-anymap"
+          "image/x-qoi"
+          "image/svg+xml"
+          "image/svg+xml-compressed"
+          "image/avif"
+          "image/heic"
+          "image/jxl"
+        ];
+      };
+    };
     # script completions
     configFile."fish/completions/archive.fish".source = ./scripts/archive/completions.fish;
   };
@@ -187,6 +247,12 @@
     };
   };
 
+  # XResources
+  xresources.extraConfig = ''
+    Nsxiv.window.background: #1e1e1e
+    Nsxiv.window.foreground: #bfbfbf
+  '';
+
   # Programs
   programs.fish = {
     enable = true;
@@ -195,7 +261,8 @@
       starship init fish | source
 
       # environment variables
-      set -gx ARCHIVE_DIR (cat $XDG_RUNTIME_DIR/secrets/paths/archive_dir)
+      set -gx ARCHIVE_DIR (cat ${config.sops.secrets."paths/archive_dir".path})
+      set -gx TIKTOK_MS_TOKEN (cat ${config.sops.secrets."credentials/tiktok/ms_token".path})
     '';
     plugins = [
       { name = "colored_man_pages"; src = pkgs.fishPlugins.colored-man-pages.src; }
@@ -218,7 +285,10 @@
       e = "eza -l $argv";
       ee = "eza -la $argv";
       replug = "hotplug d $argv[1]; and hotplug a $argv[1]";
-      rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#default $argv";
+      nix-rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#default $argv";
+      # nix-update = "sudo nix flake update --flake /etc/nixos#default $argv";
+      nix-gc = "sudo nix-env --delete-generations 14d; and sudo nix-store --gc";
+      vim = "nvim $argv";
       xcopy = "xclip -selection clipboard";
       xpaste = "xclip -selection clipboard -o";
     };
@@ -228,6 +298,15 @@
     enable = true;
     userName = "Joseph Landreville";
     userEmail = "landrevillejoseph@gmail.com";
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    extraLuaConfig = ''
+      vim.wo.number = true
+      vim.wo.relativenumber = true
+    '';
   };
 
   programs.mpv = {
