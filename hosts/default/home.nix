@@ -105,7 +105,7 @@
       (pkgs.writeScriptBin "archive" (builtins.readFile ./scripts/archive/archive.fish))
       (pkgs.writeScriptBin "iommu" (builtins.readFile ./scripts/iommu.sh))
       (pkgs.writeScriptBin "hotplug" (builtins.readFile ./scripts/hotplug/hotplug.sh))
-      (pkgs.writeScriptBin "nsxiv-rifle" (builtins.readFile ./scripts/nsxiv-rifle.sh))
+      (pkgs.writeScriptBin "nsxiv-rifle" (builtins.readFile ../../scripts/nsxiv-rifle.sh))
       (pkgs.writers.writePython3Bin "__get_tiktok_user_video_urls" {
         libraries = [
           (pkgs.python3Packages.buildPythonPackage rec {
@@ -201,8 +201,8 @@
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file://" + ./wallpaper.jpg;
-      picture-uri-dark = "file://" + ./wallpaper.jpg;
+      picture-uri = "file://" + ../../assets/wallpapers/clouds.jpg;
+      picture-uri-dark = "file://" + ../../assets/wallpapers/clouds.jpg;
     };
     # set keybinds
     "org/gnome/settings-daemon/plugins/media-keys" = {

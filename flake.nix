@@ -46,6 +46,30 @@
           }
         ];
       };
+      T470 = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          username = "landrevj";
+        };
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/default/configuration.nix
+          sops-nix.nixosModules.sops
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              username = "landrevj";
+            };
+
+            home-manager.users.landrevj = import ./hosts/T470/home.nix;
+            home-manager.sharedModules = [
+              flatpaks.homeManagerModules.nix-flatpak
+              sops-nix.homeManagerModules.sops
+            ];
+          }
+        ];
+      };
     };
   };
 }
