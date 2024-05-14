@@ -18,7 +18,7 @@
     homeDirectory = "/home/${username}";
     sessionVariables = {
       BROWSER = "firefox";
-      TERMINAL = "blackbox";
+      TERMINAL = "foot";
     };
 
     file = {
@@ -33,10 +33,9 @@
       # settings
       appeditor
       openrgb-with-all-plugins
-      neofetch
+      hyfetch
 
       # files
-      blackbox-terminal
       vscode
       
       # browsing
@@ -47,16 +46,19 @@
       # communication
       discord
       webcord
+      vesktop
       signal-desktop
       element-desktop
 
       # media
       audacity
+      darktable
       plexamp
       feh
       nsxiv
       foliate
       shotwell
+      wireplumber # for obs-pipewire-audio-capture
       
       # games
       gnome.aisleriot
@@ -69,7 +71,6 @@
 
       # modeling
       prusa-slicer
-      obs-studio
       freecad
 
       # utilities
@@ -88,6 +89,7 @@
       starship
       waydroid
       playwright # make sure to `playwright install`
+      unrpa
 
       # downloaders
       gallery-dl
@@ -105,7 +107,7 @@
       (pkgs.writeScriptBin "hotplug" (builtins.readFile ./scripts/hotplug/hotplug.sh))
       (pkgs.writeScriptBin "nsxiv-rifle" (builtins.readFile ./scripts/nsxiv-rifle.sh))
       (pkgs.writers.writePython3Bin "__get_tiktok_user_video_urls" {
-        libraries = [ 
+        libraries = [
           (pkgs.python3Packages.buildPythonPackage rec {
             name = "TikTok-Api";
             format = "setuptools";
@@ -217,7 +219,7 @@
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
       binding = "<Super>T";
-      command = "blackbox";
+      command = "foot";
       name = "open-terminal";
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
@@ -254,77 +256,142 @@
   '';
 
   # Programs
-  programs.fish = {
-    enable = true;
-    interactiveShellInit = ''
-      set fish_greeting # Disable greeting
-      starship init fish | source
-
-      # environment variables
-      set -gx ARCHIVE_DIR (cat ${config.sops.secrets."paths/archive_dir".path})
-      set -gx TIKTOK_MS_TOKEN (cat ${config.sops.secrets."credentials/tiktok/ms_token".path})
-    '';
-    plugins = [
-      { name = "colored_man_pages"; src = pkgs.fishPlugins.colored-man-pages.src; }
-      { name = "fzf.fish"; src = pkgs.fishPlugins.fzf-fish.src; }
-      { name = "grc"; src = pkgs.fishPlugins.grc.src; }
-      { name = "pisces"; src = pkgs.fishPlugins.pisces.src; }
-      # { name = "transient-fish"; src = pkgs.fishPlugins.transient-fish.src; }
-      { name = "z"; src = pkgs.fishPlugins.z.src; }
-      {
-        name = "transient-fish";
-        src = pkgs.fetchFromGitHub {
-          owner = "zzhaolei";
-          repo = "transient.fish";
-          rev = "be0093f1799462a93953e69896496dee4d063fd6";
-          sha256 = "sha256-rEkCimnkxcydKRI2y4DxEM7FD7F2/cGTZJN2Edq/Acc=";
+  programs = {
+    foot = {
+      enable = true;
+      server.enable = true;
+      settings = {
+        main = {
+          font = "MesloLGLDZ Nerd Font Mono:size=11";
+          initial-window-size-chars = "120x27";
         };
-      }
-    ];
-    functions = {
-      e = "eza -l $argv";
-      ee = "eza -la $argv";
-      replug = "hotplug d $argv[1]; and hotplug a $argv[1]";
-      nix-rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#default $argv";
-      # nix-update = "sudo nix flake update --flake /etc/nixos#default $argv";
-      nix-gc = "sudo nix-env --delete-generations 14d; and sudo nix-store --gc";
-      vim = "nvim $argv";
-      xcopy = "xclip -selection clipboard";
-      xpaste = "xclip -selection clipboard -o";
-    };
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "Joseph Landreville";
-    userEmail = "landrevillejoseph@gmail.com";
-  };
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    extraLuaConfig = ''
-      vim.wo.number = true
-      vim.wo.relativenumber = true
-    '';
-  };
-
-  programs.mpv = {
-    enable = true;
-    scripts = [pkgs.mpvScripts.autoload];
-    scriptOpts = {
-      osc = {
-        windowcontrols = false;
-      };
-      autoload = {
-        images = false;
-        additional_video_exts = "gif,apng";
+        colors = {
+          background = "1e1e1e";
+          regular0 = "444444";
+          regular1 = "FF0054";
+          regular2 = "B1D630";
+          regular3 = "9D895E";
+          regular4 = "67BEE3";
+          regular5 = "B576BC";
+          regular6 = "569A9F";
+          regular7 = "EDEDED";
+          bright0  = "777777";
+          bright1  = "D65E75";
+          bright2  = "BAFFAA";
+          bright3  = "ECE1C8";
+          bright4  = "9FD3E5";
+          bright5  = "DEB3DF";
+          bright6  = "B6E0E5";
+          bright7  = "FFFFFF";
+        };
+        csd = {
+          color = "303030";
+          button-color = "ffffff";
+          button-minimize-color = "444444";
+          button-maximize-color = "444444";
+        };
+        cursor = {
+          blink = true;
+        };
+        tweak = {
+          overflowing-glyphs=true;
+        };
       };
     };
-    config = {
-      no-border = true;
-      osd-fractions = true;
-      loop-file = true;
+
+    fish = {
+      enable = true;
+      interactiveShellInit = ''
+        set fish_greeting # Disable greeting
+        starship init fish | source
+
+        # environment variables
+        set -gx ARCHIVE_DIR (cat ${config.sops.secrets."paths/archive_dir".path})
+        set -gx TIKTOK_MS_TOKEN (cat ${config.sops.secrets."credentials/tiktok/ms_token".path})
+      '';
+      plugins = [
+        { name = "colored_man_pages"; src = pkgs.fishPlugins.colored-man-pages.src; }
+        { name = "fzf.fish"; src = pkgs.fishPlugins.fzf-fish.src; }
+        { name = "grc"; src = pkgs.fishPlugins.grc.src; }
+        { name = "pisces"; src = pkgs.fishPlugins.pisces.src; }
+        # { name = "transient-fish"; src = pkgs.fishPlugins.transient-fish.src; }
+        { name = "z"; src = pkgs.fishPlugins.z.src; }
+        {
+          name = "transient-fish";
+          src = pkgs.fetchFromGitHub {
+            owner = "zzhaolei";
+            repo = "transient.fish";
+            rev = "be0093f1799462a93953e69896496dee4d063fd6";
+            sha256 = "sha256-rEkCimnkxcydKRI2y4DxEM7FD7F2/cGTZJN2Edq/Acc=";
+          };
+        }
+      ];
+      functions = {
+        e = "eza -l $argv";
+        ee = "eza -la $argv";
+        replug = "hotplug d $argv[1]; and hotplug a $argv[1]";
+        nix-rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#default $argv";
+        # nix-update = "sudo nix flake update --flake /etc/nixos#default $argv";
+        nix-update = "nix flake update /etc/nixos";
+        nix-gc = "sudo nix-env --delete-generations 14d; and sudo nix-store --gc"; # sudo nix-collect-garbage --delete-older-than 14d
+        vim = "nvim $argv";
+        xcopy = "xclip -selection clipboard";
+        xpaste = "xclip -selection clipboard -o";
+        # foot events
+        mark_prompt_start = {
+          body = ''echo -en "\e]133;A\e\\"'';
+          onEvent = "fish_prompt";
+        };
+        foot_cmd_start = {
+          body = ''echo -en "\e]133;C\e\\"'';
+          onEvent = "fish_preexec";
+        };
+        foot_cmd_end = {
+          body = ''echo -en "\e]133;D\e\\'';
+          onEvent = "fish_postexec";
+        };
+      };
+    };
+
+    git = {
+      enable = true;
+      userName = "Joseph Landreville";
+      userEmail = "landrevillejoseph@gmail.com";
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      extraLuaConfig = ''
+        vim.wo.number = true
+        vim.wo.relativenumber = true
+      '';
+    };
+
+    mpv = {
+      enable = true;
+      scripts = with pkgs; [ mpvScripts.autoload ];
+      scriptOpts = {
+        osc = {
+          windowcontrols = false;
+        };
+        autoload = {
+          images = false;
+          additional_video_exts = "gif,apng";
+        };
+      };
+      config = {
+        no-border = true;
+        osd-fractions = true;
+        loop-file = true;
+      };
+    };
+
+    obs-studio = {
+      enable = true;
+      plugins = with pkgs; [
+        obs-studio-plugins.obs-pipewire-audio-capture
+      ];
     };
   };
 }

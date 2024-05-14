@@ -1,25 +1,30 @@
 #! /usr/bin/env fish
 
-argparse --name=archive --min-args=1 --max-args=1 's/site=' 'd/dest=' -- $argv
+argparse --name=archive --min-args=1 's/site=' 'd/dest=' -- $argv
 or return
+
+function anime_artist --argument-names username url
+  echo gallery-dl -d "$ARCHIVE_DIR/anime/artists/$username" $url
+  gallery-dl -d "$ARCHIVE_DIR/anime/artists/$username" $url
+end
 
 function instagram_user --argument-names dest username
   if test -n $dest
-    echo gallery-dl https://instagram.com/$username -d "$ARCHIVE_DIR/instagram/$dest"
-    gallery-dl https://instagram.com/$username -d "$ARCHIVE_DIR/instagram/$dest"
+    echo gallery-dl https://instagram.com/$username -d "$ARCHIVE_DIR/irl/instagram/$dest"
+    gallery-dl https://instagram.com/$username -d "$ARCHIVE_DIR/irl/instagram/$dest"
   else 
-    echo gallery-dl https://instagram.com/$username -d "$ARCHIVE_DIR/instagram/$username"
-    gallery-dl https://instagram.com/$username -d "$ARCHIVE_DIR/instagram/$username"
+    echo gallery-dl https://instagram.com/$username -d "$ARCHIVE_DIR/irl/instagram/$username"
+    gallery-dl https://instagram.com/$username -d "$ARCHIVE_DIR/irl/instagram/$username"
   end
 end
 
 function reddit_user --argument-names dest username
   if test -n $dest
-    echo gallery-dl https://reddit.com/user/$username -d "$ARCHIVE_DIR/reddit/$dest"
-    gallery-dl https://reddit.com/user/$username -d "$ARCHIVE_DIR/reddit/$dest"
+    echo gallery-dl https://reddit.com/user/$username -d "$ARCHIVE_DIR/irl/reddit/$dest"
+    gallery-dl https://reddit.com/user/$username -d "$ARCHIVE_DIR/irl/reddit/$dest"
   else 
-    echo gallery-dl https://reddit.com/user/$username -d "$ARCHIVE_DIR/reddit/$username"
-    gallery-dl https://reddit.com/user/$username -d "$ARCHIVE_DIR/reddit/$username"
+    echo gallery-dl https://reddit.com/user/$username -d "$ARCHIVE_DIR/irl/reddit/$username"
+    gallery-dl https://reddit.com/user/$username -d "$ARCHIVE_DIR/irl/reddit/$username"
   end
 end
 
@@ -27,41 +32,43 @@ function tiktok_user --argument-names dest username
   # manual method:
   # copy(Array.from(new Set(Array.from(document.links).filter((l) => l.href?.startsWith(`${window.location.href}/video`)).map(x => x.href))).join('\n'))
   # copy(Array.from(document.querySelectorAll('[data-e2e="user-post-item-list"] > div > div > div > a')).map(l=>l.href).join('\n'))
-  # yt-dlp -P "$ARCHIVE_DIR/tiktok/$username" -o "%(upload_date)s - %(id)s.%(ext)s" -a ~/Downloads/tiktok.txt
+  # yt-dlp -P "$ARCHIVE_DIR/irl/tiktok/$username" -o "%(upload_date)s - %(id)s.%(ext)s" -a ~/Downloads/tiktok.txt
   set video_urls (steam-run __get_tiktok_user_video_urls $username)
 
   for url in $video_urls
     if test -n $dest
-      echo yt-dlp -P "$ARCHIVE_DIR/tiktok/$dest" -o "%(upload_date)s - %(id)s.%(ext)s" $url
-      yt-dlp -P "$ARCHIVE_DIR/tiktok/$dest" -o "%(upload_date)s - %(id)s.%(ext)s" $url
+      echo yt-dlp -P "$ARCHIVE_DIR/irl/tiktok/$dest" -o "%(upload_date)s - %(id)s.%(ext)s" $url
+      yt-dlp -P "$ARCHIVE_DIR/irl/tiktok/$dest" -o "%(upload_date)s - %(id)s.%(ext)s" $url
     else
-      echo yt-dlp -P "$ARCHIVE_DIR/tiktok/$username" -o "%(upload_date)s - %(id)s.%(ext)s" $url
-      yt-dlp -P "$ARCHIVE_DIR/tiktok/$username" -o "%(upload_date)s - %(id)s.%(ext)s" $url
+      echo yt-dlp -P "$ARCHIVE_DIR/irl/tiktok/$username" -o "%(upload_date)s - %(id)s.%(ext)s" $url
+      yt-dlp -P "$ARCHIVE_DIR/irl/tiktok/$username" -o "%(upload_date)s - %(id)s.%(ext)s" $url
     end
   end
 end
 
 function twitter_user --argument-names dest username
   if test -n $dest
-    echo gallery-dl https://twitter.com/$username -d "$ARCHIVE_DIR/twitter/$dest"
-    gallery-dl https://twitter.com/$username -d "$ARCHIVE_DIR/twitter/$dest"
+    echo gallery-dl https://twitter.com/$username -d "$ARCHIVE_DIR/irl/twitter/$dest"
+    gallery-dl https://twitter.com/$username -d "$ARCHIVE_DIR/irl/twitter/$dest"
   else 
-    echo gallery-dl https://twitter.com/$username -d "$ARCHIVE_DIR/twitter/$username"
-    gallery-dl https://twitter.com/$username -d "$ARCHIVE_DIR/twitter/$username"
+    echo gallery-dl https://twitter.com/$username -d "$ARCHIVE_DIR/irl/twitter/$username"
+    gallery-dl https://twitter.com/$username -d "$ARCHIVE_DIR/irl/twitter/$username"
   end
 end
 
 function youtube_channel --argument-names dest username
   if test -n $dest
-    echo yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/youtube/$dest"
-    yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/youtube/$dest"
+    echo yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/irl/youtube/$dest"
+    yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/irl/youtube/$dest"
   else 
-    echo yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/youtube/$username"
-    yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/youtube/$username"
+    echo yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/irl/youtube/$username"
+    yt-dlp https://youtube.com/@$username -P "$ARCHIVE_DIR/irl/youtube/$username"
   end
 end
 
 switch $_flag_site
+  case artist
+    anime_artist $argv
   case instagram
     instagram_user "$_flag_dest" $argv
   case reddit

@@ -47,10 +47,11 @@
   networking.networkmanager.enable = true;
   
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 3389 ];
+    # allowedUDPPorts = [ ... ];
+  };
   
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
@@ -80,7 +81,11 @@
   users.users.${username} = {
     isNormalUser = true;
     description = "Joey Landreville";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel" # give user sudo
+      "dialout" # needed for flashing mmu3 firmware
+    ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -142,7 +147,7 @@
      libGL
      gamescope
      gamemode
-     jdk17
+     jdk
      xclip
      man-pages
      tuptime

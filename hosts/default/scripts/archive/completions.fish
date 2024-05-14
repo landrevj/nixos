@@ -32,11 +32,11 @@ for site in $site_options
     -d "Username directory" \
     --short-option d --long-option dest \
     -n "__fish_seen_subcommand_from $site" \
-    -a "(__fish_complete_directories_in_directory $ARCHIVE_DIR/$site)" 
+    -a "(__fish_complete_directories_in_directory $ARCHIVE_DIR/irl/$site)" 
   
   # single positional
   complete -c archive --exclusive \
     -d "Username" \
     -n "__fish_seen_subcommand_from $site" \
-    -a "(__fish_complete_directories_in_directory $ARCHIVE_DIR/$site)"
+    -a "(__fish_complete_directories_in_directory $ARCHIVE_DIR/irl/$site)"
 end
