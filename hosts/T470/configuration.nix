@@ -11,14 +11,14 @@
   ];
 
   # Secrets
-  # sops = {
-  #   defaultSopsFile = ../../secrets/${username}/secrets.yaml;
-  #   age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+  sops = {
+    defaultSopsFile = ../../secrets/T470/secrets.yaml;
+    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
 
-  #   secrets = {
-  #     # "credentials/twitter/username" = {};
-  #   };
-  # };
+    secrets = {
+      "hello" = {};
+    };
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

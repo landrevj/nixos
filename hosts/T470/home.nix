@@ -110,20 +110,13 @@
   ];
 
   # secrets
-  # sops = {
-  #   defaultSopsFile = ../../secrets/${username}/secrets.yaml;
-  #   age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
-  #   secrets = {
-  #     "paths/archive_dir" = {};
-  #     "credentials/tiktok/ms_token" = {};
-
-  #     # secret config files
-  #     gallery-dl = {
-  #       sopsFile = ../../secrets/${username}/gallery-dl.yaml;
-  #       path = "${config.home.homeDirectory}/.config/gallery-dl/config.json";
-  #     };
-  #   };
-  # };
+  sops = {
+    defaultSopsFile = ../../secrets/T470/secrets.yaml;
+    age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+    secrets = {
+      "hello" = {};
+    };
+  };
 
   # sops-nix requirements
   systemd.user.services.mbsync.Unit.After = [ "sops-nix.service" ];
