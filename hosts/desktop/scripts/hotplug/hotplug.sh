@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # xmldir=${WIN11HOTPLUG_XMLDIR:-$(dirname $(readlink -f $0))}
-xmldir="/etc/nixos/hosts/default/scripts/hotplug"
+xmldir="/etc/nixos/hosts/desktop/scripts/hotplug"
 connection="qemu:///system"
 dom="win11"
 

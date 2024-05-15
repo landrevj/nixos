@@ -7,20 +7,16 @@
 {
   imports = [ 
     ./hardware-configuration.nix
-    ../../modules/nixos/vfio.nix
     ../../modules/nixos/locale.nix
-    ../../modules/nixos/amd.nix
-    # ../../modules/nixos/nvidia.nix
-    ../../modules/nixos/openrgb/openrgb.nix
   ];
 
   # Secrets
   sops = {
-    defaultSopsFile = ../../secrets/${username}/secrets.yaml;
+    defaultSopsFile = ../../secrets/T470/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
 
     secrets = {
-      # "credentials/twitter/username" = {};
+      "hello" = {};
     };
   };
 
@@ -38,7 +34,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.supportedFilesystems = [ "ntfs" ];
 
   # Mounts (try to autogen these into hardware-configuration.nix)
 

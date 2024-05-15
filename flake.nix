@@ -22,13 +22,13 @@
 
   outputs = inputs@{ nixpkgs, home-manager, flatpaks, sops-nix, ... }: {
     nixosConfigurations = {
-      default = nixpkgs.lib.nixosSystem {
+      desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
           username = "landrevj";
         };
         system = "x86_64-linux";
         modules = [
-          ./hosts/default/configuration.nix
+          ./hosts/desktop/configuration.nix
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           {
@@ -38,7 +38,31 @@
               username = "landrevj";
             };
 
-            home-manager.users.landrevj = import ./hosts/default/home.nix;
+            home-manager.users.landrevj = import ./hosts/desktop/home.nix;
+            home-manager.sharedModules = [
+              flatpaks.homeManagerModules.nix-flatpak
+              sops-nix.homeManagerModules.sops
+            ];
+          }
+        ];
+      };
+      T470 = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          username = "landrevj";
+        };
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/T470/configuration.nix
+          sops-nix.nixosModules.sops
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              username = "landrevj";
+            };
+
+            home-manager.users.landrevj = import ./hosts/T470/home.nix;
             home-manager.sharedModules = [
               flatpaks.homeManagerModules.nix-flatpak
               sops-nix.homeManagerModules.sops
