@@ -90,6 +90,7 @@
       waydroid
       playwright # make sure to `playwright install`
       unrpa
+      mission-center
 
       # downloaders
       gallery-dl
@@ -129,7 +130,6 @@
 
   services.flatpak.packages = [
     "it.mijorus.smile"
-    "net.nokyan.Resources"
     "dev.goats.xivlauncher"
   ];
 
