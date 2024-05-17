@@ -94,15 +94,9 @@
 
       # downloaders
       gallery-dl
-      youtube-dl
       yt-dlp
 
-      # # You can also create simple shell scripts directly inside your
-      # # configuration. For example, this adds a command 'my-hello' to your
-      # # environment:
-      # (pkgs.writeShellScriptBin "my-hello" ''
-      #   echo "Hello, ${config.home.username}!"
-      # '')
+      # scripts
       (pkgs.writeScriptBin "archive" (builtins.readFile ./scripts/archive/archive.fish))
       (pkgs.writeScriptBin "iommu" (builtins.readFile ./scripts/iommu.sh))
       (pkgs.writeScriptBin "hotplug" (builtins.readFile ./scripts/hotplug/hotplug.sh))
@@ -193,6 +187,7 @@
     };
     # script completions
     configFile."fish/completions/archive.fish".source = ./scripts/archive/completions.fish;
+    configFile."yt-dlp/config".source = ../../dotfiles/yt-dlp/config;
   };
 
   # Gnome
@@ -210,6 +205,7 @@
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
       ];
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -226,6 +222,11 @@
       binding = "<Super>period";
       command = "flatpak run it.mijorus.smile";
       name = "open-emoji-picker";
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+      binding = "<Shift><Control>Escape";
+      command = "mission-center";
+      name = "open-mission-center";
     };
   };
   gtk = {
@@ -270,7 +271,7 @@
           regular0 = "444444";
           regular1 = "FF0054";
           regular2 = "B1D630";
-          regular3 = "9D895E";
+          regular3 = "F5C211";
           regular4 = "67BEE3";
           regular5 = "B576BC";
           regular6 = "569A9F";
@@ -278,7 +279,7 @@
           bright0  = "777777";
           bright1  = "D65E75";
           bright2  = "BAFFAA";
-          bright3  = "ECE1C8";
+          bright3  = "F8E45C";
           bright4  = "9FD3E5";
           bright5  = "DEB3DF";
           bright6  = "B6E0E5";

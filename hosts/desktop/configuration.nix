@@ -134,39 +134,39 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     vim
-     gnome.dconf-editor
-     gnome.gnome-tweaks
-     gnome.gnome-software
-     gnome.gnome-themes-extra
-     wget
-     python3
-     ffmpeg
-     htop
-     killall
-     libGL
-     gamescope
-     gamemode
-     jdk
-     xclip
-     man-pages
-     tuptime
-     pciutils
-     usbutils
-     cdrtools
-     dmidecode
-     hwloc
-     smartmontools
-     wineWowPackages.stable
-     sops
-     age
-     jq
-     p7zip
-     file
-     ntfs2btrfs
-     gparted
-     vulkan-tools
-     findutils
+    vim
+    gnome.dconf-editor
+    gnome.gnome-tweaks
+    gnome.gnome-software
+    gnome.gnome-themes-extra
+    wget
+    python3
+    ffmpeg-full
+    htop
+    killall
+    libGL
+    gamescope
+    gamemode
+    jdk
+    xclip
+    man-pages
+    tuptime
+    pciutils
+    usbutils
+    cdrtools
+    dmidecode
+    hwloc
+    smartmontools
+    wineWowPackages.stable
+    sops
+    age
+    jq
+    p7zip
+    file
+    ntfs2btrfs
+    gparted
+    vulkan-tools
+    findutils
   ];
   programs.steam = {
     enable = true;
