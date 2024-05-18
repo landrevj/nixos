@@ -41,6 +41,14 @@
     };
   };
 
+  # Open ports in the firewall.
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 3389 ];
+    # allowedUDPPorts = [ ... ];
+  };
+
+  # Services
   services.mullvad-vpn.enable = true; # enable mullvad service
 
   # Use fish shell

@@ -1,15 +1,28 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   imports = [
+    ./fish.nix
+    ./foot.nix
     ./git.nix
     ./mpv.nix
     ./neovim.nix
-    ./fish.nix
     ./nsxiv.nix
-    ./foot.nix
-  ];  
+    ./obs-studio.nix
+    ./yt-dlp.nix
+  ];
 
+  # Modules
+  fish.enable = lib.mkDefault true;
+  foot.enable = lib.mkDefault true;
+  git.enable = lib.mkDefault true;
+  mpv.enable = lib.mkDefault true;
+  neovim.enable = lib.mkDefault true;
+  nsxiv.enable = lib.mkDefault true;
+  obs-studio.enable = lib.mkDefault false;
+  yt-dlp.enable = lib.mkDefault true;
+
+  # Packages
   home.packages = with pkgs; [
     # settings
     appeditor
@@ -56,6 +69,7 @@
     mission-center
   ];
 
+  # Flatpaks
   services.flatpak.packages = [
     "it.mijorus.smile"
   ];

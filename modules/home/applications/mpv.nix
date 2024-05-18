@@ -1,22 +1,28 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 
 {
-  programs.mpv = {
-    enable = true;
-    scripts = [pkgs.mpvScripts.autoload];
-    scriptOpts = {
-      osc = {
-        windowcontrols = false;
+  options = {
+    mpv.enable = lib.mkEnableOption "enables mpv";
+  };
+
+  config = lib.mkIf config.mpv.enable {
+    programs.mpv = {
+      enable = true;
+      scripts = [pkgs.mpvScripts.autoload];
+      scriptOpts = {
+        osc = {
+          windowcontrols = false;
+        };
+        autoload = {
+          images = false;
+          additional_video_exts = "gif,apng";
+        };
       };
-      autoload = {
-        images = false;
-        additional_video_exts = "gif,apng";
+      config = {
+        no-border = true;
+        osd-fractions = true;
+        loop-file = true;
       };
-    };
-    config = {
-      no-border = true;
-      osd-fractions = true;
-      loop-file = true;
     };
   };
 }

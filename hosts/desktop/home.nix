@@ -3,8 +3,6 @@
 {
   imports = [
     ../../modules/home/applications
-    ../../modules/home/applications/obs-studio.nix
-    ../../modules/home/applications/yt-dlp.nix
   ];
 
   # Let Home Manager install and manage itself.
@@ -184,4 +182,7 @@
       };
     };
   };
+
+  # Modules
+  obs-studio.enable = true;
 }
