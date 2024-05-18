@@ -5,8 +5,8 @@
     foot.enable = lib.mkEnableOption "enables foot";
   };
 
-  config = lib.mkMerge [
-    (lib.mkIf config.foot.enable {
+  config = lib.mkIf config.foot.enable (lib.mkMerge [
+    {
       programs.foot = {
         enable = true;
         server.enable = true;
@@ -48,7 +48,7 @@
           };
         };
       };
-    })
+    }
     (lib.mkIf config.fish.enable {
       programs.fish.functions = {
         mark_prompt_start = {
@@ -65,5 +65,5 @@
         };
       };
     })
-  ];
+  ]);
 }
