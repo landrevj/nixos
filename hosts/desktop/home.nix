@@ -70,10 +70,6 @@
     ];
   };
 
-  services.flatpak.packages = [
-    "dev.goats.xivlauncher"
-  ];
-
   # secrets
   sops = {
     defaultSopsFile = ../../secrets/${username}/secrets.yaml;
@@ -185,4 +181,5 @@
 
   # Modules
   obs-studio.enable = true;
+  xivlauncher.enable = true;
 }

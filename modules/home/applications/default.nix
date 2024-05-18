@@ -9,6 +9,7 @@
     ./neovim.nix
     ./nsxiv.nix
     ./obs-studio.nix
+    ./xivlauncher.nix
     ./yt-dlp.nix
   ];
 
@@ -20,6 +21,7 @@
   neovim.enable = lib.mkDefault true;
   nsxiv.enable = lib.mkDefault true;
   obs-studio.enable = lib.mkDefault false;
+  xivlauncher.enable = lib.mkDefault false;
   yt-dlp.enable = lib.mkDefault true;
 
   # Packages
