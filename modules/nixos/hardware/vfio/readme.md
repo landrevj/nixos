@@ -48,7 +48,7 @@ Here is a very busy screenshot showing everything:
 At some point I booted the Win11 VM and it didn't have internet access. It *did* show a
 working ethernet device and `ipconfig` showed it had an IP address.
 
-Some searching let me to this [stackoverflow answer](https://superuser.com/a/1725346) which resolved things. We just need to make sure the VM uses our actual ethernet device.
+Some searching led me to this [stackoverflow answer](https://superuser.com/a/1725346) which resolved things. We just need to make sure the VM uses our actual ethernet device.
 
 #### Solution
 Run `route` and note the default interface's name, `enp9s0` in this case:
@@ -94,8 +94,8 @@ Then set the vm to use that new interface (NIC -> Network Source -> the one we j
 ```
 
 ### VM won't boot more than once per host boot
-For me this was due to the pci usb card I had at the time not supporting pci reset properly.
-This meant the card didn't get reset properly when the VM shut off and would throw errors when you'd try to
+For me this was due to the PCIe usb card I was passing to the VM not supporting PCIe reset properly.
+This meant the card didn't get reset when the VM shut off and would throw errors when you'd try to
 start the VM again.
 
 #### Solution
