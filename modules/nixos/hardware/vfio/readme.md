@@ -9,6 +9,9 @@ Some helpful links:
 - https://forums.gentoo.org/viewtopic-t-1071844-start-0.html
   - https://web.archive.org/web/20240420015927/https://forums.gentoo.org/viewtopic-t-1071844-start-0.html
   - https://linkwarden.landrevj.dev/preserved/13?format=2
+- https://astrid.tech/2022/09/22/0/nixos-gpu-vfio/
+  - https://web.archive.org/web/20240326195357/https://astrid.tech/2022/09/22/0/nixos-gpu-vfio/
+- https://forum.level1techs.com/t/nixos-vfio-pcie-passthrough/130916
 
 ## Steps
 
