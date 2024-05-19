@@ -7,12 +7,7 @@
 {
   imports = [ 
     ./hardware-configuration.nix
-    ../../modules/nixos/hardware/amd.nix
-    ../../modules/nixos/hardware/vfio
     ../../modules/nixos
-
-    ../../modules/nixos/applications/openrgb/openrgb.nix
-    ../../modules/nixos/applications/steam.nix
   ];
 
   # Before changing this value read the documentation for this option
@@ -61,4 +56,8 @@
       fi
     '';
   };
+
+  # Modules
+  amd.enable = true;
+  vfio.enable = true;
 }

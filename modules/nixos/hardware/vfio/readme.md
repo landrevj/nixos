@@ -18,7 +18,7 @@ Some helpful links:
 One of the biggest blockers I ran into was the Win11 VM would work without issues up until I booted into that drive normally (i.e. not as a VM) and then try to boot it as a VM again. This would cause it to no longer boot properly. I believe the issue is that when you boot windows normally it marks the virtio disk driver as non-essential and it doesn't get loaded at boot when you try to use it as a VM again.
 
 #### Solution
-The solution is described in this [gentoo forums post](https://forums.gentoo.org/viewtopic-t-1071844-start-0.html) which basically sets up a powershell script to tell windows to load that driver for the next boot.
+The solution is described in this [gentoo forum post](https://forums.gentoo.org/viewtopic-t-1071844-start-0.html) which sets up a powershell script to tell windows to load that driver during the next boot.
 
 Create some `vfio.ps1` file at `C:\Windows\System32\GroupPolicy\Machine\Scripts\Startup` with the contents:
 ```ps1
@@ -37,7 +37,7 @@ foreach ($p in $args) {
     }
 }
 ```
-We then want to launch `gpedit.msc` and add the script in `Computer Configuration -> Windows Settings -> Scripts -> Startup`. In the script parameters input we want to pass it the following (the `storachi viostor` part will change depending on which driver you need to ensure loads):
+We then want to launch `gpedit.msc` and add the script in `Computer Configuration -> Windows Settings -> Scripts -> Startup`. In the script parameters input we want to pass it the following (the `storachi viostor` part will change depending on which driver(s) you want to ensure load):
 ```ps1
 -ExecutionPolicy BYPASS storahci viostor
 ```
@@ -45,10 +45,10 @@ Here is a very busy screenshot showing everything:
 ![Windows configuration](./.screenshots/windows.png)
 
 ### VM randomly stopped having network access
-At some point I booted the Win11 VM after a while and it didn't have internet access. It *did* show a
+At some point I booted the Win11 VM and it didn't have internet access. It *did* show a
 working ethernet device and `ipconfig` showed it had an IP address.
 
-Some searching let me to this [stackoverflow answer](https://superuser.com/a/1725346) which resolved things.
+Some searching let me to this [stackoverflow answer](https://superuser.com/a/1725346) which resolved things. We just need to make sure the VM uses our actual ethernet device.
 
 #### Solution
 Run `route` and note the default interface's name, `enp9s0` in this case:
@@ -74,7 +74,7 @@ Add a new virtual network in `virt-manager`/`libvirt` (basically default options
     <interface dev="enp9s0"/>
   </forward>
   <bridge name="virbr1" stp="on" delay="0"/>
-  <mac address="52:54:00:2d:2d:9e"/>
+  <mac address="**:**:**:**:**:**"/>
   <domain name="enp9s0"/>
   <ip address="192.168.100.1" netmask="255.255.255.0">
     <dhcp>

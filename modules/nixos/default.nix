@@ -1,9 +1,11 @@
 {
   imports = [
+    ./applications
+    ./hardware
+    
     ./locale.nix
     ./pipewire.nix
     ./fonts.nix
-    ./applications
   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];

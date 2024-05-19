@@ -1,8 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  imports = [
+    ./openrgb
+    ./steam.nix
+  ];
+
+  # Modules
+  openrgb.enable = lib.mkDefault false;
+  steam.enable = lib.mkDefault true;
+
+  # Packages
   environment.systemPackages = with pkgs; [
     # gnome
     gnome.dconf-editor

@@ -1,53 +1,59 @@
-{ config, pkgs, ... }:
+{ pkgs, lib, config, ... }:
 
 {
-  # Enable OpenGL
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      vaapiVdpau
-      egl-wayland
-    ];
+  options = {
+    nvidia.enable = lib.mkEnableOption "enables nvidia gpu";
   };
 
-  # X server
-  services.xserver.videoDrivers = ["nvidia"];
+  config = lib.mkIf config.nvidia.enable {
+    # Enable OpenGL
+    hardware.opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+      extraPackages = with pkgs; [
+        vaapiVdpau
+        egl-wayland
+      ];
+    };
 
-  # misc
-  boot.extraModprobeConfig = ''
-    options nvidia NVreg_PreserveVideoMemoryAllocations=1
-  '';
-  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # make electron apps use wayland
+    # X server
+    services.xserver.videoDrivers = ["nvidia"];
 
-  # Set up nvidia driver
-  hardware.nvidia = {
+    # misc
+    boot.extraModprobeConfig = ''
+      options nvidia NVreg_PreserveVideoMemoryAllocations=1
+    '';
+    environment.sessionVariables.NIXOS_OZONE_WL = "1"; # make electron apps use wayland
 
-    # Modesetting is required.
-    modesetting.enable = true;
+    # Set up nvidia driver
+    hardware.nvidia = {
 
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    powerManagement.enable = true;
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
+      # Modesetting is required.
+      modesetting.enable = true;
 
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of 
-    # supported GPUs is at: 
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
-    # Only available from driver 515.43.04+
-    # Currently alpha-quality/buggy, so false is currently the recommended setting.
-    open = false;
+      # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+      powerManagement.enable = true;
+      # Fine-grained power management. Turns off GPU when not in use.
+      # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+      powerManagement.finegrained = false;
 
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
+      # Use the NVidia open source kernel module (not to be confused with the
+      # independent third-party "nouveau" open source driver).
+      # Support is limited to the Turing and later architectures. Full list of 
+      # supported GPUs is at: 
+      # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus 
+      # Only available from driver 515.43.04+
+      # Currently alpha-quality/buggy, so false is currently the recommended setting.
+      open = false;
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/nvidia-x11/default.nix
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+      # Enable the Nvidia settings menu,
+      # accessible via `nvidia-settings`.
+      nvidiaSettings = true;
+
+      # Optionally, you may need to select the appropriate driver version for your specific GPU.
+      # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/nvidia-x11/default.nix
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
+    };
   };
 }

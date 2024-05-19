@@ -5,7 +5,15 @@
 #   sha256 = "sha256:09jskjgh543fszqc1c4sxjsp3rs0nspligy62xnngsvh6q13cdaj";
 # };
 # in
+{ pkgs, lib, config, ... }:
+
 {
-  boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
-  services.udev.extraRules =  builtins.readFile ./60-openrgb.rules; # using a local version with references to chmod removed
+  options = {
+    openrgb.enable = lib.mkEnableOption "enables openrgb";
+  };
+
+  config = lib.mkIf config.openrgb.enable {
+    boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
+    services.udev.extraRules =  builtins.readFile ./60-openrgb.rules; # using a local version with references to chmod removed
+  };
 }

@@ -1,15 +1,21 @@
-{ pkgs, ... }:
+{ pkgs, lib, config, ... }:
 
 {
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-    gamescopeSession.enable = true;
+  options = {
+    steam.enable = lib.mkEnableOption "enables steam";
   };
 
-  environment.systemPackages = with pkgs; [
-    gamescope
-    gamemode
-  ];
+  config = lib.mkIf config.steam.enable {
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+      gamescopeSession.enable = true;
+    };
+
+    environment.systemPackages = with pkgs; [
+      gamescope
+      gamemode
+    ];
+  };
 }
