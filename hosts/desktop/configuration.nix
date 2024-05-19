@@ -8,7 +8,7 @@
   imports = [ 
     ./hardware-configuration.nix
     ../../modules/nixos/hardware/amd.nix
-    ../../modules/nixos/hardware/vfio.nix
+    ../../modules/nixos/hardware/vfio
     ../../modules/nixos
 
     ../../modules/nixos/applications/openrgb/openrgb.nix

@@ -4,5 +4,7 @@
   # Make fonts available to programs
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Meslo" ]; })
+    (noto-fonts.override { variants = [ "Noto Sans" ]; })
+    noto-fonts-cjk-sans
   ];
 }
