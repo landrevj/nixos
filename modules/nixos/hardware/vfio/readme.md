@@ -42,7 +42,7 @@ We then want to launch `gpedit.msc` and add the script in `Computer Configuratio
 -ExecutionPolicy BYPASS storahci viostor
 ```
 Here is a very busy screenshot showing everything:
-![Windows configuration](./.screenshots/windows.png)
+<img src="./.screenshots/windows.png" alt="windows configuration" width="75%"/>
 
 ### VM randomly stopped having network access
 At some point I booted the Win11 VM and it didn't have internet access. It *did* show a
