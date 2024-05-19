@@ -43,6 +43,7 @@ We then want to launch `gpedit.msc` and add the script in `Computer Configuratio
 ```
 Here is a very busy screenshot showing everything:
 ![Windows configuration](./.screenshots/windows.png)
+
 ### VM randomly stopped having network access
 At some point I booted the Win11 VM after a while and it didn't have internet access. It *did* show a
 working ethernet device and `ipconfig` showed it had an IP address.
