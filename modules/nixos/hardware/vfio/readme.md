@@ -92,3 +92,11 @@ Then set the vm to use that new interface (NIC -> Network Source -> the one we j
   <address type="pci" domain="0x0000" bus="0x01" slot="0x00" function="0x0"/>
 </interface>
 ```
+
+### VM won't boot more than once per host boot
+For me this was due to the pci usb card I had at the time not supporting pci reset properly.
+This meant the card didn't get reset properly when the VM shut off and would throw errors when you'd try to
+start the VM again.
+
+Cards with the Fresco Logic chips can be a bit iffy, but I remember reading that the ones with the Renesas UPD720201 chip
+should work just fine. The [one I bought](https://www.amazon.com/dp/B081Y4NT25) works at least.
