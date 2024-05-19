@@ -37,7 +37,7 @@ foreach ($p in $args) {
     }
 }
 ```
-We then want to launch `gpedit.msc` and add the script in `Computer Configuration -> Windows Settings -> Scripts -> Startup`. In the script parameters input we want to pass it the following, however `storachi viostor` part will change depending on which driver you need to ensure loads:
+We then want to launch `gpedit.msc` and add the script in `Computer Configuration -> Windows Settings -> Scripts -> Startup`. In the script parameters input we want to pass it the following (the `storachi viostor` part will change depending on which driver you need to ensure loads):
 ```ps1
 -ExecutionPolicy BYPASS storahci viostor
 ```
