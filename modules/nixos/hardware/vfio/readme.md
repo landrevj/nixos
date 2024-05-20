@@ -103,4 +103,4 @@ start the VM again.
 
 #### Solution
 Cards with the Fresco Logic chips can be a bit iffy, but I remember reading somewhere that the ones with the Renesas UPD720201/UPD720210 chip
-should work just fine. The [one I bought](https://www.amazon.com/dp/B081Y4NT25) does at least.
+should work just fine. The new [one I bought](https://www.amazon.com/dp/B081Y4NT25) does at least.
