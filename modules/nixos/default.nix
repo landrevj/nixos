@@ -36,6 +36,11 @@
   services.xserver.displayManager.gdm.enable = true; # Enable the GNOME Desktop Environment.
   services.xserver.desktopManager.gnome.enable = true;
   # services.xserver.libinput.enable = true; # Enable touchpad support (enabled default in most desktopManager).
-  services.printing.enable = true; # Enable CUPS to print documents.
-  services.flatpak.enable = true; # List services that you want to enable:
+  services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
+  };
+  services.flatpak.enable = true;
 }

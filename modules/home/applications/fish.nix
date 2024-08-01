@@ -2,10 +2,10 @@
 
 {
   options = {
-    fish.enable = lib.mkEnableOption "enables fish";
+    home-modules.applications.fish.enable = lib.mkEnableOption "enables fish";
   };
 
-  config = lib.mkIf config.fish.enable {
+  config = lib.mkIf config.home-modules.applications.fish.enable {
     home.packages = with pkgs; [
       grc
       fzf
@@ -29,7 +29,6 @@
         ee = "eza -la $argv";
         nix-update = "nix flake update /etc/nixos";
         nix-gc = "sudo nix-env --delete-generations 14d; and sudo nix-store --gc";
-        vim = "nvim $argv";
         xcopy = "xclip -selection clipboard";
         xpaste = "xclip -selection clipboard -o";
       };

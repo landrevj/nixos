@@ -8,7 +8,9 @@
   ];
 
   # Modules
-  amd.enable = lib.mkDefault false;
-  nvidia.enable = lib.mkDefault false;
-  vfio.enable = lib.mkDefault false;
+  system-modules.hardware = {
+    amd.enable = lib.mkDefault false;
+    nvidia.enable = lib.mkDefault false;
+    vfio.enable = lib.mkDefault false;
+  };
 }

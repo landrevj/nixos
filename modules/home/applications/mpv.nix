@@ -2,10 +2,10 @@
 
 {
   options = {
-    mpv.enable = lib.mkEnableOption "enables mpv";
+    home-modules.applications.mpv.enable = lib.mkEnableOption "enables mpv";
   };
 
-  config = lib.mkIf config.mpv.enable {
+  config = lib.mkIf config.home-modules.applications.mpv.enable {
     programs.mpv = {
       enable = true;
       scripts = [pkgs.mpvScripts.autoload];

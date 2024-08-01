@@ -2,10 +2,10 @@
 
 {
   options = {
-    steam.enable = lib.mkEnableOption "enables steam";
+    system-modules.applications.steam.enable = lib.mkEnableOption "enables steam";
   };
 
-  config = lib.mkIf config.steam.enable {
+  config = lib.mkIf config.system-modules.applications.steam.enable {
     programs.steam = {
       enable = true;
       remotePlay.openFirewall = true;

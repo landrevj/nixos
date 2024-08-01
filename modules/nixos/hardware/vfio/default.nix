@@ -4,14 +4,14 @@
 
 {
   options = {
-    vfio.enable = lib.mkEnableOption "enables vfio";
+    system-modules.hardware.vfio.enable = lib.mkEnableOption "enables vfio";
   };
 
-  config = lib.mkIf config.vfio.enable {
+  config = lib.mkIf config.system-modules.hardware.vfio.enable {
     # enable vfio and isolate the nvidia gpu
     boot = {
       kernelParams = [ "intel_iommu=on" ]; 
-      # can also try this if vfio_pci doesn't want to grab the guest gpu
+      # can also try this if vfio-pci doesn't want to grab the guest gpu
       # https://passthroughpo.st/explaining-csm-efifboff-setting-boot-gpu-manually/
       # https://www.reddit.com/r/VFIO/comments/ks7ve3/alternative_to_efifboff/
       # kernelParams = [ "intel_iommu=on" "video=efifb:off" "video=vesafb:off" "quiet" ]; 

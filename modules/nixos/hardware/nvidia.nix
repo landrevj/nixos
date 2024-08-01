@@ -2,10 +2,10 @@
 
 {
   options = {
-    nvidia.enable = lib.mkEnableOption "enables nvidia gpu";
+    system-modules.hardware.nvidia.enable = lib.mkEnableOption "enables nvidia gpu";
   };
 
-  config = lib.mkIf config.nvidia.enable {
+  config = lib.mkIf config.system-modules.hardware.nvidia.enable {
     # Enable OpenGL
     hardware.opengl = {
       enable = true;

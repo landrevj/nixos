@@ -2,10 +2,10 @@
 
 {
   options = {
-    foot.enable = lib.mkEnableOption "enables foot";
+    home-modules.applications.foot.enable = lib.mkEnableOption "enables foot";
   };
 
-  config = lib.mkIf config.foot.enable (lib.mkMerge [
+  config = lib.mkIf config.home-modules.applications.foot.enable (lib.mkMerge [
     {
       programs.foot = {
         enable = true;
@@ -49,7 +49,7 @@
         };
       };
     }
-    (lib.mkIf config.fish.enable {
+    (lib.mkIf config.home-modules.applications.fish.enable {
       programs.fish.functions = {
         mark_prompt_start = {
           body = ''echo -en "\e]133;A\e\\"'';

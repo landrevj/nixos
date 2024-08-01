@@ -2,10 +2,10 @@
 
 {
   options = {
-    nsxiv.enable = lib.mkEnableOption "enables nsxiv";
+    home-modules.applications.nsxiv.enable = lib.mkEnableOption "enables nsxiv";
   };
 
-  config = lib.mkIf config.nsxiv.enable {
+  config = lib.mkIf config.home-modules.applications.nsxiv.enable {
     home.packages = [
       pkgs.nsxiv
       (pkgs.writeScriptBin "nsxiv-rifle" (builtins.readFile ../../../scripts/nsxiv-rifle.sh))

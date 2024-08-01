@@ -35,15 +35,17 @@
 
     packages = with pkgs; [
       openrgb-with-all-plugins
-      darktable
       prusa-slicer
       freecad
       gpu-screen-recorder
       gpu-screen-recorder-gtk
-      waydroid
       playwright # make sure to `playwright install`
       unrpa
       gallery-dl
+      mkvtoolnix
+      pinta
+      puddletag
+      protonup-qt
 
       # scripts
       (pkgs.writeScriptBin "archive" (builtins.readFile ./scripts/archive/archive.fish))
@@ -134,8 +136,8 @@
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
       binding = "<Shift><Control>Escape";
-      command = "mission-center";
-      name = "open-mission-center";
+      command = "resources";
+      name = "open-resources";
     };
   };
   gtk = {
@@ -180,6 +182,12 @@
   };
 
   # Modules
-  obs-studio.enable = true;
-  xivlauncher.enable = true;
+  home-modules = {
+    applications = {
+      darktable.enable = true;
+      davinci-resolve.enable = true;
+      obs-studio.enable = true;
+      xivlauncher.enable = true;
+    };
+  };
 }

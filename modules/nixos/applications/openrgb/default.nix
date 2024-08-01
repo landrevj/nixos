@@ -9,11 +9,17 @@
 
 {
   options = {
-    openrgb.enable = lib.mkEnableOption "enables openrgb";
+    system-modules.applications.openrgb.enable = lib.mkEnableOption "enables openrgb";
   };
 
-  config = lib.mkIf config.openrgb.enable {
-    boot.kernelModules = [ "i2c-dev" "i2c-piix4" ];
-    services.udev.extraRules =  builtins.readFile ./60-openrgb.rules; # using a local version with references to chmod removed
+  config = lib.mkIf config.system-modules.applications.openrgb.enable {
+    boot.kernelModules = [ "i2c-dev" "i2c-i801" ];
+    services.udev.packages = [
+      (pkgs.writeTextFile {
+        name = "60-openrgb.rules";
+        destination = "/etc/udev/rules.d/60-openrgb.rules";
+        text = builtins.readFile ./60-openrgb.rules;
+      })
+    ];  # using a local version with references to chmod removed
   };
 }

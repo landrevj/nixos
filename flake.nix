@@ -18,9 +18,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    aagl.url = "github:ezKEa/aagl-gtk-on-nix"; # bad weeb games
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, flatpaks, sops-nix, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, flatpaks, sops-nix, aagl, ... }: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -30,6 +31,7 @@
         modules = [
           ./hosts/desktop/configuration.nix
           sops-nix.nixosModules.sops
+          aagl.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

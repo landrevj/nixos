@@ -4,19 +4,23 @@
   imports = [
     ./openrgb
     ./steam.nix
+    ./waydroid.nix
   ];
 
   # Modules
-  openrgb.enable = lib.mkDefault false;
-  steam.enable = lib.mkDefault true;
+  system-modules.applications = {
+    openrgb.enable = lib.mkDefault false;
+    steam.enable = lib.mkDefault true;
+    waydroid.enable = lib.mkDefault false;
+  };
 
   # Packages
   environment.systemPackages = with pkgs; [
     # gnome
-    gnome.dconf-editor
-    gnome.gnome-tweaks
     gnome.gnome-software
-    gnome.gnome-themes-extra
+    dconf-editor
+    gnome-tweaks
+    gnome-themes-extra
 
     # utils
     wget

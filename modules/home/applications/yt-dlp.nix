@@ -2,10 +2,10 @@
 
 {
   options = {
-    yt-dlp.enable = lib.mkEnableOption "enables yt-dlp";
+    home-modules.applications.yt-dlp.enable = lib.mkEnableOption "enables yt-dlp";
   };
 
-  config = lib.mkIf config.yt-dlp.enable {
+  config = lib.mkIf config.home-modules.applications.yt-dlp.enable {
     programs.yt-dlp = {
       enable = true;
       settings = {

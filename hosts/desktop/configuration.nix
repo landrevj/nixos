@@ -14,6 +14,9 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
+  # Set kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   networking.hostName = "nixos";
   users.users.${username} = {
@@ -23,6 +26,7 @@
       "networkmanager"
       "wheel" # give user sudo
       "dialout" # needed for flashing mmu3 firmware
+      "lp"
     ];
   };
 
@@ -57,7 +61,17 @@
     '';
   };
 
+  programs.sleepy-launcher.enable = true;
+
   # Modules
-  amd.enable = true;
-  vfio.enable = true;
+  system-modules = {
+    hardware = {
+      amd.enable = true;
+      vfio.enable = true;
+    };
+    applications = {
+      openrgb.enable = true;
+      waydroid.enable = true;
+    };
+  };
 }
