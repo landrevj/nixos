@@ -1,6 +1,10 @@
 { config, pkgs, lib, username, ... }:
 
 {
+  imports = [
+    ../../modules/home/applications
+  ];
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -30,77 +34,23 @@
     };
 
     packages = with pkgs; [
-      # settings
-      appeditor
       openrgb-with-all-plugins
-      hyfetch
-
-      # files
-      vscode
-      
-      # browsing
-      firefox
-      chromium
-      bitwarden
-
-      # communication
-      discord
-      webcord
-      vesktop
-      signal-desktop
-      element-desktop
-
-      # media
-      audacity
-      darktable
-      plexamp
-      feh
-      nsxiv
-      foliate
-      shotwell
-      wireplumber # for obs-pipewire-audio-capture
-      
-      # games
-      gnome.aisleriot
-      heroic
-      prismlauncher
-      steamtinkerlaunch
-      steam-run
-      space-cadet-pinball
-      mangohud
-
-      # modeling
       prusa-slicer
       freecad
-
-      # utilities
-      bat
-      bottles
-      eza
-      gcolor3
       gpu-screen-recorder
       gpu-screen-recorder-gtk
-      grc
-      fzf
-      fd
-      mullvad-vpn
-      shellcheck
-      shfmt
-      starship
-      waydroid
       playwright # make sure to `playwright install`
       unrpa
-      mission-center
-
-      # downloaders
       gallery-dl
-      yt-dlp
+      mkvtoolnix
+      pinta
+      puddletag
+      protonup-qt
 
       # scripts
       (pkgs.writeScriptBin "archive" (builtins.readFile ./scripts/archive/archive.fish))
       (pkgs.writeScriptBin "iommu" (builtins.readFile ./scripts/iommu.sh))
       (pkgs.writeScriptBin "hotplug" (builtins.readFile ./scripts/hotplug/hotplug.sh))
-      (pkgs.writeScriptBin "nsxiv-rifle" (builtins.readFile ../../scripts/nsxiv-rifle.sh))
       (pkgs.writers.writePython3Bin "__get_tiktok_user_video_urls" {
         libraries = [
           (pkgs.python3Packages.buildPythonPackage rec {
@@ -121,11 +71,6 @@
       } (builtins.readFile ./scripts/archive/tiktok/tiktok.py))
     ];
   };
-
-  services.flatpak.packages = [
-    "it.mijorus.smile"
-    "dev.goats.xivlauncher"
-  ];
 
   # secrets
   sops = {
@@ -152,42 +97,8 @@
   # Config files
   xdg = {
     enable = true;
-    desktopEntries = {
-      nsxiv-rifle = {
-        name = "nsxiv-rifle";
-        genericName = "Image Viewer";
-        exec = "nsxiv-rifle %U";
-        terminal = false;
-        categories = ["Graphics" "2DGraphics" "RasterGraphics" "Viewer"];
-        mimeType = [
-          "image/jpeg"
-          "image/png"
-          "image/gif"
-          "image/webp"
-          "image/tiff"
-          "image/x-tga"
-          "image/vnd-ms.dds"
-          "image/x-dds"
-          "image/bmp"
-          "image/vnd.microsoft.icon"
-          "image/vnd.radiance"
-          "image/x-exr"
-          "image/x-portable-bitmap"
-          "image/x-portable-graymap"
-          "image/x-portable-pixmap"
-          "image/x-portable-anymap"
-          "image/x-qoi"
-          "image/svg+xml"
-          "image/svg+xml-compressed"
-          "image/avif"
-          "image/heic"
-          "image/jxl"
-        ];
-      };
-    };
     # script completions
     configFile."fish/completions/archive.fish".source = ./scripts/archive/completions.fish;
-    configFile."yt-dlp/config".source = ../../dotfiles/yt-dlp/config;
   };
 
   # Gnome
@@ -225,8 +136,8 @@
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
       binding = "<Shift><Control>Escape";
-      command = "mission-center";
-      name = "open-mission-center";
+      command = "resources";
+      name = "open-resources";
     };
   };
   gtk = {
@@ -250,56 +161,8 @@
     };
   };
 
-  # XResources
-  xresources.extraConfig = ''
-    Nsxiv.window.background: #1e1e1e
-    Nsxiv.window.foreground: #bfbfbf
-  '';
-
   # Programs
   programs = {
-    foot = {
-      enable = true;
-      server.enable = true;
-      settings = {
-        main = {
-          font = "MesloLGLDZ Nerd Font Mono:size=11";
-          initial-window-size-chars = "120x27";
-        };
-        colors = {
-          background = "1e1e1e";
-          regular0 = "444444";
-          regular1 = "FF0054";
-          regular2 = "B1D630";
-          regular3 = "F5C211";
-          regular4 = "67BEE3";
-          regular5 = "B576BC";
-          regular6 = "569A9F";
-          regular7 = "EDEDED";
-          bright0  = "777777";
-          bright1  = "D65E75";
-          bright2  = "BAFFAA";
-          bright3  = "F8E45C";
-          bright4  = "9FD3E5";
-          bright5  = "DEB3DF";
-          bright6  = "B6E0E5";
-          bright7  = "FFFFFF";
-        };
-        csd = {
-          color = "303030";
-          button-color = "ffffff";
-          button-minimize-color = "444444";
-          button-maximize-color = "444444";
-        };
-        cursor = {
-          blink = true;
-        };
-        tweak = {
-          overflowing-glyphs=true;
-        };
-      };
-    };
-
     fish = {
       enable = true;
       interactiveShellInit = ''
@@ -310,89 +173,21 @@
         set -gx ARCHIVE_DIR (cat ${config.sops.secrets."paths/archive_dir".path})
         set -gx TIKTOK_MS_TOKEN (cat ${config.sops.secrets."credentials/tiktok/ms_token".path})
       '';
-      plugins = [
-        { name = "colored_man_pages"; src = pkgs.fishPlugins.colored-man-pages.src; }
-        { name = "fzf.fish"; src = pkgs.fishPlugins.fzf-fish.src; }
-        { name = "grc"; src = pkgs.fishPlugins.grc.src; }
-        { name = "pisces"; src = pkgs.fishPlugins.pisces.src; }
-        # { name = "transient-fish"; src = pkgs.fishPlugins.transient-fish.src; }
-        { name = "z"; src = pkgs.fishPlugins.z.src; }
-        {
-          name = "transient-fish";
-          src = pkgs.fetchFromGitHub {
-            owner = "zzhaolei";
-            repo = "transient.fish";
-            rev = "be0093f1799462a93953e69896496dee4d063fd6";
-            sha256 = "sha256-rEkCimnkxcydKRI2y4DxEM7FD7F2/cGTZJN2Edq/Acc=";
-          };
-        }
-      ];
       functions = {
-        e = "eza -l $argv";
-        ee = "eza -la $argv";
-        replug = "hotplug d $argv[1]; and hotplug a $argv[1]";
         nix-rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#desktop $argv";
         # nix-update = "sudo nix flake update --flake /etc/nixos#desktop $argv";
-        nix-update = "nix flake update /etc/nixos";
-        nix-gc = "sudo nix-env --delete-generations 14d; and sudo nix-store --gc"; # sudo nix-collect-garbage --delete-older-than 14d
-        vim = "nvim $argv";
-        xcopy = "xclip -selection clipboard";
-        xpaste = "xclip -selection clipboard -o";
-        # foot events
-        mark_prompt_start = {
-          body = ''echo -en "\e]133;A\e\\"'';
-          onEvent = "fish_prompt";
-        };
-        foot_cmd_start = {
-          body = ''echo -en "\e]133;C\e\\"'';
-          onEvent = "fish_preexec";
-        };
-        foot_cmd_end = {
-          body = ''echo -en "\e]133;D\e\\'';
-          onEvent = "fish_postexec";
-        };
+        replug = "hotplug d $argv[1]; and hotplug a $argv[1]";
       };
     };
+  };
 
-    git = {
-      enable = true;
-      userName = "Joseph Landreville";
-      userEmail = "landrevillejoseph@gmail.com";
-    };
-
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-      extraLuaConfig = ''
-        vim.wo.number = true
-        vim.wo.relativenumber = true
-      '';
-    };
-
-    mpv = {
-      enable = true;
-      scripts = with pkgs; [ mpvScripts.autoload ];
-      scriptOpts = {
-        osc = {
-          windowcontrols = false;
-        };
-        autoload = {
-          images = false;
-          additional_video_exts = "gif,apng";
-        };
-      };
-      config = {
-        no-border = true;
-        osd-fractions = true;
-        loop-file = true;
-      };
-    };
-
-    obs-studio = {
-      enable = true;
-      plugins = with pkgs; [
-        obs-studio-plugins.obs-pipewire-audio-capture
-      ];
+  # Modules
+  home-modules = {
+    applications = {
+      darktable.enable = true;
+      davinci-resolve.enable = true;
+      obs-studio.enable = true;
+      xivlauncher.enable = true;
     };
   };
 }

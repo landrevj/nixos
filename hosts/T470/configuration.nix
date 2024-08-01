@@ -95,9 +95,7 @@
     variant = "";
   };
   # services.xserver.libinput.enable = true; # Enable touchpad support (enabled default in most desktopManager).
-  services.printing.enable = true; # Enable CUPS to print documents.
-  services.flatpak.enable = true; # List services that you want to enable:
-  services.mullvad-vpn.enable = true; # enable mullvad service
+  services.mullvad-vpn.enable = true;
 
   # Environment variables
   environment.variables = {
@@ -125,10 +123,10 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
      vim
-     gnome.dconf-editor
-     gnome.gnome-tweaks
      gnome.gnome-software
-     gnome.gnome-themes-extra
+     dconf-editor
+     gnome-tweaks
+     gnome-themes-extra
      wget
      python3
      ffmpeg
