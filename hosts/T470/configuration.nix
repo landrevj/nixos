@@ -135,7 +135,7 @@
      libGL
      gamescope
      gamemode
-     jdk17
+     jdk
      xclip
      man-pages
      tuptime

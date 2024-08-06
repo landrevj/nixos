@@ -13,7 +13,7 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flatpaks.url = "github:gmodena/nix-flatpak/?ref=v0.3.0";
+    flatpaks.url = "github:gmodena/nix-flatpak";
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,7 +31,6 @@
         modules = [
           ./hosts/desktop/configuration.nix
           sops-nix.nixosModules.sops
-          aagl.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

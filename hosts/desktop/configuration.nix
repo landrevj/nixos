@@ -23,10 +23,10 @@
     isNormalUser = true;
     description = "Joey Landreville";
     extraGroups = [
-      "networkmanager"
-      "wheel" # give user sudo
       "dialout" # needed for flashing mmu3 firmware
-      "lp"
+      "lp" # printing
+      "networkmanager"
+      "wheel" # sudo
     ];
   };
 
@@ -43,7 +43,9 @@
   # Open ports in the firewall.
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [ 3389 ];
+    allowedTCPPorts = [
+      3389 # remote desktop
+    ];
     # allowedUDPPorts = [ ... ];
   };
 
@@ -61,7 +63,7 @@
     '';
   };
 
-  programs.sleepy-launcher.enable = true;
+  # programs.sleepy-launcher.enable = true;
 
   # Modules
   system-modules = {

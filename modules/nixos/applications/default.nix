@@ -14,6 +14,12 @@
     waydroid.enable = lib.mkDefault false;
   };
 
+  # Fix appimages
+  programs.appimage ={
+    enable = true;
+    binfmt = true;
+  };
+
   # Packages
   environment.systemPackages = with pkgs; [
     # gnome
@@ -33,6 +39,7 @@
     file
     jq
     findutils
+    ncdu
 
     # hardware
     pciutils
