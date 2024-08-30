@@ -83,6 +83,11 @@
       command = "flatpak run it.mijorus.smile";
       name = "open-emoji-picker";
     };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
+      binding = "<Shift><Control>Escape";
+      command = "resources";
+      name = "open-resources";
+    };
   };
   gtk = {
     enable = true;
@@ -115,4 +120,10 @@
       };
     };
   };
+
+  # Modules
+  # home-modules = {
+  #   applications = {
+  #   };
+  # };
 }
