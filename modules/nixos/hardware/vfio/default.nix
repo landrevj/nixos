@@ -1,10 +1,16 @@
 # a good resource https://github.com/bryansteiner/gpu-passthrough-tutorial https://astrid.tech/2022/09/22/0/nixos-gpu-vfio/
 
-{ config, home-manager, pkgs, lib, username, ... }:
+{ config, home-manager, pkgs, lib, username, types, ... }:
 
 {
   options = {
     system-modules.hardware.vfio.enable = lib.mkEnableOption "enables vfio";
+    system-modules.hardware.vfio.pci-ids = lib.mkOption {
+      type = with lib.types; listOf str;
+      default = [];
+      example = [ "10de:2206" "10de:1aef" ];
+      description = "List of PCI ids for the devices which will be isolated by vfio.";
+    };
   };
 
   config = lib.mkIf config.system-modules.hardware.vfio.enable {
@@ -25,12 +31,7 @@
       ];
 
       extraModprobeConfig = ''
-        options vfio-pci ids=${lib.concatStringsSep "," [
-          "10de:2206" # 3080 graphics
-          "10de:1aef" # 3080 audio
-          # "144d:a80c" # 990 nvme
-          # "1b73:1100" # usb card
-        ]}
+        options vfio-pci ids=${lib.concatStringsSep "," config.system-modules.hardware.vfio.pci-ids}
       '';
     };
 

@@ -18,10 +18,17 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    aagl.url = "github:ezKEa/aagl-gtk-on-nix"; # bad weeb games
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix"; # bad weeb games
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-cosmic = {
+      url = "github:lilyinstarlight/nixos-cosmic";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, flatpaks, sops-nix, aagl, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, flatpaks, sops-nix, aagl, nixos-cosmic, ... }: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -30,6 +37,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/desktop/configuration.nix
+          nixos-cosmic.nixosModules.default
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           {
@@ -40,6 +48,30 @@
             };
 
             home-manager.users.landrevj = import ./hosts/desktop/home.nix;
+            home-manager.sharedModules = [
+              flatpaks.homeManagerModules.nix-flatpak
+              sops-nix.homeManagerModules.sops
+            ];
+          }
+        ];
+      };
+      livingroom = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          username = "landrevj";
+        };
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/livingroom/configuration.nix
+          sops-nix.nixosModules.sops
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              username = "landrevj";
+            };
+
+            home-manager.users.landrevj = import ./hosts/livingroom/home.nix;
             home-manager.sharedModules = [
               flatpaks.homeManagerModules.nix-flatpak
               sops-nix.homeManagerModules.sops

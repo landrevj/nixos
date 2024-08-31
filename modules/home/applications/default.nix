@@ -4,6 +4,7 @@
   imports = [
     ./darktable.nix
     ./davinci-resolve.nix
+    ./firefox.nix
     ./fish.nix
     ./foot.nix
     ./git.nix
@@ -21,6 +22,7 @@
   home-modules.applications = {
     darktable.enable = lib.mkDefault false;
     davinci-resolve.enable = lib.mkDefault false;
+    firefox.enable = lib.mkDefault true;
     fish.enable = lib.mkDefault true;
     foot.enable = lib.mkDefault true;
     git.enable = lib.mkDefault true;
@@ -44,12 +46,12 @@
     vscode
     
     # browsing
-    firefox
     chromium
     bitwarden
 
     # communication
     vesktop
+    smile
     signal-desktop
     element-desktop
 
@@ -60,15 +62,22 @@
     foliate
     imagemagick
     switcheroo
+    cuetools
+    flacon
     
     # games
     gnome.aisleriot
     heroic
     prismlauncher
-    steamtinkerlaunch
     steam-run
     space-cadet-pinball
     mangohud
+    protontricks
+    
+    steamtinkerlaunch # requires the below for nxm links
+    unzip
+    xdotool
+    xorg.xwininfo
 
     # utilities
     bat
@@ -81,10 +90,12 @@
     shfmt
     starship
     resources
+    zenity
   ];
 
   # Flatpaks
   services.flatpak.packages = [
     "it.mijorus.smile"
+    "com.github.tchx84.Flatseal"
   ];
 }

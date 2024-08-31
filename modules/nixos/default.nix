@@ -1,6 +1,7 @@
 {
   imports = [
     ./applications
+    ./desktop-environment
     ./hardware
     ./fonts
     

@@ -13,15 +13,17 @@
 
     hardware.graphics = {
       enable = true;
-      enable32Bit = true;
       extraPackages = with pkgs; [
         # include amdvlk even though we default to radv below
         # use amdvlk instead of radv by defining the following env var (e.g. in a game's steam launch params):
         # VK_ICD_FILENAMES="/run/opengl-driver/share/vulkan/icd.d/amd_icd32.json:/run/opengl-driver/share/vulkan/icd.d/amd_icd64.json"
         amdvlk
-        driversi686Linux.amdvlk
       
         rocmPackages.clr.icd # OpenCL
+      ];
+      enable32Bit = true;
+      extraPackages32 = with pkgs; [
+        driversi686Linux.amdvlk
       ];
     };
     

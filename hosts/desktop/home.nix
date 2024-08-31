@@ -72,6 +72,10 @@
     ];
   };
 
+  services.flatpak.packages = [
+    "io.github.loot.loot"
+  ];
+
   # secrets
   sops = {
     defaultSopsFile = ../../secrets/${username}/secrets.yaml;
@@ -131,7 +135,7 @@
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
       binding = "<Super>period";
-      command = "flatpak run it.mijorus.smile";
+      command = "smile";
       name = "open-emoji-picker";
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {

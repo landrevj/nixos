@@ -69,8 +69,17 @@
   system-modules = {
     hardware = {
       amd.enable = true;
-      vfio.enable = true;
+      vfio = {
+        enable = true;
+        pci-ids = [
+          "10de:2206" # 3080 graphics
+          "10de:1aef" # 3080 audio
+          # "144d:a80c" # 990 nvme
+          # "1b73:1100" # usb card
+        ];
+      };
     };
+    desktop-environment.cosmic.enable = true;
     applications = {
       openrgb.enable = true;
       waydroid.enable = true;
