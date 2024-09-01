@@ -23,7 +23,7 @@
   # Packages
   environment.systemPackages = with pkgs; [
     # gnome
-    gnome.gnome-software
+    gnome-software
     dconf-editor
     gnome-tweaks
     gnome-themes-extra

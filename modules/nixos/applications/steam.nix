@@ -10,6 +10,10 @@
       enable = true;
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
+      gamescopeSession = {
+        enable = true;
+        args = [ "-f -m 1 -e" ];
+      };
     };
 
     environment.systemPackages = with pkgs; [

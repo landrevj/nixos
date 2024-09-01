@@ -34,8 +34,6 @@
 
   # Services
   services.xserver.enable = true; # Enable the X11 windowing system.
-  services.xserver.displayManager.gdm.enable = true; # Enable the GNOME Desktop Environment.
-  services.xserver.desktopManager.gnome.enable = true;
   # services.xserver.libinput.enable = true; # Enable touchpad support (enabled default in most desktopManager).
   services.printing.enable = true;
   services.avahi = {

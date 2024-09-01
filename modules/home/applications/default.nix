@@ -66,7 +66,7 @@
     flacon
     
     # games
-    gnome.aisleriot
+    aisleriot
     heroic
     prismlauncher
     steam-run

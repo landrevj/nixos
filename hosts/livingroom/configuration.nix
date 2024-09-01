@@ -59,8 +59,34 @@
     '';
   };
 
+  # steam machine
+  jovian = {
+    hardware.has.amd.gpu = true;
+    steamos = {
+      useSteamOSConfig = true;
+      enableMesaPatches = true;
+    };
+    steam = {
+      enable = true;
+      autoStart = true;
+      desktopSession = "gnome";
+      user = username;
+    };
+    # decky-loader = {
+    #   enable = true;
+    #   user = username;
+    #   package = pkgs.decky-loader-prerelease;
+    #   extraPackages = with pkgs; [ python3 ];
+    # };
+  };
+  
+
   # Modules
   system-modules = {
     hardware.amd.enable = true;
+    desktop-environment.gnome = {
+      enable = true;
+      displayManager.enable = false;
+    };
   };
 }

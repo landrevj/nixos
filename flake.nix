@@ -26,9 +26,13 @@
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, flatpaks, sops-nix, aagl, nixos-cosmic, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, flatpaks, sops-nix, aagl, nixos-cosmic, jovian, ... }: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -62,6 +66,8 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/livingroom/configuration.nix
+          nixos-cosmic.nixosModules.default
+          jovian.nixosModules.default
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           {
