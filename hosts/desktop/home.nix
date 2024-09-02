@@ -107,6 +107,14 @@
 
   # Gnome
   dconf.settings = with lib.hm.gvariant; {
+    # general settings
+    "org/gnome/desktop/wm/preferences" = {
+      button-layout = "appmenu:minimize,maximize,close";
+      resize-with-right-button = true;
+    };
+    "org/gnome/desktop/sound" = {
+      event-sounds = false;
+    };
     # set wallpaper
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
