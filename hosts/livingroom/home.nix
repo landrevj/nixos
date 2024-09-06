@@ -33,7 +33,9 @@
       # '';
     };
 
-    # packages = with pkgs; [];
+    packages = with pkgs; [
+      protonup-qt
+    ];
   };
 
   # secrets
