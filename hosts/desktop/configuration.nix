@@ -18,7 +18,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  networking.hostName = "nixos";
+  networking.hostName = "azeyma";
   users.users.${username} = {
     isNormalUser = true;
     description = "Joey Landreville";
