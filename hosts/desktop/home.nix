@@ -123,6 +123,16 @@
       picture-uri-dark = "file://" + ../../assets/wallpapers/clouds.jpg;
     };
     # set keybinds
+    "org/gnome/shell/keybindings" = {
+      screenshot = [ "Print" ];
+      show-screenshot-ui = [ "<Shift><Super>s" ];
+    };
+    "org/gnome/desktop/wm/keybindings" = {
+      move-to-workspace-left = [ "<Control><Alt><Super>Left" ];
+      move-to-workspace-right = [ "<Control><Alt><Super>Right" ];
+      switch-to-workspace-left = [ "<Control><Super>Left" ];
+      switch-to-workspace-right = [ "<Control><Super>Right" ];
+    };
     "org/gnome/settings-daemon/plugins/media-keys" = {
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"

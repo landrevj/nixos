@@ -33,5 +33,8 @@
         xpaste = "xclip -selection clipboard -o";
       };
     };
+    xdg.configFile = {
+      "starship.toml".source = ../../../dotfiles/starship.toml;
+    };
   };
 }
