@@ -91,6 +91,9 @@
     starship
     resources
     zenity
+
+    # debug
+    d-spy
   ];
 
   # Flatpaks
