@@ -12,7 +12,7 @@
       dedicatedServer.openFirewall = true;
       gamescopeSession = {
         enable = true;
-        args = [ "-f -m 1 -e" ];
+        args = [ "--hdr-enabled --hdr-itm-enable --expose-wayland" ];
       };
     };
 

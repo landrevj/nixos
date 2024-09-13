@@ -72,14 +72,36 @@
       desktopSession = "gnome";
       user = username;
     };
-    # decky-loader = {
-    #   enable = true;
-    #   user = username;
-    #   package = pkgs.decky-loader-prerelease;
-    #   extraPackages = with pkgs; [ python3 ];
-    # };
+    decky-loader = {
+      enable = true;
+      user = username;
+      package = pkgs.decky-loader-prerelease;
+    };
+  };
+
+  xdg.portal = {
+    enable = true;
+    config.common = {
+      default = "gtk";
+      "org.freedesktop.impl.portal.FileChooser" = "gtk";
+    };
+    xdgOpenUsePortal = true;
   };
   
+  services.udev.packages = [
+    (pkgs.writeTextFile {
+      name = "51-gcadapter.rules";
+      destination = "/etc/udev/rules.d/51-gcadapter.rules";
+      text = ''
+        #GameCube Controller Adapter
+        SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337",     TAG+="uaccess"
+
+        #Wiimotes or DolphinBar
+        SUBSYSTEM=="hidraw*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0306", TAG+="uaccess"
+        SUBSYSTEM=="hidraw*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0330", TAG+="uaccess"
+      '';
+    })
+  ];
 
   # Modules
   system-modules = {

@@ -16,7 +16,7 @@
     # You should not change this value, even if you update Home Manager. If you do
     # want to update the value, then make sure to first check the Home Manager
     # release notes.
-    stateVersion = "23.11"; # Please read the comment before changing.
+    stateVersion = "24.05"; # Please read the comment before changing.
 
     username = username;
     homeDirectory = "/home/${username}";
@@ -35,6 +35,11 @@
 
     packages = with pkgs; [
       protonup-qt
+
+      # emulation
+      steam-rom-manager
+      dolphin-emu
+      ryujinx
     ];
   };
 
@@ -71,6 +76,16 @@
       picture-uri-dark = "file://" + ../../assets/wallpapers/aurora.jpg;
     };
     # set keybinds
+    "org/gnome/shell/keybindings" = {
+      screenshot = [ "Print" ];
+      show-screenshot-ui = [ "<Shift><Super>s" ];
+    };
+    "org/gnome/desktop/wm/keybindings" = {
+      move-to-workspace-left = [ "<Control><Alt><Super>Left" ];
+      move-to-workspace-right = [ "<Control><Alt><Super>Right" ];
+      switch-to-workspace-left = [ "<Control><Super>Left" ];
+      switch-to-workspace-right = [ "<Control><Super>Right" ];
+    };
     "org/gnome/settings-daemon/plugins/media-keys" = {
       custom-keybindings = [
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
