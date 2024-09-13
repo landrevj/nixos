@@ -96,6 +96,11 @@
     d-spy
   ];
 
+  programs.nix-index = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
   # Flatpaks
   services.flatpak.packages = [
     "it.mijorus.smile"
