@@ -64,6 +64,7 @@
     switcheroo
     cuetools
     flacon
+    onlyoffice-bin
     
     # games
     aisleriot
@@ -88,7 +89,6 @@
     mullvad-vpn
     shellcheck
     shfmt
-    starship
     resources
     zenity
 

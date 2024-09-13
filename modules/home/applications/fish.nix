@@ -9,6 +9,7 @@
     home.packages = with pkgs; [
       grc
       fzf
+      starship
     ];
     programs.fish = {
       enable = true;
