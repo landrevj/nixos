@@ -62,5 +62,8 @@
     p7zip
     gparted
     vim
+
+    # dev
+    gcc
   ];
 }

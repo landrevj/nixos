@@ -81,9 +81,14 @@
 
   xdg.portal = {
     enable = true;
-    config.common = {
-      default = "gtk";
-      "org.freedesktop.impl.portal.FileChooser" = "gtk";
+    config = {
+      common = {
+        default = "gnome";
+        "org.freedesktop.impl.portal.FileChooser" = "gnome";
+      };
+      GNOME = {
+        default = "gnome";
+      };
     };
     xdgOpenUsePortal = true;
   };
