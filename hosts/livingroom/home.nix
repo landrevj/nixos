@@ -65,6 +65,9 @@
       button-layout = "appmenu:minimize,maximize,close";
       resize-with-right-button = true;
     };
+    "org/gnome/desktop/search-providers" = {
+      disabled = [ "org.gnome.Characters.desktop" ];
+    };
     "org/gnome/desktop/sound" = {
       event-sounds = false;
     };
