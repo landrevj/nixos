@@ -40,7 +40,7 @@
   home.packages = with pkgs; [
     # settings
     appeditor
-    hyfetch
+    fastfetch
 
     # files
     vscode
