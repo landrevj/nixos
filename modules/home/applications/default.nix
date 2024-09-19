@@ -65,6 +65,7 @@
     cuetools
     flacon
     onlyoffice-bin
+    qbittorrent
     
     # games
     aisleriot
