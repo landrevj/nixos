@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../modules/home/applications
+    ../../modules/home
   ];
 
   # Let Home Manager install and manage itself.
@@ -38,6 +38,9 @@
 
       # emulation
       steam-rom-manager
+
+      # emulators
+      cemu
       dolphin-emu
       ryujinx
     ];
@@ -58,86 +61,6 @@
   #   /run/current-system/sw/bin/systemctl start --user sops-nix
   # '';
 
-  # Gnome
-  dconf.settings = with lib.hm.gvariant; {
-    # general settings
-    "org/gnome/desktop/wm/preferences" = {
-      button-layout = "appmenu:minimize,maximize,close";
-      resize-with-right-button = true;
-    };
-    "org/gnome/desktop/search-providers" = {
-      disabled = [ "org.gnome.Characters.desktop" ];
-    };
-    "org/gnome/desktop/sound" = {
-      event-sounds = false;
-    };
-    # set wallpaper
-    "org/gnome/desktop/background" = {
-      color-shading-type = "solid";
-      picture-options = "zoom";
-      picture-uri = "file://" + ../../assets/wallpapers/aurora.jpg;
-      picture-uri-dark = "file://" + ../../assets/wallpapers/aurora.jpg;
-    };
-    # set keybinds
-    "org/gnome/shell/keybindings" = {
-      screenshot = [ "Print" ];
-      show-screenshot-ui = [ "<Shift><Super>s" ];
-    };
-    "org/gnome/desktop/wm/keybindings" = {
-      move-to-workspace-left = [ "<Control><Alt><Super>Left" ];
-      move-to-workspace-right = [ "<Control><Alt><Super>Right" ];
-      switch-to-workspace-left = [ "<Control><Super>Left" ];
-      switch-to-workspace-right = [ "<Control><Super>Right" ];
-    };
-    "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
-      ];
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding = "<Super>E";
-      command = "nautilus";
-      name = "open-file-browser";
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-      binding = "<Super>T";
-      command = "foot";
-      name = "open-terminal";
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-      binding = "<Super>period";
-      command = "flatpak run it.mijorus.smile";
-      name = "open-emoji-picker";
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-      binding = "<Shift><Control>Escape";
-      command = "resources";
-      name = "open-resources";
-    };
-  };
-  gtk = {
-    enable = true;
-    theme = {
-      name = "adw-gtk3-dark";
-      package = pkgs.adw-gtk3;
-    };
-    iconTheme = {
-      # Reversal
-      # name = "Reversal-blue-dark";
-      # package = (pkgs.reversal-icon-theme.override {
-      #   colorVariants = ["-blue"];
-      # });
-      # WhiteSur
-      name = "WhiteSur-dark";
-      package = pkgs.whitesur-icon-theme.override {
-        alternativeIcons = true;
-        boldPanelIcons = true;
-      };
-    };
-  };
-
   # Programs
   programs = {
     fish = {
@@ -151,6 +74,10 @@
 
   # Modules
   home-modules = {
+    desktop-environment.gnome = {
+      enable = true;
+      wallpaper = ../../assets/wallpapers/aurora.jpg;
+    };
     applications = {
       obs-studio.enable = true;
       xivlauncher.enable = true;

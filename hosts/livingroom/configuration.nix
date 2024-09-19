@@ -78,21 +78,10 @@
       package = pkgs.decky-loader-prerelease;
     };
   };
+  xdg.portal.enable = true;
+  environment.sessionVariables.XDG_DESKTOP_PORTAL_DIR = "/run/current-system/sw/share/xdg-desktop-portal/portals";
 
-  xdg.portal = {
-    enable = true;
-    config = {
-      common = {
-        default = "gnome";
-        "org.freedesktop.impl.portal.FileChooser" = "gnome";
-      };
-      GNOME = {
-        default = "gnome";
-      };
-    };
-    xdgOpenUsePortal = true;
-  };
-  
+
   services.udev.packages = [
     (pkgs.writeTextFile {
       name = "51-gcadapter.rules";
