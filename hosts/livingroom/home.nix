@@ -78,7 +78,15 @@
   };
 
   xdg.configFile = {
-    "retroarch/retroarch.cfg".source = ./dotfiles/retroarch/retroarch.cfg;
+    "retroarch/retroarch.cfg".text = ''
+      ${builtins.readFile ./dotfiles/retroarch/retroarch.cfg}
+
+      # /nix/store dirs
+      assets_directory = "${pkgs.retroarch-assets}/share/retroarch/assets"
+      joypad_autoconfig_dir = "${pkgs.retroarch-joypad-autoconfig}/share/libretro/autoconfig"
+      libretro_directory = "${pkgs.retroarchFull}/lib/retroarch/cores"
+      libretro_info_path = "${pkgs.libretro-core-info}/share/retroarch/cores"
+    '';
   };
 
   # Modules
