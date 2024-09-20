@@ -38,11 +38,16 @@
 
       # emulation
       steam-rom-manager
+      rusty-psn-gui
 
       # emulators
       cemu
       dolphin-emu
+      (lib.meta.lowPrio pcsx2) # binary collision with "resources"
+      retroarchFull
+      rpcs3
       ryujinx
+      xemu
     ];
   };
 
@@ -70,6 +75,10 @@
         # nix-update = "sudo nix flake update --flake /etc/nixos#livingroom $argv";
       };
     };
+  };
+
+  xdg.configFile = {
+    "retroarch/retroarch.cfg".source = ./dotfiles/retroarch/retroarch.cfg;
   };
 
   # Modules

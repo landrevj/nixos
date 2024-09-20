@@ -3,6 +3,7 @@
 {
   imports = [
     ./openrgb
+    ./podman.nix
     ./steam.nix
     ./waydroid.nix
   ];
@@ -10,6 +11,7 @@
   # Modules
   system-modules.applications = {
     openrgb.enable = lib.mkDefault false;
+    podman.enable = lib.mkDefault false;
     steam.enable = lib.mkDefault true;
     waydroid.enable = lib.mkDefault false;
   };
@@ -60,10 +62,12 @@
     sops
     age
     p7zip
+    unrar
     gparted
     vim
 
     # dev
+    distrobox
     gcc
   ];
 }

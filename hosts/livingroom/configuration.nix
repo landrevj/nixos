@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, username, ... }:
+{ config, lib, pkgs, inputs, username, ... }:
 
 {
   imports = [ 
@@ -62,10 +62,7 @@
   # steam machine
   jovian = {
     hardware.has.amd.gpu = true;
-    steamos = {
-      useSteamOSConfig = true;
-      enableMesaPatches = true;
-    };
+    steamos.useSteamOSConfig = true;
     steam = {
       enable = true;
       autoStart = true;
@@ -78,8 +75,9 @@
       package = pkgs.decky-loader-prerelease;
     };
   };
+  boot.kernelParams = [ "fbcon=rotate:0" ]; # stop jovian from rotating the tty
+  environment.sessionVariables.XDG_DESKTOP_PORTAL_DIR = "/run/current-system/sw/share/xdg-desktop-portal/portals"; # recover xdg-desktop-portals from gamescope-session (?)
   xdg.portal.enable = true;
-  environment.sessionVariables.XDG_DESKTOP_PORTAL_DIR = "/run/current-system/sw/share/xdg-desktop-portal/portals";
 
 
   services.udev.packages = [
@@ -103,6 +101,9 @@
     desktop-environment.gnome = {
       enable = true;
       displayManager.enable = false;
+    };
+    applications = {
+      podman.enable = true;
     };
   };
 }
