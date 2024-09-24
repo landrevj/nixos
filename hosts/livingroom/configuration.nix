@@ -95,6 +95,15 @@
     })
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      faster-project-plus = final.qt6Packages.callPackage ../../derivations/faster-project-plus {};
+      fpp-config = final.callPackage ../../derivations/faster-project-plus/config.nix {};
+      fpp-launcher = final.callPackage ../../derivations/faster-project-plus/launcher.nix {};
+      fpp-sdcard = final.callPackage ../../derivations/faster-project-plus/sdcard.nix {};
+    })
+  ];
+
   # Modules
   system-modules = {
     hardware.amd.enable = true;

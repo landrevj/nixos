@@ -39,10 +39,13 @@
       # emulation
       steam-rom-manager
       rusty-psn-gui
+      nsz
+      xdelta
 
       # emulators
       cemu
       dolphin-emu
+      faster-project-plus
       (lib.meta.lowPrio pcsx2) # binary collision with "resources"
       retroarchFull
       rpcs3
