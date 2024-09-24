@@ -1,5 +1,6 @@
 # reference:
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/emulators/dolphin-emu/default.nix
+# https://github.com/jlambert360/FPM-AppImage/blob/master/setup_appimage
 # https://github.com/djanatyn/ssbm-nix/blob/master/pplus/slippi.nix
 
 {
