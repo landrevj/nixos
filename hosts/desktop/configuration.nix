@@ -79,7 +79,7 @@
         ];
       };
     };
-    desktop-environment.cosmic.enable = true;
+    # desktop-environment.cosmic.enable = true;
     applications = {
       openrgb.enable = true;
       waydroid.enable = true;

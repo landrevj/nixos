@@ -59,11 +59,11 @@
             src = fetchFromGitHub {
               owner = "davidteather";
               repo = name;
-              rev = "7386b2b5f723fb1d376ef6e3ceca5aa30fc733a7";
-              sha256 = "sha256-Rox/om8hgwUAptGgeI7oKWdvw9YCFiNypmmjfCKf3aM=";
+              rev = "a4079f0a7ccac4f2a7482272f028849b45387a7d";
+              sha256 = "sha256-aeY82HypYy+0H2kj7K5ihm4CVFKjYHgNszaZjDjEV4E=";
             };
 
-            propagatedBuildInputs = with pkgs.python3Packages; [ pytest playwright requests ];
+            propagatedBuildInputs = with pkgs.python3Packages; [ pytest playwright requests httpx ];
             pythonImportsCheck = [ "TikTokApi" ];
           })
         ];
