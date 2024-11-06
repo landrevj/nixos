@@ -8,7 +8,7 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "vmd" "xhci_pci" "ahci" "nvme" "usbhid" ];
+  boot.initrd.availableKernelModules = [ "vmd" "xhci_pci" "ahci" "nvme" "usbhid" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
@@ -26,6 +26,11 @@
 
   fileSystems."/mnt/980Pro" =
     { device = "/dev/disk/by-uuid/44718922-0192-4dba-8abb-72d0bb731040";
+      fsType = "ext4";
+    };
+
+  fileSystems."/mnt/870Evo" =
+    { device = "/dev/disk/by-uuid/cd1dd503-a60c-4377-a9f7-ad00d9839cd8";
       fsType = "ext4";
     };
 
