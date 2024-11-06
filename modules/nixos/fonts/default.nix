@@ -7,12 +7,14 @@ in
 {
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Meslo" ]; })
+    hanazono
 
     # google
     (google-fonts.override { fonts = [ "Roboto" "Open Sans" ]; })
     (noto-fonts.override { variants = [ "Noto Sans" ]; })
     noto-fonts-cjk-sans
-    
+    noto-fonts-cjk-serif
+
     # microsoft
     corefonts
     vistafonts
