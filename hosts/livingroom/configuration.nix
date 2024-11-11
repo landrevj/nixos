@@ -68,6 +68,7 @@
       autoStart = true;
       desktopSession = "gnome";
       user = username;
+      updater.splash = "vendor";
     };
     decky-loader = {
       enable = true;
