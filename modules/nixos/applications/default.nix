@@ -42,6 +42,7 @@
     jq
     findutils
     ncdu
+    nixpkgs_fmt
 
     # hardware
     pciutils
@@ -50,6 +51,9 @@
     hwloc
     dmidecode
     smartmontools
+
+    # os
+    scx.full
 
     # lib
     python3
