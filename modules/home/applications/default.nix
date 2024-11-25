@@ -52,6 +52,7 @@
     # communication
     vesktop
     smile
+    gnome-frog
     signal-desktop
     element-desktop
 
