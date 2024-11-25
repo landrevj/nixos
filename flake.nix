@@ -42,6 +42,7 @@
         modules = [
           ./hosts/desktop/configuration.nix
           # nixos-cosmic.nixosModules.default
+          jovian.nixosModules.default
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           {

@@ -42,7 +42,7 @@
     jq
     findutils
     ncdu
-    nixpkgs_fmt
+    nixpkgs-fmt
 
     # hardware
     pciutils

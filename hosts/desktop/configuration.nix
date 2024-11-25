@@ -63,6 +63,23 @@
     '';
   };
 
+  jovian = {
+    hardware.has.amd.gpu = true;
+    steamos.useSteamOSConfig = true;
+    steam = {
+      enable = true;
+      desktopSession = "gnome";
+      user = username;
+      updater.splash = "vendor";
+    };
+    decky-loader = {
+      enable = true;
+      user = username;
+      package = pkgs.decky-loader-prerelease;
+    };
+  };
+  boot.kernelParams = [ "fbcon=rotate:0" ];
+
   # programs.sleepy-launcher.enable = true;
 
   # Modules
