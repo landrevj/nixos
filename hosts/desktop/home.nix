@@ -23,6 +23,8 @@
     sessionVariables = {
       BROWSER = "firefox";
       TERMINAL = "foot";
+      PLAYWRIGHT_BROWSERS_PATH = pkgs.playwright-driver.browsers;
+      PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS = "true";
     };
 
     file = {
@@ -39,7 +41,7 @@
       freecad
       gpu-screen-recorder
       gpu-screen-recorder-gtk
-      playwright # make sure to `playwright install`
+      playwright-driver.browsers
       unrpa
       gallery-dl
       mkvtoolnix
@@ -51,24 +53,26 @@
       (pkgs.writeScriptBin "archive" (builtins.readFile ./scripts/archive/archive.fish))
       (pkgs.writeScriptBin "iommu" (builtins.readFile ./scripts/iommu.sh))
       (pkgs.writeScriptBin "hotplug" (builtins.readFile ./scripts/hotplug/hotplug.sh))
-      (pkgs.writers.writePython3Bin "__get_tiktok_user_video_urls" {
-        libraries = [
-          (pkgs.python3Packages.buildPythonPackage rec {
-            name = "TikTok-Api";
-            format = "setuptools";
-            src = fetchFromGitHub {
-              owner = "davidteather";
-              repo = name;
-              rev = "a4079f0a7ccac4f2a7482272f028849b45387a7d";
-              sha256 = "sha256-aeY82HypYy+0H2kj7K5ihm4CVFKjYHgNszaZjDjEV4E=";
-            };
+      (pkgs.writers.writePython3Bin "__get_tiktok_user_video_urls"
+        {
+          libraries = [
+            (pkgs.python3Packages.buildPythonPackage rec {
+              name = "TikTok-Api";
+              format = "setuptools";
+              src = fetchFromGitHub {
+                owner = "davidteather";
+                repo = name;
+                rev = "a4079f0a7ccac4f2a7482272f028849b45387a7d";
+                sha256 = "sha256-aeY82HypYy+0H2kj7K5ihm4CVFKjYHgNszaZjDjEV4E=";
+              };
 
-            propagatedBuildInputs = with pkgs.python3Packages; [ pytest playwright requests httpx ];
-            pythonImportsCheck = [ "TikTokApi" ];
-          })
-        ];
-        flakeIgnore = [ "E" "W" ];
-      } (builtins.readFile ./scripts/archive/tiktok/tiktok.py))
+              propagatedBuildInputs = with pkgs.python3Packages; [ pytest playwright requests httpx ];
+              pythonImportsCheck = [ "TikTokApi" ];
+            })
+          ];
+          flakeIgnore = [ "E" "W" ];
+        }
+        (builtins.readFile ./scripts/archive/tiktok/tiktok.py))
     ];
   };
 
@@ -81,8 +85,8 @@
     defaultSopsFile = ../../secrets/${username}/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
     secrets = {
-      "paths/archive_dir" = {};
-      "credentials/tiktok/ms_token" = {};
+      "paths/archive_dir" = { };
+      "credentials/tiktok/ms_token" = { };
 
       # secret config files
       gallery-dl = {
