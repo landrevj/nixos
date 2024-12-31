@@ -5,7 +5,7 @@
 { config, pkgs, inputs, username, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
     ../../modules/nixos
   ];
@@ -63,23 +63,6 @@
     '';
   };
 
-  jovian = {
-    hardware.has.amd.gpu = true;
-    steamos.useSteamOSConfig = true;
-    steam = {
-      enable = true;
-      desktopSession = "gnome";
-      user = username;
-      updater.splash = "vendor";
-    };
-    decky-loader = {
-      enable = true;
-      user = username;
-      package = pkgs.decky-loader-prerelease;
-    };
-  };
-  boot.kernelParams = [ "fbcon=rotate:0" ];
-
   # programs.sleepy-launcher.enable = true;
 
   # Modules
@@ -98,6 +81,7 @@
     };
     # desktop-environment.cosmic.enable = true;
     applications = {
+      steam.enable = true;
       openrgb.enable = true;
       waydroid.enable = true;
     };

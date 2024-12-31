@@ -12,12 +12,12 @@
   system-modules.applications = {
     openrgb.enable = lib.mkDefault false;
     podman.enable = lib.mkDefault false;
-    steam.enable = lib.mkDefault true;
+    steam.enable = lib.mkDefault false;
     waydroid.enable = lib.mkDefault false;
   };
 
   # Fix appimages
-  programs.appimage ={
+  programs.appimage = {
     enable = true;
     binfmt = true;
   };
