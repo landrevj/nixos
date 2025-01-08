@@ -7,6 +7,7 @@
     ./firefox.nix
     ./fish.nix
     ./foot.nix
+    ./ghostty.nix
     ./git.nix
     ./helix.nix
     ./mpv.nix
@@ -24,7 +25,8 @@
     davinci-resolve.enable = lib.mkDefault false;
     firefox.enable = lib.mkDefault true;
     fish.enable = lib.mkDefault true;
-    foot.enable = lib.mkDefault true;
+    foot.enable = lib.mkDefault false;
+    ghostty.enable = lib.mkDefault true;
     git.enable = lib.mkDefault true;
     helix.enable = lib.mkDefault true;
     mpv.enable = lib.mkDefault true;
@@ -44,7 +46,7 @@
 
     # files
     vscode
-    
+
     # browsing
     chromium
     bitwarden
@@ -64,10 +66,10 @@
     imagemagick
     switcheroo
     cuetools
-    flacon
+    # flacon https://github.com/NixOS/nixpkgs/issues/370032
     onlyoffice-bin
     qbittorrent
-    
+
     # games
     aisleriot
     heroic
@@ -76,7 +78,7 @@
     space-cadet-pinball
     mangohud
     protontricks
-    
+
     steamtinkerlaunch # requires the below for nxm links
     unzip
     xdotool

@@ -41,7 +41,7 @@
     defaultSopsFile = ../../secrets/T470/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
     secrets = {
-      "hello" = {};
+      "hello" = { };
     };
   };
 
@@ -75,7 +75,7 @@
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
       binding = "<Super>T";
-      command = "foot";
+      command = "ghostty";
       name = "open-terminal";
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {

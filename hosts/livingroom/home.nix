@@ -22,7 +22,7 @@
     homeDirectory = "/home/${username}";
     sessionVariables = {
       BROWSER = "firefox";
-      TERMINAL = "foot";
+      TERMINAL = "ghostty";
     };
 
     file = {

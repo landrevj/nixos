@@ -7,10 +7,10 @@
       wallpaper = lib.mkOption {
         type = with lib.types; path;
         default = ../../../assets/wallpapers/clouds.jpg;
-        example = "wallpaper.png";
+        example = "./wallpaper.png";
         description = "Image to be used as the wallpaper.";
       };
-    }; 
+    };
   };
 
   config = lib.mkIf config.home-modules.desktop-environment.gnome.enable {
@@ -69,6 +69,7 @@
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/"
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
+          "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
         ];
       };
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
@@ -78,7 +79,7 @@
       };
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
         binding = "<Super>T";
-        command = "foot";
+        command = "ghostty";
         name = "open-terminal";
       };
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
