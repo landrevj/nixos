@@ -81,8 +81,9 @@
     };
     # desktop-environment.cosmic.enable = true;
     applications = {
-      steam.enable = true;
+      distrobox.enable = true;
       openrgb.enable = true;
+      steam.enable = true;
       waydroid.enable = true;
     };
   };

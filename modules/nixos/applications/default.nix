@@ -2,16 +2,16 @@
 
 {
   imports = [
+    ./distrobox.nix
     ./openrgb
-    ./podman.nix
     ./steam.nix
     ./waydroid.nix
   ];
 
   # Modules
   system-modules.applications = {
+    distrobox.enable = lib.mkDefault false;
     openrgb.enable = lib.mkDefault false;
-    podman.enable = lib.mkDefault false;
     steam.enable = lib.mkDefault false;
     waydroid.enable = lib.mkDefault false;
   };
@@ -71,7 +71,6 @@
     vim
 
     # dev
-    distrobox
     gcc
   ];
 }

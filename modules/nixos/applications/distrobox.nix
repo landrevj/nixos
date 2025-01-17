@@ -2,10 +2,10 @@
 
 {
   options = {
-    system-modules.applications.podman.enable = lib.mkEnableOption "enables podman";
+    system-modules.applications.distrobox.enable = lib.mkEnableOption "enables distrobox";
   };
 
-  config = lib.mkIf config.system-modules.applications.podman.enable {
+  config = lib.mkIf config.system-modules.applications.distrobox.enable {
     virtualisation.containers.enable = true;
     virtualisation = {
       podman = {
@@ -16,6 +16,8 @@
         defaultNetwork.settings.dns_enabled = true;
       };
     };
+
+    environment.systemPackages = [ pkgs.distrobox ];
 
     users.users.${username} = {
       isNormalUser = true;

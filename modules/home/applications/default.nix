@@ -52,6 +52,7 @@
     bitwarden
 
     # communication
+    discord
     vesktop
     smile
     gnome-frog
@@ -66,7 +67,7 @@
     imagemagick
     switcheroo
     cuetools
-    # flacon https://github.com/NixOS/nixpkgs/issues/370032
+    flacon
     onlyoffice-bin
     qbittorrent
 

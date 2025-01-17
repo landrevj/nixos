@@ -5,7 +5,7 @@
 { config, lib, pkgs, inputs, username, ... }:
 
 {
-  imports = [ 
+  imports = [
     ./hardware-configuration.nix
     ../../modules/nixos
   ];
@@ -41,7 +41,7 @@
   # Open ports in the firewall.
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [];
+    allowedTCPPorts = [ ];
     # allowedUDPPorts = [ ... ];
   };
 
@@ -98,10 +98,10 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      faster-project-plus = final.qt6Packages.callPackage ../../derivations/faster-project-plus {};
-      fpp-config = final.callPackage ../../derivations/faster-project-plus/config.nix {};
-      fpp-launcher = final.callPackage ../../derivations/faster-project-plus/launcher.nix {};
-      fpp-sdcard = final.callPackage ../../derivations/faster-project-plus/sdcard.nix {};
+      faster-project-plus = final.qt6Packages.callPackage ../../derivations/faster-project-plus { };
+      fpp-config = final.callPackage ../../derivations/faster-project-plus/config.nix { };
+      fpp-launcher = final.callPackage ../../derivations/faster-project-plus/launcher.nix { };
+      fpp-sdcard = final.callPackage ../../derivations/faster-project-plus/sdcard.nix { };
     })
   ];
 
@@ -113,7 +113,7 @@
       displayManager.enable = false;
     };
     applications = {
-      podman.enable = true;
+      distrobox.enable = true;
     };
   };
 }
