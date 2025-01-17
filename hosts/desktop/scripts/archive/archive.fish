@@ -28,12 +28,11 @@ function reddit_user --argument-names dest username
   end
 end
 
-function tiktok_user --argument-names dest username
+function tiktok_user --argument-names dest username file
   # manual method:
-  # copy(Array.from(new Set(Array.from(document.links).filter((l) => l.href?.startsWith(`${window.location.href}/video`)).map(x => x.href))).join('\n'))
-  # copy(Array.from(document.querySelectorAll('[data-e2e="user-post-item-list"] > div > div > div > a')).map(l=>l.href).join('\n'))
-  # yt-dlp -P "$ARCHIVE_DIR/irl/tiktok/$username" -o "%(upload_date)s - %(id)s.%(ext)s" -a ~/Downloads/tiktok.txt
-  set video_urls (__get_tiktok_user_video_urls $username)
+  # copy(Array.from(new Set(Array.from(document.links).filter((l) => l.href?.startsWith(`${window.location.href.split('?')[0]}/video`)).map(x => x.href))).join('\n'))
+  # archive -s tiktok $username ./urls.txt
+  set video_urls (__get_tiktok_user_video_urls $username; or cat $file)
 
   for url in $video_urls
     if test -n $dest

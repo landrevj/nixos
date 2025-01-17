@@ -38,7 +38,8 @@ async def download_videos(username):
             num_sessions=1,
             sleep_after=3,
             headless=False,
-            starting_url=f"https://tiktok.com/@{username}"
+            starting_url=f"https://tiktok.com/@{username}",
+            browser="webkit"
         )
         page = api.sessions[0].page
         await page.wait_for_timeout(5000)
