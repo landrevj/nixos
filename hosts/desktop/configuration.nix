@@ -80,6 +80,8 @@
       };
     };
     # desktop-environment.cosmic.enable = true;
+    desktop-environment.gnome.enable = false;
+    desktop-environment.kde.enable = true;
     applications = {
       distrobox.enable = true;
       openrgb.enable = true;
