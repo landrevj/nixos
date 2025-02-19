@@ -131,10 +131,8 @@
 
   # Modules
   home-modules = {
-    desktop-environment.gnome = {
-      enable = true;
-      wallpaper = ../../assets/wallpapers/clouds.jpg;
-    };
+    desktop-environment.gnome.enable = false;
+    desktop-environment.kde.enable = true;
     applications = {
       darktable.enable = true;
       davinci-resolve.enable = true;

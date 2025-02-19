@@ -1,12 +1,7 @@
 { pkgs, lib, ... }:
 
 {
-  imports = [
-    ./distrobox.nix
-    ./openrgb
-    ./steam.nix
-    ./waydroid.nix
-  ];
+  imports = [ ./distrobox.nix ./openrgb ./steam.nix ./waydroid.nix ];
 
   # Modules
   system-modules.applications = {
@@ -42,7 +37,8 @@
     jq
     findutils
     ncdu
-    nixpkgs-fmt
+    nixfmt-classic
+    nixd
 
     # hardware
     pciutils

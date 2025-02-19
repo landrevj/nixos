@@ -21,11 +21,11 @@ open_img() {
         count="$(listfiles "///${file%/*}" | grep -nF "$file")"
     fi
     if [ -n "$count" ]; then
-        nsxiv -b -i -n "${count%%:*}" "$@" -- < "$tmp"
+        nsxiv --scale-mode f --no-bar --stdin --start-at "${count%%:*}" "$@" -- < "$tmp"
     else
         # fallback incase file didn't have a valid extension, or we couldn't
         # find it inside the list
-        nsxiv -b "$@" -- "$file"
+        nsxiv --scale-mode f --no-bar "$@" -- "$file"
     fi
 }
 

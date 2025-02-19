@@ -1,14 +1,7 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, inputs, username, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/nixos
-  ];
+  imports = [ ./hardware-configuration.nix ../../modules/nixos ];
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).

@@ -43,15 +43,15 @@
       "org/gnome/desktop/search-providers" = {
         disabled = [ "org.gnome.Characters.desktop" ];
       };
-      "org/gnome/desktop/sound" = {
-        event-sounds = false;
-      };
+      "org/gnome/desktop/sound" = { event-sounds = false; };
       # set wallpaper
       "org/gnome/desktop/background" = {
         color-shading-type = "solid";
         picture-options = "zoom";
-        picture-uri = "file://" + config.home-modules.desktop-environment.gnome.wallpaper;
-        picture-uri-dark = "file://" + config.home-modules.desktop-environment.gnome.wallpaper;
+        picture-uri = "file://"
+          + config.home-modules.desktop-environment.gnome.wallpaper;
+        picture-uri-dark = "file://"
+          + config.home-modules.desktop-environment.gnome.wallpaper;
       };
       # set keybinds
       "org/gnome/shell/keybindings" = {
@@ -72,26 +72,31 @@
           "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/"
         ];
       };
-      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-        binding = "<Super>E";
-        command = "nautilus";
-        name = "open-file-browser";
-      };
-      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-        binding = "<Super>T";
-        command = "ghostty";
-        name = "open-terminal";
-      };
-      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-        binding = "<Super>period";
-        command = "flatpak run it.mijorus.smile";
-        name = "open-emoji-picker";
-      };
-      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-        binding = "<Shift><Control>Escape";
-        command = "resources";
-        name = "open-resources";
-      };
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
+        {
+          binding = "<Super>E";
+          command = "nautilus";
+          name = "open-file-browser";
+        };
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
+        {
+          binding = "<Super>T";
+          command = "ghostty";
+          name = "open-terminal";
+        };
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" =
+        {
+          binding = "<Super>period";
+          command = "flatpak run it.mijorus.smile";
+          name = "open-emoji-picker";
+        };
+      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" =
+        {
+          binding = "<Shift><Control>Escape";
+          command = "resources";
+          name = "open-resources";
+        };
     };
+    home.packages = with pkgs; [ gcolor3 ];
   };
 }
