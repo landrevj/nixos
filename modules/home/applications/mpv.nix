@@ -8,18 +8,16 @@
   config = lib.mkIf config.home-modules.applications.mpv.enable {
     programs.mpv = {
       enable = true;
-      scripts = [pkgs.mpvScripts.autoload];
+      scripts = [ pkgs.mpvScripts.autoload ];
       scriptOpts = {
-        osc = {
-          windowcontrols = false;
-        };
+        osc = { windowcontrols = false; };
         autoload = {
           images = false;
           additional_video_exts = "gif,apng";
         };
       };
       config = {
-        no-border = true;
+        border = "no";
         osd-fractions = true;
         loop-file = true;
       };

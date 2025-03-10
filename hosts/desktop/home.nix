@@ -1,9 +1,7 @@
 { config, pkgs, lib, username, ... }:
 
 {
-  imports = [
-    ../../modules/home
-  ];
+  imports = [ ../../modules/home ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -48,37 +46,43 @@
       pinta
       puddletag
       protonup-qt
+      picard
 
       # scripts
-      (pkgs.writeScriptBin "archive" (builtins.readFile ./scripts/archive/archive.fish))
+      (pkgs.writeScriptBin "archive"
+        (builtins.readFile ./scripts/archive/archive.fish))
+      (pkgs.writeScriptBin "gamescope-configured"
+        (builtins.readFile ./scripts/gamescope-configured.sh))
+      (pkgs.writeScriptBin "hotplug"
+        (builtins.readFile ./scripts/hotplug/hotplug.sh))
       (pkgs.writeScriptBin "iommu" (builtins.readFile ./scripts/iommu.sh))
-      (pkgs.writeScriptBin "hotplug" (builtins.readFile ./scripts/hotplug/hotplug.sh))
-      (pkgs.writers.writePython3Bin "__get_tiktok_user_video_urls"
-        {
-          libraries = [
-            (pkgs.python3Packages.buildPythonPackage rec {
-              name = "TikTok-Api";
-              format = "setuptools";
-              src = fetchFromGitHub {
-                owner = "davidteather";
-                repo = name;
-                rev = "a4079f0a7ccac4f2a7482272f028849b45387a7d";
-                sha256 = "sha256-aeY82HypYy+0H2kj7K5ihm4CVFKjYHgNszaZjDjEV4E=";
-              };
+      (pkgs.writers.writePython3Bin "__get_tiktok_user_video_urls" {
+        libraries = [
+          (pkgs.python3Packages.buildPythonPackage rec {
+            name = "TikTok-Api";
+            format = "setuptools";
+            src = fetchFromGitHub {
+              owner = "davidteather";
+              repo = name;
+              rev = "a4079f0a7ccac4f2a7482272f028849b45387a7d";
+              sha256 = "sha256-aeY82HypYy+0H2kj7K5ihm4CVFKjYHgNszaZjDjEV4E=";
+            };
 
-              propagatedBuildInputs = with pkgs.python3Packages; [ pytest playwright requests httpx ];
-              pythonImportsCheck = [ "TikTokApi" ];
-            })
-          ];
-          flakeIgnore = [ "E" "W" ];
-        }
-        (builtins.readFile ./scripts/archive/tiktok/tiktok.py))
+            propagatedBuildInputs = with pkgs.python3Packages; [
+              pytest
+              playwright
+              requests
+              httpx
+            ];
+            pythonImportsCheck = [ "TikTokApi" ];
+          })
+        ];
+        flakeIgnore = [ "E" "W" ];
+      } (builtins.readFile ./scripts/archive/tiktok/tiktok.py))
     ];
   };
 
-  services.flatpak.packages = [
-    "io.github.loot.loot"
-  ];
+  services.flatpak.packages = [ "io.github.loot.loot" ];
 
   # secrets
   sops = {
@@ -106,7 +110,8 @@
   xdg = {
     enable = true;
     # script completions
-    configFile."fish/completions/archive.fish".source = ./scripts/archive/completions.fish;
+    configFile."fish/completions/archive.fish".source =
+      ./scripts/archive/completions.fish;
   };
 
   # Programs
@@ -118,11 +123,16 @@
         starship init fish | source
 
         # environment variables
-        set -gx ARCHIVE_DIR (cat ${config.sops.secrets."paths/archive_dir".path})
-        set -gx TIKTOK_MS_TOKEN (cat ${config.sops.secrets."credentials/tiktok/ms_token".path})
+        set -gx ARCHIVE_DIR (cat ${
+          config.sops.secrets."paths/archive_dir".path
+        })
+        set -gx TIKTOK_MS_TOKEN (cat ${
+          config.sops.secrets."credentials/tiktok/ms_token".path
+        })
       '';
       functions = {
-        nix-rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#desktop $argv";
+        nix-rebuild =
+          "sudo nixos-rebuild switch --flake /etc/nixos#desktop $argv";
         # nix-update = "sudo nix flake update --flake /etc/nixos#desktop $argv";
         replug = "hotplug d $argv[1]; and hotplug a $argv[1]";
       };
@@ -131,10 +141,8 @@
 
   # Modules
   home-modules = {
-    desktop-environment.gnome = {
-      enable = true;
-      wallpaper = ../../assets/wallpapers/clouds.jpg;
-    };
+    desktop-environment.gnome.enable = false;
+    desktop-environment.kde.enable = true;
     applications = {
       darktable.enable = true;
       davinci-resolve.enable = true;

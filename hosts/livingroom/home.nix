@@ -94,10 +94,12 @@
 
   # Modules
   home-modules = {
-    desktop-environment.gnome = {
-      enable = true;
-      wallpaper = ../../assets/wallpapers/aurora.jpg;
-    };
+    # desktop-environment.gnome = {
+    #   enable = true;
+    #   wallpaper = ../../assets/wallpapers/aurora.jpg;
+    # };
+    desktop-environment.gnome.enable = false;
+    desktop-environment.kde.enable = true;
     applications = {
       obs-studio.enable = true;
       xivlauncher.enable = true;

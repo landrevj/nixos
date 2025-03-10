@@ -8,7 +8,8 @@
   config = lib.mkIf config.home-modules.applications.nsxiv.enable {
     home.packages = [
       pkgs.nsxiv
-      (pkgs.writeScriptBin "nsxiv-rifle" (builtins.readFile ../../../scripts/nsxiv-rifle.sh))
+      (pkgs.writeScriptBin "nsxiv-rifle"
+        (builtins.readFile ../../../scripts/nsxiv-rifle.sh))
     ];
     xdg = {
       enable = true;
@@ -17,7 +18,7 @@
         genericName = "Image Viewer";
         exec = "nsxiv-rifle %U";
         terminal = false;
-        categories = ["Graphics" "2DGraphics" "RasterGraphics" "Viewer"];
+        categories = [ "Graphics" "2DGraphics" "RasterGraphics" "Viewer" ];
         mimeType = [
           "image/jpeg"
           "image/png"

@@ -14,6 +14,7 @@
         font-size = 11;
         window-height = 27;
         window-width = 124;
+        window-decoration = "client";
         theme = "my-theme";
       };
       themes = {

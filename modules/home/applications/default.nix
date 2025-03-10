@@ -63,6 +63,7 @@
     audacity
     plexamp
     feh
+    feishin
     foliate
     imagemagick
     switcheroo
@@ -89,7 +90,6 @@
     bat
     bottles
     eza
-    gcolor3
     fd
     mullvad-vpn
     shellcheck
@@ -107,8 +107,6 @@
   };
 
   # Flatpaks
-  services.flatpak.packages = [
-    "it.mijorus.smile"
-    "com.github.tchx84.Flatseal"
-  ];
+  services.flatpak.packages =
+    [ "it.mijorus.smile" "com.github.tchx84.Flatseal" ];
 }

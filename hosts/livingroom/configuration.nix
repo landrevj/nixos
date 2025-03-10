@@ -66,7 +66,7 @@
     steam = {
       enable = true;
       autoStart = true;
-      desktopSession = "gnome";
+      desktopSession = "plasma";
       user = username;
       updater.splash = "vendor";
     };
@@ -108,7 +108,8 @@
   # Modules
   system-modules = {
     hardware.amd.enable = true;
-    desktop-environment.gnome = {
+    desktop-environment.gnome.enable = false;
+    desktop-environment.kde = {
       enable = true;
       displayManager.enable = false;
     };
