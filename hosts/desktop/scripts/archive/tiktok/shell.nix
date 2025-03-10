@@ -6,22 +6,21 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "davidteather";
       repo = name;
-      rev = "a4079f0a7ccac4f2a7482272f028849b45387a7d";
-      sha256 = "sha256-aeY82HypYy+0H2kj7K5ihm4CVFKjYHgNszaZjDjEV4E=";
+      rev = "e6310be5a2de0ab03440e70ce67b3f5086c97996";
+      sha256 = "sha256-Y11jGbxKnzPSoQ/v4Neor8acePjA+e3GXLLeHYJsnZI=";
     };
 
-    propagatedBuildInputs = with pkgs.python3Packages; [ pytest playwright requests httpx ];
+    propagatedBuildInputs = with pkgs.python3Packages; [
+      pytest
+      playwright
+      requests
+      httpx
+    ];
     pythonImportsCheck = [ "TikTokApi" ];
   });
-in
-pkgs.mkShell {
-  nativeBuildInputs = with pkgs; [
-    playwright-driver.browsers
-  ];
-  buildInputs = [
-    pkgs.python3
-    TikTokApi
-  ];
+in pkgs.mkShell {
+  nativeBuildInputs = with pkgs; [ playwright-driver.browsers ];
+  buildInputs = [ pkgs.python3 TikTokApi ];
   shellHook = ''
     # Tells pip to put packages into $PIP_PREFIX instead of the usual locations.
     # See https://pip.pypa.io/en/stable/user_guide/#environment-variables.

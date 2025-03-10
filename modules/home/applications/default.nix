@@ -63,6 +63,7 @@
     audacity
     plexamp
     feh
+    feishin
     foliate
     imagemagick
     switcheroo
