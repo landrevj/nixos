@@ -7,31 +7,30 @@
     system-modules.hardware.vfio.enable = lib.mkEnableOption "enables vfio";
     system-modules.hardware.vfio.pci-ids = lib.mkOption {
       type = with lib.types; listOf str;
-      default = [];
+      default = [ ];
       example = [ "10de:2206" "10de:1aef" ];
-      description = "List of PCI ids for the devices which will be isolated by vfio.";
+      description =
+        "List of PCI ids for the devices which will be isolated by vfio.";
     };
   };
 
   config = lib.mkIf config.system-modules.hardware.vfio.enable {
     # enable vfio and isolate the nvidia gpu
     boot = {
-      kernelParams = [ "intel_iommu=on" ]; 
+      kernelParams = [ "intel_iommu=on" ];
       # can also try this if vfio-pci doesn't want to grab the guest gpu
       # https://passthroughpo.st/explaining-csm-efifboff-setting-boot-gpu-manually/
       # https://www.reddit.com/r/VFIO/comments/ks7ve3/alternative_to_efifboff/
       # kernelParams = [ "intel_iommu=on" "video=efifb:off" "video=vesafb:off" "quiet" ]; 
       blacklistedKernelModules = [ "nvidia" "nouveau" ];
-      kernelModules = [
-        "kvm-intel"
-        "vfio_virqfd"
-        "vfio_pci"
-        "vfio_iommu_type1"
-        "vfio"
-      ];
+      kernelModules =
+        [ "kvm-intel" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
 
       extraModprobeConfig = ''
-        options vfio-pci ids=${lib.concatStringsSep "," config.system-modules.hardware.vfio.pci-ids}
+        softdep drm pre: vfio-pci
+        options vfio-pci ids=${
+          lib.concatStringsSep "," config.system-modules.hardware.vfio.pci-ids
+        }
       '';
     };
 
@@ -47,10 +46,12 @@
           swtpm.enable = true;
           ovmf = {
             enable = true;
-            packages = [(pkgs.OVMFFull.override {
-              secureBoot = true;
-              tpmSupport = true;
-            }).fd];
+            packages = [
+              (pkgs.OVMFFull.override {
+                secureBoot = true;
+                tpmSupport = true;
+              }).fd
+            ];
           };
         };
       };

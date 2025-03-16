@@ -8,7 +8,8 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
   # Set kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_cachyos-rc;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   networking.hostName = "azeyma";
@@ -58,6 +59,9 @@
 
   # programs.sleepy-launcher.enable = true;
 
+  #environment.systemPackages = [ ];
+  chaotic.mesa-git.enable = true;
+
   # Modules
   system-modules = {
     hardware = {
@@ -65,8 +69,8 @@
       vfio = {
         enable = true;
         pci-ids = [
-          "10de:2206" # 3080 graphics
-          "10de:1aef" # 3080 audio
+          "1002:73bf" # 6800 graphics
+          "1002:ab28" # 6800 audio
           # "144d:a80c" # 990 nvme
           # "1b73:1100" # usb card
         ];

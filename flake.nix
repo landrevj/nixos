@@ -13,6 +13,7 @@
       # to avoid problems caused by different versions of nixpkgs.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     flatpaks.url = "github:gmodena/nix-flatpak";
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -32,7 +33,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, flatpaks, sops-nix, aagl, jovian, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, chaotic, flatpaks, sops-nix, aagl, jovian, ... }: {
     nixosConfigurations = {
       desktop = nixpkgs.lib.nixosSystem {
         specialArgs = {
@@ -42,6 +43,7 @@
         modules = [
           ./hosts/desktop/configuration.nix
           # nixos-cosmic.nixosModules.default
+          chaotic.nixosModules.default
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager
           {

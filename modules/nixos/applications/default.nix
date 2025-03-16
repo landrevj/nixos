@@ -47,6 +47,7 @@
     hwloc
     dmidecode
     smartmontools
+    linux-firmware
 
     # os
     scx.full
