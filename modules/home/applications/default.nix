@@ -46,6 +46,7 @@
 
     # files
     vscode
+    kdePackages.filelight
 
     # browsing
     chromium
@@ -69,7 +70,7 @@
     switcheroo
     cuetools
     flacon
-    onlyoffice-bin
+    libreoffice-qt6
     qbittorrent
 
     # games

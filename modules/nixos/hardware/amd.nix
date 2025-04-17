@@ -11,7 +11,11 @@
       "amdgpu.ppfeaturemask=0xfff7ffff"
     ]; # allow for changing clocks/volts https://wiki.archlinux.org/title/AMDGPU#Boot_parameter
 
-    environment.systemPackages = with pkgs; [ lact ];
+    environment.systemPackages = with pkgs; [
+      lact
+      clinfo
+      rocmPackages.rocminfo
+    ];
     systemd.services.lact = {
       description = "AMDGPU Control Daemon";
       after = [ "multi-user.target" ];
@@ -36,7 +40,7 @@
           rocmPackages.clr.icd # OpenCL
         ];
       enable32Bit = true;
-      extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+      # extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
     };
 
     # https://theholytachanka.com/posts/setting-up-resolve/
