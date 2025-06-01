@@ -37,8 +37,8 @@
       openrgb-with-all-plugins
       prusa-slicer
       freecad
-      gpu-screen-recorder
-      gpu-screen-recorder-gtk # https://github.com/NixOS/nixpkgs/pull/369574
+      # gpu-screen-recorder
+      # gpu-screen-recorder-gtk # https://github.com/NixOS/nixpkgs/pull/369574
       playwright-driver.browsers
       unrpa
       gallery-dl
@@ -82,7 +82,8 @@
     ];
   };
 
-  services.flatpak.packages = [ "io.github.loot.loot" ];
+  services.flatpak.packages =
+    [ "io.github.loot.loot" "com.dec05eba.gpu_screen_recorder" ];
 
   # secrets
   sops = {
@@ -145,7 +146,7 @@
     desktop-environment.kde.enable = true;
     applications = {
       darktable.enable = true;
-      davinci-resolve.enable = true;
+      # davinci-resolve.enable = true;
       obs-studio.enable = true;
       xivlauncher.enable = true;
     };

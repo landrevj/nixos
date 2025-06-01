@@ -11,6 +11,11 @@
   #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackages_cachyos-rc;
 
+  environment.sessionVariables = {
+    KWIN_DRM_NO_DIRECT_SCANOUT =
+      1; # https://gitlab.freedesktop.org/drm/amd/-/issues/2075
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   networking.hostName = "azeyma";
   users.users.${username} = {
