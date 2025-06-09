@@ -92,10 +92,11 @@
     bottles
     eza
     fd
+    mission-center
     mullvad-vpn
     shellcheck
     shfmt
-    resources
+    # resources
     zenity
 
     # debug
