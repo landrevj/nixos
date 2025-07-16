@@ -59,10 +59,12 @@
     gnome-frog
     signal-desktop
     element-desktop
+    thunderbird
 
     # media
     audacity
     plexamp
+    # f3d
     feh
     feishin
     foliate
@@ -89,13 +91,16 @@
 
     # utilities
     bat
-    bottles
+    (pkgs.bottles.override { removeWarningPopup = true; })
     eza
     fd
+    mdf2iso
     mission-center
     mullvad-vpn
+    nvtopPackages.amd
     shellcheck
     shfmt
+
     # resources
     zenity
 

@@ -13,9 +13,6 @@
         ff2mpv-rust
         kdePackages.plasma-browser-integration
       ];
-      # preferences = {
-      #   "widget.use-xdg-desktop-portal.file-picker" = 1;
-      # };
     };
   };
 }

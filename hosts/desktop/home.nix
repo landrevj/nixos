@@ -35,7 +35,7 @@
 
     packages = with pkgs; [
       openrgb-with-all-plugins
-      prusa-slicer
+      # prusa-slicer
       freecad
       # gpu-screen-recorder
       # gpu-screen-recorder-gtk # https://github.com/NixOS/nixpkgs/pull/369574
