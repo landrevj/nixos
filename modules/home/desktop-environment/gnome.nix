@@ -81,7 +81,7 @@
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
         {
           binding = "<Super>T";
-          command = "ghostty";
+          command = "foot";
           name = "open-terminal";
         };
       "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" =

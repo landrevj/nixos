@@ -1,9 +1,7 @@
 { config, pkgs, lib, username, ... }:
 
 {
-  imports = [
-    ../../modules/home/applications
-  ];
+  imports = [ ../../modules/home/applications ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -40,9 +38,7 @@
   sops = {
     defaultSopsFile = ../../secrets/T470/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
-    secrets = {
-      "hello" = { };
-    };
+    secrets = { "hello" = { }; };
   };
 
   # sops-nix requirements
@@ -68,26 +64,30 @@
         "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/"
       ];
     };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding = "<Super>E";
-      command = "nautilus";
-      name = "open-file-browser";
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" = {
-      binding = "<Super>T";
-      command = "ghostty";
-      name = "open-terminal";
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" = {
-      binding = "<Super>period";
-      command = "flatpak run it.mijorus.smile";
-      name = "open-emoji-picker";
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" = {
-      binding = "<Shift><Control>Escape";
-      command = "resources";
-      name = "open-resources";
-    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
+      {
+        binding = "<Super>E";
+        command = "nautilus";
+        name = "open-file-browser";
+      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1" =
+      {
+        binding = "<Super>T";
+        command = "foot";
+        name = "open-terminal";
+      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2" =
+      {
+        binding = "<Super>period";
+        command = "flatpak run it.mijorus.smile";
+        name = "open-emoji-picker";
+      };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3" =
+      {
+        binding = "<Shift><Control>Escape";
+        command = "resources";
+        name = "open-resources";
+      };
   };
   gtk = {
     enable = true;

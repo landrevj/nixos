@@ -1,9 +1,7 @@
 { config, pkgs, lib, username, ... }:
 
 {
-  imports = [
-    ../../modules/home
-  ];
+  imports = [ ../../modules/home ];
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -22,7 +20,7 @@
     homeDirectory = "/home/${username}";
     sessionVariables = {
       BROWSER = "firefox";
-      TERMINAL = "ghostty";
+      TERMINAL = "foot";
     };
 
     file = {
@@ -74,7 +72,8 @@
     fish = {
       enable = true;
       functions = {
-        nix-rebuild = "sudo nixos-rebuild switch --flake /etc/nixos#livingroom $argv";
+        nix-rebuild =
+          "sudo nixos-rebuild switch --flake /etc/nixos#livingroom $argv";
         # nix-update = "sudo nix flake update --flake /etc/nixos#livingroom $argv";
       };
     };

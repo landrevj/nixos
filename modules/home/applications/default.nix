@@ -25,8 +25,8 @@
     davinci-resolve.enable = lib.mkDefault false;
     firefox.enable = lib.mkDefault true;
     fish.enable = lib.mkDefault true;
-    foot.enable = lib.mkDefault false;
-    ghostty.enable = lib.mkDefault true;
+    foot.enable = lib.mkDefault true;
+    ghostty.enable = lib.mkDefault false;
     git.enable = lib.mkDefault true;
     helix.enable = lib.mkDefault true;
     mpv.enable = lib.mkDefault true;

@@ -12,7 +12,7 @@
         server.enable = true;
         settings = {
           main = {
-            font = "MesloLGLDZ Nerd Font Mono:size=11";
+            font = "MesloLGL Nerd Font Mono:size=11";
             initial-window-size-chars = "120x27";
           };
           colors = {
@@ -25,14 +25,14 @@
             regular5 = "B576BC";
             regular6 = "569A9F";
             regular7 = "EDEDED";
-            bright0  = "777777";
-            bright1  = "D65E75";
-            bright2  = "BAFFAA";
-            bright3  = "F8E45C";
-            bright4  = "9FD3E5";
-            bright5  = "DEB3DF";
-            bright6  = "B6E0E5";
-            bright7  = "FFFFFF";
+            bright0 = "777777";
+            bright1 = "D65E75";
+            bright2 = "BAFFAA";
+            bright3 = "F8E45C";
+            bright4 = "9FD3E5";
+            bright5 = "DEB3DF";
+            bright6 = "B6E0E5";
+            bright7 = "FFFFFF";
           };
           csd = {
             color = "303030";
@@ -40,12 +40,8 @@
             button-minimize-color = "444444";
             button-maximize-color = "444444";
           };
-          cursor = {
-            blink = true;
-          };
-          tweak = {
-            overflowing-glyphs=true;
-          };
+          cursor = { blink = true; };
+          tweak = { overflowing-glyphs = true; };
         };
       };
     }
