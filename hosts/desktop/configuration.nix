@@ -1,7 +1,9 @@
-{ config, pkgs, inputs, username, ... }:
+{ config, pkgs, inputs, lib, username, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ../../modules/nixos ];
+
+  nixpkgs.config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
@@ -27,6 +29,13 @@
       "networkmanager"
       "wheel" # sudo
     ];
+  };
+
+  # secureboot
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
   };
 
   # Secrets

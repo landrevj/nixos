@@ -98,6 +98,7 @@
     mission-center
     mullvad-vpn
     nvtopPackages.amd
+    sbctl
     shellcheck
     shfmt
 
