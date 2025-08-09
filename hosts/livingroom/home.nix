@@ -47,7 +47,7 @@
       (lib.meta.lowPrio pcsx2) # binary collision with "resources"
       retroarchFull
       rpcs3
-      ryujinx
+      ryubing
       xemu
     ];
   };
