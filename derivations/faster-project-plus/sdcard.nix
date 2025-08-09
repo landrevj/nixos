@@ -8,8 +8,8 @@ stdenv.mkDerivation {
   version = "3.0.2";
 
   src = fetchzip {
-    url = "https://github.com/jlambert360/FPM-AppImage/releases/download/v3.0.2/sd.tar.gz";
-    sha256 = "sha256-Eff4LW6WKBcSlnZYk3sVGebx72ZRPduO6ZVqCCXRsJQ=";
+    url = "https://github.com/jlambert360/FPM-AppImage/releases/download/v3.1.2/sd.tar.gz";
+    sha256 = "sha256-PDLIg946mV45/t8uvux0x2TH67QKUi5EXbZicIFRPxI=";
   };
 
   installPhase = ''

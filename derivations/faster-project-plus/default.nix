@@ -64,13 +64,13 @@
 
 stdenv.mkDerivation rec {
   pname = "faster-project-plus";
-  version = "3.0.2";
+  version = "3.1.2";
 
   src = fetchFromGitHub {
     owner = "jlambert360";
     repo = "Ishiiruka";
-    rev = "49ac69f750e0f1c6422da114d630a2532f290db2";
-    hash = "sha256-ookaP1I5uJJXzNQl1O+DoNFN7Fk+vMq/p/XacjrQ+ys=";
+    rev = "5a745d41b9c8a2051ebe47e61247b4a4726c1573";
+    hash = "sha256-bzGJk4j0hdpL5up6Xhk8qA92uHBhCp8cQFapPVNFHbk=";
   };
 
   patches = [

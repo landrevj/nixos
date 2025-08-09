@@ -5,7 +5,7 @@
 
 stdenv.mkDerivation rec {
   name = "fpp-config";
-  version = "3.0.2";
+  version = "3.1.2";
 
   archiveName = "fppconfig.tar.gz";
   src = fetchzip {

@@ -5,10 +5,10 @@
 
 stdenv.mkDerivation {
   name = "fpp-launcher";
-  version = "3.0.2";
+  version = "3.1.2";
 
   src = fetchzip {
-    url = "https://github.com/jlambert360/FPM-AppImage/releases/download/v3.0.2/Launcher.tar.gz";
+    url = "https://github.com/jlambert360/FPM-AppImage/releases/download/v3.1.2/Launcher.tar.gz";
     sha256 = "sha256-Q3F4V/ggePaZRsGFM54hkGBkLb52PaIn2lQ31gYANW0=";
   };
 
