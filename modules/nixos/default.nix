@@ -1,10 +1,10 @@
-{
+{ pkgs, ... }: {
   imports = [
     ./applications
     ./desktop-environment
     ./hardware
     ./fonts
-    
+
     ./locale.nix
     ./pipewire.nix
   ];
@@ -13,9 +13,7 @@
   nixpkgs.config.allowUnfree = true;
 
   # Environment variables
-  environment.variables = {
-    NIXPKGS_ALLOW_UNFREE="1";
-  };
+  environment.variables = { NIXPKGS_ALLOW_UNFREE = "1"; };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -25,7 +23,7 @@
   # Enable networking
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
-  
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
@@ -35,7 +33,10 @@
   # Services
   services.xserver.enable = true; # Enable the X11 windowing system.
   # services.xserver.libinput.enable = true; # Enable touchpad support (enabled default in most desktopManager).
-  services.printing.enable = true;
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.brlaser ];
+  };
   services.avahi = {
     enable = true;
     nssmdns4 = true;

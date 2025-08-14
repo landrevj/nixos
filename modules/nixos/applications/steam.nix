@@ -2,7 +2,8 @@
 
 {
   options = {
-    system-modules.applications.steam.enable = lib.mkEnableOption "enables steam";
+    system-modules.applications.steam.enable =
+      lib.mkEnableOption "enables steam";
   };
 
   config = lib.mkIf config.system-modules.applications.steam.enable {
@@ -16,9 +17,12 @@
       };
     };
 
-    environment.systemPackages = with pkgs; [
-      gamescope
-      gamemode
-    ];
+    programs.gamescope = {
+      # package = pkgs.gamescope_git;
+      enable = true;
+      capSysNice = true;
+    };
+
+    environment.systemPackages = with pkgs; [ gamemode ];
   };
 }
