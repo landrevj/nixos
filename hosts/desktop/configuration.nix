@@ -30,6 +30,8 @@
       "wheel" # sudo
     ];
   };
+  time.hardwareClockInLocalTime =
+    true; # local time so it doesn't fight with windows dual boot
 
   # secureboot
   boot.loader.systemd-boot.enable = lib.mkForce false;

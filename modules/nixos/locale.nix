@@ -1,7 +1,6 @@
 {
   # Set your time zone.
   time.timeZone = "America/Los_Angeles";
-  time.hardwareClockInLocalTime = true; # local time so it doesn't fight with windows dual boot
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -16,10 +15,7 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
-  i18n.supportedLocales = [
-    "en_US.UTF-8/UTF-8"
-    "ja_JP.UTF-8/UTF-8"
-  ];
+  i18n.supportedLocales = [ "en_US.UTF-8/UTF-8" "ja_JP.UTF-8/UTF-8" ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
