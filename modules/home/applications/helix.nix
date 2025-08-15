@@ -32,7 +32,7 @@
       configFile = {
         "helix/themes/dark_plus.toml".source = builtins.fetchurl {
           url = "https://raw.githubusercontent.com/helix-editor/helix/master/runtime/themes/dark_plus.toml";
-          sha256 = "sha256:15cx4h4f3qmj7g1xgcn8ckss00h7qs6pzjd0qps2r6kwsinhfr8s";
+          sha256 = "sha256:0xzgrbb2c5r92d7a13kbzqa0aa9k79m9v77csmhv0sda628x4fbq";
         };
       };
     };
