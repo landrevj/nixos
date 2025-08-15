@@ -8,8 +8,8 @@
   system.stateVersion = "25.05"; # Did you read the comment?
 
   # Set kernel
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_cachyos-rc;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+#   boot.kernelPackages = pkgs.linuxPackages_cachyos-rc;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   networking.hostName = "azeyma";
