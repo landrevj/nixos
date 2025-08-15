@@ -1,12 +1,10 @@
 { config, pkgs, inputs, lib, username, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ./disko-config.nix ../../modules/nixos ];
+  imports =
+    [ ./hardware-configuration.nix ./disko-config.nix ../../modules/nixos ];
 
-  nixpkgs.config.permittedInsecurePackages = [
-                "libsoup-2.74.3"
-              ];
-
+  nixpkgs.config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
@@ -14,10 +12,12 @@
 
   # Set kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
-#   boot.kernelPackages = pkgs.linuxPackages_cachyos-rc;
+
+  # firmware
+  services.fwupd.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  networking.hostName = "azeyma";
+  networking.hostName = "nophica";
   users.users.${username} = {
     isNormalUser = true;
     description = "Joey Landreville";
@@ -29,15 +29,15 @@
   };
 
   # secureboot
-#   boot.loader.systemd-boot.enable = lib.mkForce false;
-#   boot.lanzaboote = {
-#     enable = true;
-#     pkiBundle = "/var/lib/sbctl";
-#   };
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
+  };
 
   # Secrets
   sops = {
-    defaultSopsFile = ../../secrets/${username}/secrets.yaml;
+    defaultSopsFile = ../../secrets/framework/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
 
     secrets = {
@@ -48,7 +48,7 @@
   # Open ports in the firewall.
   networking.firewall = {
     enable = true;
-    allowedTCPPorts = [];
+    allowedTCPPorts = [ ];
     # allowedUDPPorts = [ ... ];
   };
 
@@ -73,8 +73,6 @@
     # desktop-environment.cosmic.enable = true;
     desktop-environment.gnome.enable = false;
     desktop-environment.kde.enable = true;
-    applications = {
-      steam.enable = true;
-    };
+    applications = { steam.enable = true; };
   };
 }

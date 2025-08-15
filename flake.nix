@@ -36,8 +36,8 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixos-hardware, disko, home-manager, chaotic, flatpaks, sops-nix, aagl
-    , jovian, lanzaboote, ... }: {
+  outputs = inputs@{ nixpkgs, nixos-hardware, disko, home-manager, chaotic
+    , flatpaks, sops-nix, aagl, jovian, lanzaboote, ... }: {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           specialArgs = { username = "landrevj"; };
@@ -91,6 +91,7 @@
             sops-nix.nixosModules.sops
             nixos-hardware.nixosModules.framework-amd-ai-300-series
             disko.nixosModules.disko
+            lanzaboote.nixosModules.lanzaboote
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

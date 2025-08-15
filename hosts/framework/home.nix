@@ -31,24 +31,17 @@
       # '';
     };
 
-    packages = with pkgs; [
-      openrgb-with-all-plugins
-      pinta
-      protonup-qt
-    ];
+    packages = with pkgs; [ pinta protonup-qt ];
   };
 
-  services.flatpak.packages =
-    [ "com.dec05eba.gpu_screen_recorder" ];
+  services.flatpak.packages = [ "com.dec05eba.gpu_screen_recorder" ];
 
   # secrets
   sops = {
-    defaultSopsFile = ../../secrets/${username}/secrets.yaml;
+    defaultSopsFile = ../../secrets/framework/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
-    secrets = {
-#       "paths/archive_dir" = { };
-#       "credentials/tiktok/ms_token" = { };
-    };
+
+    secrets = { "hello" = { }; };
   };
 
   # sops-nix requirements
@@ -61,8 +54,8 @@
   xdg = {
     enable = true;
     # script completions
-#     configFile."fish/completions/archive.fish".source =
-#       ./scripts/archive/completions.fish;
+    #     configFile."fish/completions/archive.fish".source =
+    #       ./scripts/archive/completions.fish;
   };
 
   # Programs
