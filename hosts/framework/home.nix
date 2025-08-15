@@ -31,7 +31,7 @@
       # '';
     };
 
-    packages = with pkgs; [ pinta protonup-qt ];
+    packages = with pkgs; [ pinta protonup-qt powertop ];
   };
 
   services.flatpak.packages = [ "com.dec05eba.gpu_screen_recorder" ];
