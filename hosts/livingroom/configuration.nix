@@ -5,10 +5,7 @@
 { config, lib, pkgs, inputs, username, ... }:
 
 {
-  imports = [
-    ./hardware-configuration.nix
-    ../../modules/nixos
-  ];
+  imports = [ ./hardware-configuration.nix ../../modules/nixos ];
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
@@ -27,6 +24,8 @@
       "wheel" # sudo
     ];
   };
+  time.hardwareClockInLocalTime =
+    true; # local time so it doesn't fight with windows dual boot
 
   # Secrets
   # sops = {
@@ -77,9 +76,9 @@
     };
   };
   boot.kernelParams = [ "fbcon=rotate:0" ]; # stop jovian from rotating the tty
-  environment.sessionVariables.XDG_DESKTOP_PORTAL_DIR = "/run/current-system/sw/share/xdg-desktop-portal/portals"; # recover xdg-desktop-portals from gamescope-session (?)
+  environment.sessionVariables.XDG_DESKTOP_PORTAL_DIR =
+    "/run/current-system/sw/share/xdg-desktop-portal/portals"; # recover xdg-desktop-portals from gamescope-session (?)
   xdg.portal.enable = true;
-
 
   services.udev.packages = [
     (pkgs.writeTextFile {
@@ -98,10 +97,15 @@
 
   nixpkgs.overlays = [
     (final: prev: {
-      faster-project-plus = final.qt6Packages.callPackage ../../derivations/faster-project-plus { };
-      fpp-config = final.callPackage ../../derivations/faster-project-plus/config.nix { };
-      fpp-launcher = final.callPackage ../../derivations/faster-project-plus/launcher.nix { };
-      fpp-sdcard = final.callPackage ../../derivations/faster-project-plus/sdcard.nix { };
+      faster-project-plus =
+        final.qt6Packages.callPackage ../../derivations/faster-project-plus { };
+      fpp-config =
+        final.callPackage ../../derivations/faster-project-plus/config.nix { };
+      fpp-launcher =
+        final.callPackage ../../derivations/faster-project-plus/launcher.nix
+        { };
+      fpp-sdcard =
+        final.callPackage ../../derivations/faster-project-plus/sdcard.nix { };
     })
   ];
 
@@ -113,8 +117,6 @@
       enable = true;
       displayManager.enable = false;
     };
-    applications = {
-      distrobox.enable = true;
-    };
+    applications = { distrobox.enable = true; };
   };
 }

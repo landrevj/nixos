@@ -3,8 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
@@ -31,8 +36,8 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, chaotic, flatpaks, sops-nix, aagl
-    , jovian, lanzaboote, ... }: {
+  outputs = inputs@{ nixpkgs, nixos-hardware, disko, home-manager, chaotic
+    , flatpaks, sops-nix, aagl, jovian, lanzaboote, ... }: {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           specialArgs = { username = "landrevj"; };
@@ -71,6 +76,29 @@
               home-manager.extraSpecialArgs = { username = "landrevj"; };
 
               home-manager.users.landrevj = import ./hosts/livingroom/home.nix;
+              home-manager.sharedModules = [
+                flatpaks.homeManagerModules.nix-flatpak
+                sops-nix.homeManagerModules.sops
+              ];
+            }
+          ];
+        };
+        framework = nixpkgs.lib.nixosSystem {
+          specialArgs = { username = "landrevj"; };
+          system = "x86_64-linux";
+          modules = [
+            ./hosts/framework/configuration.nix
+            sops-nix.nixosModules.sops
+            nixos-hardware.nixosModules.framework-amd-ai-300-series
+            disko.nixosModules.disko
+            lanzaboote.nixosModules.lanzaboote
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = { username = "landrevj"; };
+
+              home-manager.users.landrevj = import ./hosts/framework/home.nix;
               home-manager.sharedModules = [
                 flatpaks.homeManagerModules.nix-flatpak
                 sops-nix.homeManagerModules.sops
