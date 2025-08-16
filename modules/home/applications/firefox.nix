@@ -34,8 +34,7 @@
             name = "FFXIV Wiki (gamerescape.com)";
             definedAliases = [ "@ffxivge" ];
             urls = [{
-              template =
-                "https://ffxiv.gamerescape.com/?search={searchTerms}";
+              template = "https://ffxiv.gamerescape.com/?search={searchTerms}";
             }];
           };
           home-manager-options = {
@@ -78,7 +77,7 @@
                 "https://github.com/NixOS/nixpkgs/pulls?q=is%3Apr+is%3Aopen+{searchTerms}";
             }];
           };
-          "Amazon.com".metaData.hidden = true;
+          "amazondotcom-us".metaData.hidden = true;
           bing.metaData.hidden = true;
           ebay.metaData.hidden = true;
         };
