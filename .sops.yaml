@@ -1,22 +1,23 @@
 keys:
   - &landrevj age1n9qxxurxhjucwz6l0qc5usywyxvpl9ee0sp3uk9smxq2cs40hg7qlgc3nr
-  - &framework age1g7k5ak32630s85du2pw7gxxcylff5tjgs8lg4ur7g8v4d8ckf5wsyq6nuk
+  - &framework age1a0drrv44k9a2am66pz3em3nlnujccfu4x0m35duzyhh5g8wvd9nqrk6yja
   - &T470 age1978p0wkuuwxsq0ys24vspr6sr3l3kmevceq0jjdn9qmjuuzadqzqvjkhul
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
-    - age:
-      - *landrevj
-      - *T470
+      - age:
+          - *framework
+          - *landrevj
+          - *T470
   - path_regex: secrets/landrevj/[^/]+\.(yaml|json|env|ini)$
     key_groups:
-    - age:
-      - *landrevj
+      - age:
+          - *landrevj
   - path_regex: secrets/framework/[^/]+\.(yaml|json|env|ini)$
     key_groups:
-    - age:
-      - *framework
+      - age:
+          - *framework
   - path_regex: secrets/T470/[^/]+\.(yaml|json|env|ini)$
     key_groups:
-    - age:
-      - *T470
+      - age:
+          - *T470
