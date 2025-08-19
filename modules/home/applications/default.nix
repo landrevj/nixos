@@ -58,7 +58,6 @@
     smile
     gnome-frog
     signal-desktop
-    element-desktop
     thunderbird
 
     # media

@@ -31,7 +31,7 @@
       # '';
     };
 
-    packages = with pkgs; [ pinta protonup-qt powertop ];
+    packages = with pkgs; [ easyeffects pinta protonup-qt powertop ];
   };
 
   services.flatpak.packages = [ "com.dec05eba.gpu_screen_recorder" ];
@@ -54,8 +54,27 @@
   xdg = {
     enable = true;
     # script completions
-    #     configFile."fish/completions/archive.fish".source =
-    #       ./scripts/archive/completions.fish;
+    configFile = {
+      "easyeffects" = {
+        source = pkgs.fetchzip {
+          url =
+            "https://github.com/cab404/framework-dsp/archive/refs/heads/master.zip";
+          sha256 = "sha256-J/XdMUKbfdbzB++j62mGLwLb8PTR8UxLcWfovVDkAeE=";
+          postFetch = ''
+            mv $out/config/* $out
+            rm -r $out/config
+            rm -r $out/images
+            rm -r $out/measurements
+            rm $out/*.md
+          '';
+        };
+        recursive = true;
+        onChange=''
+            CFG=''${XDG_CONFIG_HOME:-~/.config}/easyeffects
+            sed -i 's|%CFG%|'"$CFG"'|g' $CFG/output/*.json
+        '';
+      };
+    };
   };
 
   # Programs
