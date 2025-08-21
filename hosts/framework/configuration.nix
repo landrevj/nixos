@@ -63,6 +63,11 @@
     ];
   };
 
+  # configure sleep
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=20min
+  '';
+
   # Secrets
   sops = {
     defaultSopsFile = ../../secrets/framework/secrets.yaml;
