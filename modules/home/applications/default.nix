@@ -71,8 +71,11 @@
     switcheroo
     cuetools
     flacon
-    libreoffice-qt6
     qbittorrent
+
+    libreoffice-qt6-fresh
+    hunspell
+    hunspellDicts.en_US-large
 
     # games
     aisleriot

@@ -37,6 +37,12 @@
               template = "https://ffxiv.gamerescape.com/?search={searchTerms}";
             }];
           };
+          google-maps = {
+            name = "Google Maps";
+            definedAliases = [ "@googlemaps" ];
+            urls =
+              [{ template = "https://google.com/maps/search/{searchTerms}"; }];
+          };
           home-manager-options = {
             name = "Home Manager Options";
             definedAliases = [ "@homemanager" ];
@@ -75,6 +81,13 @@
             urls = [{
               template =
                 "https://github.com/NixOS/nixpkgs/pulls?q=is%3Apr+is%3Aopen+{searchTerms}";
+            }];
+          };
+          proton-db = {
+            name = "ProtonDB";
+            definedAliases = [ "@protondb" ];
+            urls = [{
+              template = "https://www.protondb.com/search?q={searchTerms}";
             }];
           };
           "amazondotcom-us".metaData.hidden = true;
