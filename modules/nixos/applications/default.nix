@@ -52,7 +52,7 @@
     linux-firmware
 
     # os
-    scx.full
+    # scx.full
 
     # lib
     python3
