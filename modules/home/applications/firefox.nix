@@ -90,6 +90,13 @@
               template = "https://www.protondb.com/search?q={searchTerms}";
             }];
           };
+          wanikani = {
+            name = "WaniKani";
+            definedAliases = [ "@wanikani" ];
+            urls = [{
+              template = "https://www.wanikani.com/search?query={searchTerms}";
+            }];
+          };
           "amazondotcom-us".metaData.hidden = true;
           bing.metaData.hidden = true;
           ebay.metaData.hidden = true;
