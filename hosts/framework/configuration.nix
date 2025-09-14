@@ -108,4 +108,10 @@
     desktop-environment.kde.enable = true;
     applications = { steam.enable = true; };
   };
+
+  # fixes
+  services.pipewire.wireplumber.extraConfig.no-ucm = {
+    # https://github.com/NixOS/nixos-hardware/issues/1603
+    "monitor.alsa.properties" = { "alsa.use-ucm" = false; };
+  };
 }

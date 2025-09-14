@@ -82,7 +82,7 @@
     heroic
     prismlauncher
     steam-run
-    space-cadet-pinball
+    # space-cadet-pinball
     mangohud
     protontricks
 
