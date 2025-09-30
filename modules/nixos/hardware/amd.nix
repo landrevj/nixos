@@ -12,6 +12,7 @@
     ]; # allow for changing clocks/volts https://wiki.archlinux.org/title/AMDGPU#Boot_parameter
 
     environment.systemPackages = with pkgs; [
+      amdgpu_top
       lact
       clinfo
       rocmPackages.rocminfo
