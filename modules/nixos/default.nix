@@ -9,6 +9,21 @@
     ./pipewire.nix
   ];
 
+  nixpkgs.overlays = [
+    (final: prev: {
+      # faster-project-plus
+      faster-project-plus =
+        final.qt6Packages.callPackage ../../derivations/faster-project-plus { };
+      fpp-config =
+        final.callPackage ../../derivations/faster-project-plus/config.nix { };
+      fpp-launcher =
+        final.callPackage ../../derivations/faster-project-plus/launcher.nix
+        { };
+      fpp-sdcard =
+        final.callPackage ../../derivations/faster-project-plus/sdcard.nix { };
+    })
+  ];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
