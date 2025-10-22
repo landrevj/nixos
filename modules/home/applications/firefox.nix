@@ -83,6 +83,13 @@
                 "https://github.com/NixOS/nixpkgs/pulls?q=is%3Apr+is%3Aopen+{searchTerms}";
             }];
           };
+          nixpkgs-pr-tracker = {
+            name = "Nixpkgs PR Tracker";
+            definedAliases = [ "@nixpkgsprtracker" ];
+            urls = [{
+              template = "https://nixpk.gs/pr-tracker.html?pr={searchTerms}";
+            }];
+          };
           proton-db = {
             name = "ProtonDB";
             definedAliases = [ "@protondb" ];
