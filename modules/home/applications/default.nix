@@ -56,7 +56,7 @@
     discord
     vesktop
     smile
-    gnome-frog
+    # gnome-frog
     signal-desktop
     thunderbird
 

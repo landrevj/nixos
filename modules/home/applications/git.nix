@@ -1,4 +1,4 @@
-{ pkgs, lib, config, ... }:
+{ lib, config, ... }:
 
 {
   options = {
@@ -8,8 +8,10 @@
   config = lib.mkIf config.home-modules.applications.git.enable {
     programs.git = {
       enable = true;
-      userName = "Joseph Landreville";
-      userEmail = "landrevillejoseph@gmail.com";
+      settings.user = {
+        email = "landrevillejoseph@gmail.com";
+        name = "Joseph Landreville";
+      };
     };
   };
 }
