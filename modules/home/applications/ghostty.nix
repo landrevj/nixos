@@ -2,20 +2,29 @@
 
 {
   options = {
-    home-modules.applications.ghostty.enable = lib.mkEnableOption "enables ghostty";
+    home-modules.applications.ghostty.enable =
+      lib.mkEnableOption "enables ghostty";
   };
 
   config = lib.mkIf config.home-modules.applications.ghostty.enable {
     programs.ghostty = {
       enable = true;
-      enableFishIntegration = true;
+      enableFishIntegration = config.home-modules.applications.fish.enable;
+      installBatSyntax = true;
+      systemd.enable = true;
       settings = {
         font-family = "MesloLGL Nerd Font Mono";
         font-size = 11;
+        gtk-titlebar-style = "tabs";
+        keybind = [ "global:alt+enter=toggle_quick_terminal" ];
+        # quick-terminal-autohide = true;
+        quick-terminal-position = "top";
+        quick-terminal-size = "33%,99%";
+        quit-after-last-window-closed = false;
+        theme = "my-theme";
         window-height = 27;
         window-width = 124;
         window-decoration = "client";
-        theme = "my-theme";
       };
       themes = {
         my-theme = {

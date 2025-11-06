@@ -2,25 +2,100 @@
 
 {
   options = {
-    home-modules.applications.firefox.enable =
-      lib.mkEnableOption "enables firefox";
+    home-modules.applications.zen-browser.enable =
+      lib.mkEnableOption "enables zen-browser";
   };
 
-  config = lib.mkIf config.home-modules.applications.firefox.enable {
-    programs.firefox = {
+  config = lib.mkIf config.home-modules.applications.zen-browser.enable {
+    programs.zen-browser = {
       enable = true;
       nativeMessagingHosts = with pkgs; [
         ff2mpv-rust
         kdePackages.plasma-browser-integration
       ];
-      profiles."landrevj.default" = {
-        settings = {
-          "browser.toolbars.bookmarks.visibility" = "never";
-          "sidebar.revamp" = true;
-          "sidebar.verticalTabs" = true;
-          "sidebar.visibility" = "hide-sidebar";
-          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+      policies = let
+        mkLockedAttrs = builtins.mapAttrs (_: value: {
+          Value = value;
+          Status = "locked";
+        });
+
+        mkPluginUrl = id:
+          "https://addons.mozilla.org/firefox/downloads/latest/${id}/latest.xpi";
+
+        mkExtensionEntry = { id, pinned ? false, }:
+          let
+            base = {
+              install_url = mkPluginUrl id;
+              installation_mode = "force_installed";
+            };
+          in if pinned then base // { default_area = "navbar"; } else base;
+
+        mkExtensionSettings = builtins.mapAttrs (_: entry:
+          if builtins.isAttrs entry then
+            entry
+          else
+            mkExtensionEntry { id = entry; });
+      in {
+        AutofillAddressEnabled = false;
+        AutofillCreditCardEnabled = false;
+        DisableAppUpdate = true;
+        DisableFeedbackCommands = true;
+        DisableFirefoxStudies = true;
+        DisablePocket = true;
+        DisableTelemetry = true;
+        DontCheckDefaultBrowser = true;
+        NoDefaultBookmarks = true;
+        OfferToSaveLogins = false;
+        EnableTrackingProtection = {
+          Value = true;
+          Locked = true;
+          Cryptomining = true;
+          Fingerprinting = true;
         };
+        ExtensionSettings = mkExtensionSettings {
+          "{446900e4-71c2-419f-a6a7-df9c091e268b}" = mkExtensionEntry {
+            id = "bitwarden-password-manager";
+            pinned = true;
+          };
+          "uBlock0@raymondhill.net" = mkExtensionEntry {
+            id = "ublock-origin";
+            pinned = true;
+          };
+          "firefox@betterttv.net" = "betterttv";
+          "{c3c10168-4186-445c-9c5b-63f12b8e2c87}" = "cookieeditor";
+          "{868ea040-cb84-4afd-9ee5-b37e822430ff}" = "copy-tab-urls-webex";
+          "{e90f5de4-8510-4515-9f67-3b6654e1e8c2}" = "dictionary-anyvhere";
+          "{506e023c-7f2b-40a3-8066-bc5deb40aebe}" = "gesturefy";
+          "{7e79d10d-9667-4d38-838d-471281c568c3}" = "history-autodelete";
+          "{4a313247-8330-4a81-948e-b79936516f78}" = "image-search-options";
+          "jordanlinkwarden@gmail.com" = "linkwarden";
+          "multiple-paste-and-go-button@wantora.github.io" =
+            "multiple-paste-and-go-button";
+          "{6706d386-2d33-4e1e-bbf1-51b9e1ce47e1}" = "pixiv-toolkit";
+          "plasma-browser-integration@kde.org" = "plasma-integration";
+          "@react-devtools" = "react-devtools";
+          "extension@redux.devtools" = "reduxdevtools";
+          "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = "return-youtube-dislikes";
+          "sponsorBlocker@ajay.app" = "sponsorblock";
+          "jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack" = "tab-reloader";
+          "izer@camelcamelcamel.com" = "the-camelizer-price-history-ch";
+          "{08f0f80f-2b26-4809-9267-287a5bdda2da}" = "tubearchivist-companion";
+          "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}" =
+            "user-agent-string-switcher";
+        };
+        Preferences = mkLockedAttrs {
+          "browser.aboutConfig.showWarning" = false;
+          "browser.tabs.warnOnClose" = false;
+          "privacy.resistFingerprinting" = true;
+          "privacy.firstparty.isolate" = true;
+          "network.cookie.cookieBehavior" = 5;
+          "dom.battery.enabled" = false;
+          "gfx.webrender.all" = true;
+          "network.http.http3.enabled" = true;
+          "network.socket.ip_addr_any.disabled" = true;
+        };
+      };
+      profiles."landrevj.default" = {
         search = {
           force = true;
           engines = {
@@ -114,16 +189,6 @@
             ebay.metaData.hidden = true;
           };
         };
-        userChrome = ''
-          #sidebar-main,
-          #sidebar-panel-header {
-            display: none;
-          }
-
-          #sidebar-box {
-            padding: 0 !important;
-          }
-        '';
       };
     };
   };

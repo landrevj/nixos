@@ -17,6 +17,7 @@
     ./obs-studio.nix
     ./xivlauncher.nix
     ./yt-dlp.nix
+    ./zen-browser.nix
   ];
 
   # Modules
@@ -36,6 +37,7 @@
     obs-studio.enable = lib.mkDefault false;
     xivlauncher.enable = lib.mkDefault false;
     yt-dlp.enable = lib.mkDefault true;
+    zen-browser.enable = lib.mkDefault false;
   };
 
   # Packages
@@ -50,7 +52,7 @@
 
     # browsing
     chromium
-    bitwarden
+    bitwarden-desktop
 
     # communication
     discord

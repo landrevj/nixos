@@ -2,9 +2,9 @@
 
 let
   segoe-ui = pkgs.callPackage ./segoe-ui.nix { inherit pkgs; };
-  segoe-ui-variable = pkgs.callPackage ./segoe-ui-variable.nix { inherit pkgs; };
-in
-{
+  segoe-ui-variable =
+    pkgs.callPackage ./segoe-ui-variable.nix { inherit pkgs; };
+in {
   fonts.packages = with pkgs; [
     nerd-fonts.meslo-lg
     hanazono
@@ -17,7 +17,7 @@ in
 
     # microsoft
     corefonts
-    vistafonts
+    vista-fonts
     segoe-ui
     segoe-ui-variable
   ];

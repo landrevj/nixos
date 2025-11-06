@@ -69,9 +69,9 @@
           '';
         };
         recursive = true;
-        onChange=''
-            CFG=''${XDG_CONFIG_HOME:-~/.config}/easyeffects
-            sed -i 's|%CFG%|'"$CFG"'|g' $CFG/output/*.json
+        onChange = ''
+          CFG=''${XDG_CONFIG_HOME:-~/.config}/easyeffects
+          sed -i 's|%CFG%|'"$CFG"'|g' $CFG/output/*.json
         '';
       };
     };
@@ -100,9 +100,11 @@
     desktop-environment.gnome.enable = false;
     desktop-environment.kde.enable = true;
     applications = {
+      ghostty.enable = true;
       darktable.enable = true;
       # davinci-resolve.enable = true;
       xivlauncher.enable = true;
+      zen-browser.enable = true;
     };
   };
 }

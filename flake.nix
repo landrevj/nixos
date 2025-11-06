@@ -31,13 +31,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v0.4.3";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = inputs@{ nixpkgs, nixos-hardware, disko, home-manager, chaotic
-    , flatpaks, sops-nix, aagl, jovian, lanzaboote, ... }: {
+    , flatpaks, sops-nix, aagl, jovian, lanzaboote, zen-browser, ... }: {
       nixosConfigurations = {
         desktop = nixpkgs.lib.nixosSystem {
           specialArgs = { username = "landrevj"; };
@@ -102,6 +106,7 @@
               home-manager.sharedModules = [
                 flatpaks.homeManagerModules.nix-flatpak
                 sops-nix.homeManagerModules.sops
+                zen-browser.homeModules.beta
               ];
             }
           ];
