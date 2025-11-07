@@ -85,14 +85,19 @@
         };
         Preferences = mkLockedAttrs {
           "browser.aboutConfig.showWarning" = false;
+          "browser.download.useDownloadDir" = false;
+          "browser.formfill.enable" = false;
           "browser.tabs.warnOnClose" = false;
-          "privacy.resistFingerprinting" = true;
-          "privacy.firstparty.isolate" = true;
-          "network.cookie.cookieBehavior" = 5;
           "dom.battery.enabled" = false;
+          "dom.forms.autocomplete.formautofill" = false;
+          "general.autoScroll" = true;
           "gfx.webrender.all" = true;
+          "network.cookie.cookieBehavior" = 5;
           "network.http.http3.enabled" = true;
           "network.socket.ip_addr_any.disabled" = true;
+          "privacy.firstparty.isolate" = true;
+          "privacy.resistFingerprinting" = true;
+          "zen.view.show-newtab-button-top" = false;
         };
       };
       profiles."landrevj.default" = {

@@ -19,7 +19,7 @@
         keybind = [ "global:alt+enter=toggle_quick_terminal" ];
         # quick-terminal-autohide = true;
         quick-terminal-position = "top";
-        quick-terminal-size = "33%,99%";
+        quick-terminal-size = "50%,99%";
         quit-after-last-window-closed = false;
         theme = "my-theme";
         window-height = 27;
