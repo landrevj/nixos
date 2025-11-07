@@ -145,6 +145,8 @@
     desktop-environment.gnome.enable = false;
     desktop-environment.kde.enable = true;
     applications = {
+      ghostty.enable = true;
+      zen-browser.enable = true;
       darktable.enable = true;
       # davinci-resolve.enable = true;
       obs-studio.enable = true;
