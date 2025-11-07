@@ -65,6 +65,7 @@
           "{c3c10168-4186-445c-9c5b-63f12b8e2c87}" = "cookieeditor";
           "{868ea040-cb84-4afd-9ee5-b37e822430ff}" = "copy-tab-urls-webex";
           "{e90f5de4-8510-4515-9f67-3b6654e1e8c2}" = "dictionary-anyvhere";
+          "ff2mpv@yossarian.net" = "ff2mpv";
           "{506e023c-7f2b-40a3-8066-bc5deb40aebe}" = "gesturefy";
           "{7e79d10d-9667-4d38-838d-471281c568c3}" = "history-autodelete";
           "{4a313247-8330-4a81-948e-b79936516f78}" = "image-search-options";
@@ -97,10 +98,13 @@
           "network.socket.ip_addr_any.disabled" = true;
           "privacy.firstparty.isolate" = true;
           "privacy.resistFingerprinting" = true;
-          "zen.view.show-newtab-button-top" = false;
         };
       };
       profiles."landrevj.default" = {
+        settings = {
+          "zen.view.show-newtab-button-top" = false;
+          "zen.welcome-screen.seen" = true;
+        };
         search = {
           force = true;
           engines = {
