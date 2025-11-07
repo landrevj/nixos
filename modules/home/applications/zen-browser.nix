@@ -89,6 +89,7 @@
           "browser.download.useDownloadDir" = false;
           "browser.formfill.enable" = false;
           "browser.tabs.warnOnClose" = false;
+          "browser.toolbars.bookmarks.visibility" = "always";
           "dom.battery.enabled" = false;
           "dom.forms.autocomplete.formautofill" = false;
           "general.autoScroll" = true;
