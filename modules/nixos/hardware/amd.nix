@@ -24,13 +24,10 @@
       serviceConfig = { ExecStart = "${pkgs.lact}/bin/lact daemon"; };
       enable = true;
     };
-    # programs.corectrl = {
-    #   enable = true;
-    #   gpuOverclock.enable = true;
-    # };
 
     hardware.graphics = {
       enable = true;
+      enable32Bit = true;
       extraPackages = with pkgs;
         [
           # include amdvlk even though we default to radv below
@@ -40,8 +37,12 @@
 
           rocmPackages.clr.icd # OpenCL
         ];
-      enable32Bit = true;
       # extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+    };
+
+    # clinfo cant find device without this
+    environment.sessionVariables = {
+      OCL_ICD_VENDORS = "${pkgs.rocmPackages.clr.icd}/etc/OpenCL/vendors";
     };
 
     # https://theholytachanka.com/posts/setting-up-resolve/

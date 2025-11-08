@@ -16,7 +16,7 @@
         font-family = "MesloLGL Nerd Font Mono";
         font-size = 11;
         gtk-titlebar-style = "tabs";
-        keybind = [ "global:alt+enter=toggle_quick_terminal" ];
+        keybind = [ "global:super+enter=toggle_quick_terminal" ];
         # quick-terminal-autohide = true;
         quick-terminal-position = "top";
         quick-terminal-size = "50%,99%";
