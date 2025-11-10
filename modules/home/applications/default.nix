@@ -49,6 +49,7 @@
     # files
     vscode
     kdePackages.filelight
+    sqlitebrowser
 
     # browsing
     chromium

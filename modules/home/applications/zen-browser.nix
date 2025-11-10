@@ -199,6 +199,191 @@
             ebay.metaData.hidden = true;
           };
         };
+        containersForce = true;
+        containers = {
+          Personal = {
+            color = "blue";
+            icon = "circle";
+            id = 1;
+          };
+          Work = {
+            color = "green";
+            icon = "briefcase";
+            id = 2;
+          };
+          Private = {
+            color = "purple";
+            icon = "fingerprint";
+            id = 3;
+          };
+        };
+        spacesForce = true;
+        spaces = let
+          containers =
+            config.programs.zen-browser.profiles."landrevj.default".containers;
+        in {
+          Personal = {
+            id = "7802c3a3-b986-47dc-b349-2b67b57047ef";
+            position = 1000;
+            theme = {
+              type = "gradient";
+              opacity = 0.5;
+              texture = 0.3;
+              colors = [
+                {
+                  red = 101;
+                  green = 107;
+                  blue = 205;
+                  custom = false;
+                  algorithm = "analogous";
+                  primary = true;
+                  lightness = 60;
+                  position = {
+                    x = 131;
+                    y = 106;
+                  };
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 169;
+                  green = 97;
+                  blue = 209;
+                  custom = false;
+                  algorithm = "analogous";
+                  primary = false;
+                  lightness = 60;
+                  position = {
+                    x = 193;
+                    y = 99;
+                  };
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 100;
+                  green = 179;
+                  blue = 206;
+                  custom = false;
+                  algorithm = "analogous";
+                  primary = false;
+                  lightness = 60;
+                  position = {
+                    x = 96;
+                    y = 157;
+                  };
+                  type = "explicit-lightness";
+                }
+              ];
+            };
+          };
+          Work = {
+            id = "e2bf02ac-6716-409a-9118-0da58e680a67";
+            container = containers."Work".id;
+            position = 2000;
+            theme = {
+              type = "gradient";
+              opacity = 0.5;
+              texture = 0.3;
+              colors = [
+                {
+                  red = 115;
+                  green = 191;
+                  blue = 149;
+                  custom = false;
+                  algorithm = "analogous";
+                  primary = true;
+                  lightness = 60;
+                  position = {
+                    x = 84;
+                    y = 244;
+                  };
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 121;
+                  green = 171;
+                  blue = 185;
+                  custom = false;
+                  algorithm = "analogous";
+                  primary = false;
+                  lightness = 60;
+                  position = {
+                    x = 57;
+                    y = 152;
+                  };
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 145;
+                  green = 199;
+                  blue = 107;
+                  custom = false;
+                  algorithm = "analogous";
+                  primary = false;
+                  lightness = 60;
+                  position = {
+                    x = 171;
+                    y = 282;
+                  };
+                  type = "explicit-lightness";
+                }
+              ];
+            };
+          };
+          Private = {
+            id = "8c91d5a8-1983-4dac-b94a-809137daf41e";
+            container = containers."Private".id;
+            position = 3000;
+            theme = {
+              type = "gradient";
+              opacity = 0.5;
+              texture = 0.3;
+              colors = [
+                {
+                  red = 160;
+                  green = 106;
+                  blue = 200;
+                  custom = false;
+                  algorithm = "analogous";
+                  primary = true;
+                  lightness = 60;
+                  position = {
+                    x = 189;
+                    y = 82;
+                  };
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 207;
+                  green = 99;
+                  blue = 167;
+                  custom = false;
+                  algorithm = "analogous";
+                  primary = false;
+                  lightness = 60;
+                  position = {
+                    x = 249;
+                    y = 128;
+                  };
+                  type = "explicit-lightness";
+                }
+                {
+                  red = 110;
+                  green = 122;
+                  blue = 196;
+                  custom = false;
+                  algorithm = "analogous";
+                  primary = false;
+                  lightness = 60;
+                  position = {
+                    x = 115;
+                    y = 97;
+                  };
+                  type = "explicit-lightness";
+                }
+              ];
+            };
+          };
+        };
       };
     };
   };
