@@ -1,13 +1,14 @@
 { pkgs, lib, ... }:
 
 {
-  imports = [ ./distrobox.nix ./openrgb ./steam.nix ./waydroid.nix ];
+  imports = [ ./distrobox.nix ./openrgb ./steam.nix ./tailscale.nix ./waydroid.nix ];
 
   # Modules
   system-modules.applications = {
     distrobox.enable = lib.mkDefault false;
     openrgb.enable = lib.mkDefault false;
     steam.enable = lib.mkDefault false;
+    tailscale.enable = lib.mkDefault false;
     waydroid.enable = lib.mkDefault false;
   };
 

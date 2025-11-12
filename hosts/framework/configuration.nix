@@ -73,16 +73,13 @@
     defaultSopsFile = ../../secrets/framework/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
 
-    secrets = {
-      # "credentials/twitter/username" = {};
-    };
+    secrets = { "tailscale/key" = { }; };
   };
 
   # Open ports in the firewall.
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ ];
-    # allowedUDPPorts = [ ... ];
   };
 
   # Services
@@ -106,7 +103,10 @@
     # desktop-environment.cosmic.enable = true;
     desktop-environment.gnome.enable = false;
     desktop-environment.kde.enable = true;
-    applications = { steam.enable = true; };
+    applications = {
+      steam.enable = true;
+      tailscale.enable = true;
+    };
   };
 
   # fixes

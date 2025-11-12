@@ -56,6 +56,7 @@
     # script completions
     configFile = {
       "easyeffects" = {
+        force = true;
         source = pkgs.fetchzip {
           url =
             "https://github.com/cab404/framework-dsp/archive/refs/heads/master.zip";
@@ -94,6 +95,9 @@
       };
     };
   };
+
+  # services
+  services.tailscale-systray.enable = true;
 
   # Modules
   home-modules = {
