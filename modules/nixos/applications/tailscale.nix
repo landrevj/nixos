@@ -40,7 +40,9 @@
         fi
 
         # otherwise authenticate with tailscale
-        ${tailscale}/bin/tailscale up -authkey $(cat /run/secrets/tailscale/key)
+        ${tailscale}/bin/tailscale up -authkey ${
+          config.sops.secrets."tailscale/key".path
+        } --operator=${username}
       '';
     };
   };

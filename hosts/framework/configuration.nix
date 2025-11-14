@@ -73,7 +73,10 @@
     defaultSopsFile = ../../secrets/framework/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
 
-    secrets = { "tailscale/key" = { }; };
+    secrets = {
+      "samba" = { };
+      "tailscale/key" = { };
+    };
   };
 
   # Open ports in the firewall.

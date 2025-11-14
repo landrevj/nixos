@@ -6,6 +6,7 @@
     ./fonts
 
     ./locale.nix
+    ./mounts.nix
     ./pipewire.nix
   ];
 
