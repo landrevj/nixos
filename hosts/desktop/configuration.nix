@@ -11,7 +11,8 @@
 
   # Set kernel
   #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackages_cachyos-rc;
+  # boot.kernelPackages = pkgs.linuxPackages_cachyos-rc;
+  boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
   environment.sessionVariables = {
     KWIN_DRM_NO_DIRECT_SCANOUT =
@@ -34,20 +35,18 @@
     true; # local time so it doesn't fight with windows dual boot
 
   # secureboot
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/var/lib/sbctl";
-  };
+  # boot.loader.systemd-boot.enable = lib.mkForce false;
+  # boot.lanzaboote = {
+  #   enable = true;
+  #   pkiBundle = "/var/lib/sbctl";
+  # };
 
   # Secrets
   sops = {
-    defaultSopsFile = ../../secrets/${username}/secrets.yaml;
+    defaultSopsFile = ../../secrets/landrevj/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
 
-    secrets = {
-      # "credentials/twitter/username" = {};
-    };
+    secrets = { samba = { }; };
   };
 
   # Open ports in the firewall.
@@ -76,7 +75,7 @@
   # programs.sleepy-launcher.enable = true;
 
   #environment.systemPackages = [ ];
-  chaotic.mesa-git.enable = true;
+  # chaotic.mesa-git.enable = true;
 
   # Modules
   system-modules = {

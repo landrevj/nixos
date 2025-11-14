@@ -8,7 +8,7 @@
   config = lib.mkIf config.system-modules.hardware.amd.enable {
     # boot.initrd.kernelModules = [ "amdgpu" ];
     boot.kernelParams = [
-      "amdgpu.ppfeaturemask=0xfff7ffff"
+      "amdgpu.ppfeaturemask=0xf7fff"
     ]; # allow for changing clocks/volts https://wiki.archlinux.org/title/AMDGPU#Boot_parameter
 
     environment.systemPackages = with pkgs; [
