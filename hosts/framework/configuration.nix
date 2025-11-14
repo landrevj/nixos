@@ -103,6 +103,8 @@
 
   # Modules
   system-modules = {
+    hardware.amd.enable = true;
+
     # desktop-environment.cosmic.enable = true;
     desktop-environment.gnome.enable = false;
     desktop-environment.kde.enable = true;
