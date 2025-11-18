@@ -62,6 +62,7 @@
     # gnome-frog
     signal-desktop
     thunderbird
+    rustdesk-flutter
 
     # media
     audacity
