@@ -8,7 +8,10 @@
     ./locale.nix
     ./mounts.nix
     ./pipewire.nix
+    ./quietboot.nix
   ];
+
+  system-modules.quietboot.enable = lib.mkDefault true;
 
   nixpkgs.overlays = [
     (final: prev: {

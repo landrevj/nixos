@@ -17,6 +17,12 @@
       };
     };
 
+    environment.sessionVariables = {
+      WAYLANDDRV_PRIMARY_MONITOR = "DP-1";
+      PROTON_ENABLE_WAYLAND = 1;
+      PROTON_ENABLE_HDR = 1;
+    };
+
     programs.gamescope = {
       # package = pkgs.gamescope_git;
       enable = true;
