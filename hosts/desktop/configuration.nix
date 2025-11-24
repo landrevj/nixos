@@ -1,13 +1,13 @@
 { config, pkgs, inputs, lib, username, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ../../modules/nixos ];
+  imports = [ ./hardware-configuration.nix ./disko-config.nix ../../modules/nixos ];
 
   nixpkgs.config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
 
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "25.05" # Did you read the comment?
 
   # Set kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
