@@ -13,6 +13,16 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  fileSystems."/mnt/games" = {
+    device = "/dev/disk/by-uuid/1131735f-691f-4de7-95b8-880fe65eb54b";
+    fsType = "btrfs";
+  };
+
+  fileSystems."/mnt/storage" = {
+    device = "/dev/disk/by-uuid/df2d0e9f-5510-3fa8-d790-eddbd54eca9f";
+    fsType = "btrfs";
+  };
+
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
