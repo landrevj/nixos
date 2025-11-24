@@ -60,9 +60,9 @@
     vesktop
     smile
     # gnome-frog
+    rustdesk-flutter
     signal-desktop
     thunderbird
-    rustdesk-flutter
 
     # media
     audacity
@@ -74,7 +74,7 @@
     imagemagick
     switcheroo
     cuetools
-    flacon
+    # flacon
     qbittorrent
 
     libreoffice-qt6-fresh

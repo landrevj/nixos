@@ -10,9 +10,9 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
   # Set kernel
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_cachyos-rc;
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  # boot.kernelPackages = pkgs.linuxPackages_cachyos;
 
   environment.sessionVariables = {
     KWIN_DRM_NO_DIRECT_SCANOUT =

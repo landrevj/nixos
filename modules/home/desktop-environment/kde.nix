@@ -9,6 +9,7 @@
   config = lib.mkIf config.home-modules.desktop-environment.kde.enable {
     gtk = {
       enable = true;
+      gtk2.force = true;
       theme = {
         # name = "Material-You-dark";
         # package = pkgs.libsForQt5.breeze-gtk;
