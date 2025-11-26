@@ -99,6 +99,12 @@
           "network.socket.ip_addr_any.disabled" = true;
           "privacy.firstparty.isolate" = true;
           "privacy.resistFingerprinting" = true;
+
+          # ai shit
+          "browser.ml.enable" = false;
+          "browser.tabs.groups.smart" = false;
+          "browser.tabs.groups.smart.optin" = false;
+          "extensions.ml.enabled" = false;
         };
       };
       profiles."landrevj.default" = {
@@ -127,7 +133,7 @@
             };
             google-maps = {
               name = "Google Maps";
-              definedAliases = [ "@googlemaps" ];
+              definedAliases = [ "@maps" ];
               urls = [{
                 template = "https://google.com/maps/search/{searchTerms}";
               }];
@@ -185,6 +191,12 @@
               urls = [{
                 template = "https://www.protondb.com/search?q={searchTerms}";
               }];
+            };
+            scryfall = {
+              name = "Scryfall";
+              definedAliases = [ "@scryfall" ];
+              urls =
+                [{ template = "https://scryfall.com/search?q={searchTerms}"; }];
             };
             wanikani = {
               name = "WaniKani";
