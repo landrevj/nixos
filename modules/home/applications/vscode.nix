@@ -7,23 +7,32 @@
   };
 
   config = lib.mkIf config.home-modules.applications.vscode.enable {
-    home.packages = with pkgs; [ nixd nixfmt ];
+    home.packages = with pkgs; [ nixd nixfmt shellcheck shfmt ];
     programs.vscode = {
       enable = true;
       profiles."default" = {
         enableUpdateCheck = false;
         extensions = with pkgs.vscode-extensions; [
           bmalehorn.vscode-fish
+          bradlc.vscode-tailwindcss
           christian-kohler.path-intellisense
           ecmel.vscode-html-css
+          editorconfig.editorconfig
+          esbenp.prettier-vscode
+          dbaeumer.vscode-eslint
+          dotjoshjohnson.xml
           fill-labs.dependi
+          formulahendry.auto-close-tag
+          formulahendry.auto-rename-tag
           jnoortheen.nix-ide
+          mkhl.shfmt
           ms-python.python
           ms-vscode.cpptools-extension-pack
-          # ms-vscode.vscode-typescript-next
           ndonfris.fish-lsp
           rust-lang.rust-analyzer
           signageos.signageos-vscode-sops
+          streetsidesoftware.code-spell-checker
+          timonwong.shellcheck
         ];
         userSettings = {
           "chat.disableAIFeatures" = true;

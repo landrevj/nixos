@@ -107,8 +107,6 @@
     nvtopPackages.amd
     resources
     sbctl
-    shellcheck
-    shfmt
 
     # resources
     zenity
