@@ -38,8 +38,6 @@
     jq
     findutils
     ncdu
-    nixfmt-classic
-    nixd
     helvum
     pavucontrol
 

@@ -15,6 +15,7 @@
     ./neovim.nix
     ./nsxiv.nix
     ./obs-studio.nix
+    ./vscode.nix
     ./xivlauncher.nix
     ./yt-dlp.nix
     ./zen-browser.nix
@@ -35,6 +36,7 @@
     neovim.enable = lib.mkDefault true;
     nsxiv.enable = lib.mkDefault true;
     obs-studio.enable = lib.mkDefault false;
+    vscode.enable = lib.mkDefault true;
     xivlauncher.enable = lib.mkDefault false;
     yt-dlp.enable = lib.mkDefault true;
     zen-browser.enable = lib.mkDefault false;
@@ -47,7 +49,6 @@
     fastfetch
 
     # files
-    vscode
     kdePackages.filelight
     sqlitebrowser
 
