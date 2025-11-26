@@ -1,7 +1,18 @@
-{ config, pkgs, inputs, lib, username, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  lib,
+  username,
+  ...
+}:
 
 {
-  imports = [ ./hardware-configuration.nix ./disko-config.nix ../../modules/nixos ];
+  imports = [
+    ./hardware-configuration.nix
+    ./disko-config.nix
+    ../../modules/nixos
+  ];
 
   nixpkgs.config.permittedInsecurePackages = [ "libsoup-2.74.3" ];
 
@@ -13,10 +24,12 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # boot.kernelPackages = pkgs.linuxPackages_cachyos-rc;
   # boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  boot.kernelParams = [
+    "amdgpu.ppfeaturemask=0xf7fff"
+  ]; # allow for changing clocks/volts https://wiki.archlinux.org/title/AMDGPU#Boot_parameter
 
   environment.sessionVariables = {
-    KWIN_DRM_NO_DIRECT_SCANOUT =
-      1; # https://gitlab.freedesktop.org/drm/amd/-/issues/2075
+    KWIN_DRM_NO_DIRECT_SCANOUT = 1; # https://gitlab.freedesktop.org/drm/amd/-/issues/2075
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -31,9 +44,8 @@
       "wheel" # sudo
     ];
   };
-  time.hardwareClockInLocalTime =
-    true; # local time so it doesn't fight with windows dual boot
-  
+  time.hardwareClockInLocalTime = true; # local time so it doesn't fight with windows dual boot
+
   # secureboot
   # boot.loader.systemd-boot.enable = lib.mkForce false;
   # boot.lanzaboote = {
@@ -46,7 +58,9 @@
     defaultSopsFile = ../../secrets/landrevj/secrets.yaml;
     age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
 
-    secrets = { samba = { }; };
+    secrets = {
+      samba = { };
+    };
   };
 
   # Open ports in the firewall.
