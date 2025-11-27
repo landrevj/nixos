@@ -1,10 +1,12 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }:
+{
   imports = [
     ./applications
     ./desktop-environment
     ./hardware
     ./fonts
 
+    ./input.nix
     ./locale.nix
     ./mounts.nix
     ./pipewire.nix
@@ -16,23 +18,23 @@
   nixpkgs.overlays = [
     (final: prev: {
       # faster-project-plus
-      faster-project-plus =
-        final.qt6Packages.callPackage ../../derivations/faster-project-plus { };
-      fpp-config =
-        final.callPackage ../../derivations/faster-project-plus/config.nix { };
-      fpp-launcher =
-        final.callPackage ../../derivations/faster-project-plus/launcher.nix
-        { };
-      fpp-sdcard =
-        final.callPackage ../../derivations/faster-project-plus/sdcard.nix { };
+      faster-project-plus = final.qt6Packages.callPackage ../../derivations/faster-project-plus { };
+      fpp-config = final.callPackage ../../derivations/faster-project-plus/config.nix { };
+      fpp-launcher = final.callPackage ../../derivations/faster-project-plus/launcher.nix { };
+      fpp-sdcard = final.callPackage ../../derivations/faster-project-plus/sdcard.nix { };
     })
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nixpkgs.config.allowUnfree = true;
 
   # Environment variables
-  environment.variables = { NIXPKGS_ALLOW_UNFREE = "1"; };
+  environment.variables = {
+    NIXPKGS_ALLOW_UNFREE = "1";
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;

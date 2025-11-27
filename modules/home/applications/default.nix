@@ -107,6 +107,7 @@
     nvtopPackages.amd
     resources
     sbctl
+    xeyes
 
     # resources
     zenity
@@ -121,6 +122,8 @@
   };
 
   # Flatpaks
-  services.flatpak.packages =
-    [ "it.mijorus.smile" "com.github.tchx84.Flatseal" ];
+  services.flatpak.packages = [
+    "it.mijorus.smile"
+    "com.github.tchx84.Flatseal"
+  ];
 }
